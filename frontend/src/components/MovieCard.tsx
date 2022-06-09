@@ -12,11 +12,13 @@ const MovieCard = ({ event }: Props) => {
   return (
     <Card sx={{ marginBottom: 2 }}>
       <CardContent>
-        <Typography variant="h5">{event.title}</Typography>
-        <Typography variant="body2">{event.description}</Typography>
+        <Typography variant="h4">{event.title}</Typography>
+        <Typography variant="body2" sx={{ marginTop: 2 }}>
+          {event.description}
+        </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" component={Link} to="/event">
+        <Button size="small" component={Link} to="/event" variant="contained">
           View Details
         </Button>
       </CardActions>

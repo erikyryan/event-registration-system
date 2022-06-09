@@ -7,7 +7,6 @@ import MovieCard from "../components/MovieCard";
 const Home = () => {
   return (
     <PageContainer>
-      <Typography variant="h3">Events</Typography>
       {events.map((event) => (
         <MovieCard event={event} />
       ))}
@@ -20,26 +19,32 @@ export default Home;
 const events = [
   {
     title: "The Lion King",
-    description: "Movie description synopsis test omfg yeah an yeah"
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate doloremque aliquid quidem sed est similique ullam minima tenetur cumque aut recusandae enim veniam voluptates voluptatum, error ratione ex saepe odio."
   },
   {
     title: "The Lion King",
-    description: "Movie description synopsis test omfg yeah an yeah"
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate doloremque aliquid quidem sed est similique ullam minima tenetur cumque aut recusandae enim veniam voluptates voluptatum, error ratione ex saepe odio."
   },
   {
     title: "The Lion King",
-    description: "Movie description synopsis test omfg yeah an yeah"
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate doloremque aliquid quidem sed est similique ullam minima tenetur cumque aut recusandae enim veniam voluptates voluptatum, error ratione ex saepe odio."
   },
   {
     title: "The Lion King",
-    description: "Movie description synopsis test omfg yeah an yeah"
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate doloremque aliquid quidem sed est similique ullam minima tenetur cumque aut recusandae enim veniam voluptates voluptatum, error ratione ex saepe odio."
   },
   {
     title: "The Lion King",
-    description: "Movie description synopsis test omfg yeah an yeah"
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate doloremque aliquid quidem sed est similique ullam minima tenetur cumque aut recusandae enim veniam voluptates voluptatum, error ratione ex saepe odio."
   },
   {
     title: "The Lion King",
-    description: "Movie description synopsis test omfg yeah an yeah"
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate doloremque aliquid quidem sed est similique ullam minima tenetur cumque aut recusandae enim veniam voluptates voluptatum, error ratione ex saepe odio."
   }
 ];
