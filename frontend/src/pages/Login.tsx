@@ -23,7 +23,9 @@ const Login = () => {
           <Stack sx={{ marginTop: 2 }} spacing={2}>
             <TextField label="Email" variant="standard" required />
             <TextField label="Password" type="password" variant="standard" required />
-            <Button variant="contained">Login</Button>
+            <Button variant="contained" color="primary">
+              Login
+            </Button>
             <Typography variant="body2" align="center">
               Do not have an account?{" "}
               <Typography component={Link} to="/signup" variant="body2">
