@@ -4,11 +4,12 @@ import asimo.v.entities.enums.TipoDocumento;
 import asimo.v.entities.enums.TipoVenda;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "venda")
-public class Venda {
+public class Venda implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,11 +1,12 @@
 package asimo.v.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "evento")
-public class Evento {
+public class Evento implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

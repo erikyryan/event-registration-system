@@ -3,11 +3,12 @@ package asimo.v.entities;
 import asimo.v.entities.enums.TipoUsuario;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name="roleuser")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

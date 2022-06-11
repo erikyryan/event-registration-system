@@ -3,10 +3,11 @@ package asimo.v.entities;
 import asimo.v.entities.enums.TipoIngresso;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "ingresso")
-public class Ingresso {
+public class Ingresso implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,7 +19,7 @@ public class Ingresso {
 
     private Long valor;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name="idsessao",referencedColumnName = "id")
     private Sessao sessao;
 

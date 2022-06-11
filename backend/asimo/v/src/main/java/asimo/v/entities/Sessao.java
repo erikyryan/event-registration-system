@@ -1,12 +1,13 @@
 package asimo.v.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "sessao")
-public class Sessao {
+public class Sessao implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,6 +27,6 @@ public class Sessao {
     @Column(name = "valorinteira")
     private Long valorInteira;
 
-    @ManyToOne
+    @OneToMany(mappedBy="sessao", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH})
     private List<Ingresso> ingressos;
 }

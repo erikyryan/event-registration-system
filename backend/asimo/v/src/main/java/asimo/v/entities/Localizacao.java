@@ -1,10 +1,11 @@
 package asimo.v.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "tblocal")
-public class Localizacao {
+public class Localizacao implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
