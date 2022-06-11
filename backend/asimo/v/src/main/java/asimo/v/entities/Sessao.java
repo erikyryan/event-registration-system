@@ -10,10 +10,11 @@ import java.util.List;
 public class Sessao implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "dtsessao")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataDaSessao;
 
     @OneToOne
@@ -27,6 +28,6 @@ public class Sessao implements Serializable {
     @Column(name = "valorinteira")
     private Long valorInteira;
 
-    @OneToMany(mappedBy="sessao", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH})
+    @OneToMany(mappedBy="sessao")
     private List<Ingresso> ingressos;
 }

@@ -12,7 +12,7 @@ import java.util.Date;
 public class Venda implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "nrprotocolo")
@@ -22,9 +22,10 @@ public class Venda implements Serializable {
     private Long valor;
 
     @Column(name = "dtvenda")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataDaVenda;
 
-    @Column(name = "idusuario")
+    @ManyToOne
     @JoinColumn(name = "idusuario", referencedColumnName = "id")
     private User user;
 

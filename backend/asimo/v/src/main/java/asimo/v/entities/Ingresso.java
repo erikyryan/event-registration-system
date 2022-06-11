@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Ingresso implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String assento;

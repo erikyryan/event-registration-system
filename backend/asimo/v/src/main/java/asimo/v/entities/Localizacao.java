@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Localizacao implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "localevento")
