@@ -44,6 +44,7 @@ public class UserService {
         Optional<User> user = userRepository.findById(id);
 
         if(user.isPresent()){
+            userRepository.deleteById(id);
             return ResponseEntity.ok().build();
         }else{
             return ResponseEntity.badRequest().build();

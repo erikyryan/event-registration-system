@@ -24,7 +24,6 @@ public class VApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		User user = new User(null,"Alan Turing","123.123.123-12","M","eae@eae.com","88999999","test","eae", new Date(), TipoUsuario.USER,null);
-
 		userRepository.save(user);
 	}
 }
