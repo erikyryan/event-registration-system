@@ -14,13 +14,39 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public ResponseEntity find(Integer id){
+    public ResponseEntity<User> findById(Long id){
         Optional<User> user = userRepository.findById(id);
 
         if(user.isPresent()){
-            return ResponseEntity.ok().body(user);
+            return ResponseEntity.ok().body(user.get());
         }else{
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    public ResponseEntity<User> save(User user){
+        User userSaved = userRepository.save(user);
+        return ResponseEntity.ok().body(user);
+    }
+
+    public ResponseEntity<User> update(Long id, User newUser){
+        Optional<User> oldUser = userRepository.findById(id);
+
+        if(oldUser.isPresent()){
+            newUser.setId(oldUser.get().getId());
+            return save(newUser);
+        }else{
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    public ResponseEntity<User> delete(Long id){
+        Optional<User> user = userRepository.findById(id);
+
+        if(user.isPresent()){
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.badRequest().build();
         }
     }
 }

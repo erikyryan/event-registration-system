@@ -14,8 +14,23 @@ public class UserController {
     private UserService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity find(@PathVariable Integer id) {
-        return service.find(id);
+    public ResponseEntity<User> findById(@PathVariable Long id) {
+        return service.findById(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<User> save(@RequestBody User user){
+        return service.save(user);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id,@RequestBody User user){
+        return service.update(id,user);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<User> delete(@PathVariable Long id){
+        return service.delete(id);
     }
 
 }
