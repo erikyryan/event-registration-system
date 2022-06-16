@@ -1,38 +1,22 @@
-import React from "react";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Container,
-  TextField,
-  Box,
-  Stack,
-  Button
-} from "@mui/material";
+import React, { useState } from "react";
+import { Card, CardContent, Typography, Container, Stack, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
+import api from "../services/api";
+import SignUpForm from "../components/SignUpForm";
+import { FormData } from "../components/SignUpForm/formTypes";
+
 const SignUp = () => {
+  const handleSubmit = async (data: FormData) => {
+    console.log(data);
+    //const res = await api.post("/users", {});
+  };
+
   return (
     <Container
       sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
-      <Card sx={{ width: 350 }}>
-        <CardContent>
-          <Typography variant="h4" align="center">
-            Sign Up
-          </Typography>
-          <Stack sx={{ marginTop: 2 }} spacing={2}>
-            <TextField label="Email" variant="standard" required />
-            <TextField label="Password" type="password" variant="standard" required />
-            <TextField label="Confirm Password" type="password" variant="standard" required />
-            <Button variant="contained">Sign Up</Button>
-            <Typography variant="body2" align="center">
-              Already have an account?{" "}
-              <Typography component={Link} to="/login" variant="body2">
-                Login
-              </Typography>
-            </Typography>
-          </Stack>
-        </CardContent>
+      <Card sx={{ width: 500, padding: 2 }}>
+        <SignUpForm handleSubmit={handleSubmit} />
       </Card>
     </Container>
   );
