@@ -12,7 +12,6 @@ import java.util.Optional;
 @Service
 public class SessaoService {
 
-
     @Autowired
     private SessaoRepository sessaoRepository;
 
@@ -57,6 +56,4 @@ public class SessaoService {
         List<Sessao> sessoes = sessaoRepository.findAll();
         return ResponseEntity.ok().body(sessoes);
     }
-
-
 }

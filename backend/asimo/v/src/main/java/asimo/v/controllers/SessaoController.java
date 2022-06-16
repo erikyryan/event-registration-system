@@ -14,7 +14,7 @@ public class SessaoController {
     @Autowired
     private SessaoService service;
 
-    @GetMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Sessao> findById(@PathVariable Long id, @RequestHeader("token") String token) {
         return service.findById(id);
     }
@@ -24,14 +24,13 @@ public class SessaoController {
         return service.save(sessao);
     }
 
-    @PutMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Sessao> update(@PathVariable Long id,@RequestBody Sessao sessao, @RequestHeader("token") String token){
         return service.update(id,sessao);
     }
 
-    @DeleteMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Sessao> delete(@PathVariable Long id, @RequestHeader("token") String token){
         return service.delete(id);
     }
-
 }

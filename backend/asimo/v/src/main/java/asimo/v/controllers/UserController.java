@@ -14,7 +14,7 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @GetMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> findById(@PathVariable Long id, @RequestHeader("token") String token) {
         return service.findById(id);
     }
@@ -24,12 +24,12 @@ public class UserController {
         return service.save(user);
     }
 
-    @PutMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> update(@PathVariable Long id,@RequestBody User user, @RequestHeader("token") String token){
         return service.update(id,user);
     }
 
-    @DeleteMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> delete(@PathVariable Long id, @RequestHeader("token") String token){
         return service.delete(id);
     }

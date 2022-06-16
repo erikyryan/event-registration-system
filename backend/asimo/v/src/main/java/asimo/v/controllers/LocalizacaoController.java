@@ -34,5 +34,4 @@ public class LocalizacaoController {
     public ResponseEntity<Localizacao> delete(@PathVariable Long id, @RequestHeader("token") String token){
         return service.delete(id);
     }
-
 }

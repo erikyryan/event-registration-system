@@ -18,13 +18,13 @@ public class VendaController {
     @Autowired
     private VendaService service;
 
-    @GetMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Venda> findById(@PathVariable Long id, @RequestHeader("token") String token) {
         return service.findById(id);
     }
 
-    @GetMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Venda>> findById(@RequestHeader("token") String token) {
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Venda>> findAll(@RequestHeader("token") String token) {
         return service.findAll();
     }
 
@@ -33,12 +33,12 @@ public class VendaController {
         return service.save(venda);
     }
 
-    @PutMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Venda> update(@PathVariable Long id,@RequestBody Venda venda, @RequestHeader("token") String token){
         return service.update(id,venda);
     }
 
-    @DeleteMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Venda> delete(@PathVariable Long id, @RequestHeader("token") String token){
         return service.delete(id);
     }
