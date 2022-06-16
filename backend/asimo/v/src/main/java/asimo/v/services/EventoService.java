@@ -2,11 +2,11 @@ package asimo.v.services;
 
 import asimo.v.entities.Evento;
 import asimo.v.repositories.EventoRepository;
-import asimo.v.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,5 +50,10 @@ public class EventoService {
         }else{
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    public ResponseEntity<List<Evento>> findAll(){
+        List<Evento> eventos = eventoRepository.findAll();
+        return ResponseEntity.ok().body(eventos);
     }
 }

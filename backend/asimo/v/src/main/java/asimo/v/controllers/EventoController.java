@@ -7,6 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/events")
 public class EventoController {
@@ -17,6 +19,11 @@ public class EventoController {
     @GetMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Evento> findById(@PathVariable Long id, @RequestHeader("token") String token) {
         return service.findById(id);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Evento>> findAll( @RequestHeader("token") String token) {
+        return service.findAll();
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)

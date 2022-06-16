@@ -2,11 +2,17 @@ package asimo.v.entities;
 
 import asimo.v.entities.enums.TipoDocumento;
 import asimo.v.entities.enums.TipoVenda;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "venda")
 public class Venda implements Serializable {
