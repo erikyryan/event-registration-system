@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import PageContainer from "../components/PageContainer";
 import ReserveForm from "../components/ReserveForm";
 import SeatsPicker from "../components/SeatsPicker";
+import { Box } from "@mui/system";
+import FinalPrice from "../components/FinalPrice";
 
 interface Seat {
   number: number;
@@ -10,8 +12,14 @@ interface Seat {
   selected?: boolean;
 }
 
+interface SelectedSeat {
+  number: number;
+  type: string;
+}
+
 const Event = () => {
-  const [selected, setSelected] = useState<number[]>([]);
+  const [selected, setSelected] = useState<SelectedSeat[]>([]);
+  console.log(selected);
   const [seatingChart, setSeatingChart] = useState<Seat[][]>([
     [
       { number: 1, user: null },
@@ -52,24 +60,57 @@ const Event = () => {
   ]);
 
   const selectSeat = (seatNumber: number): void => {
-    setSelected((prev) => [...prev, seatNumber]);
+    const newSelected = {
+      number: seatNumber,
+      type: "inteira"
+    };
+    setSelected((prev) => [...prev, newSelected]);
+  };
+
+  const changeTicketType = (seatNumber: number): void => {
+    const newArr = selected.map((seat) => {
+      if (seat.number === seatNumber) {
+        if (seat.type === "inteira") seat.type = "meia";
+        else seat.type = "inteira";
+      }
+      return seat;
+    });
+    setSelected(newArr);
   };
 
   const cancelSelection = (seatNumber: number): void => {
-    const newSelected = selected.filter((num) => num !== seatNumber);
+    const newSelected = selected.filter((seat) => seat.number !== seatNumber);
     setSelected(newSelected);
   };
 
   return (
     <PageContainer>
-      <Typography variant="h3">The Lion King</Typography>
-      <SeatsPicker
-        selectSeat={selectSeat}
-        cancelSelection={cancelSelection}
-        selected={selected}
-        seats={seatingChart}
-      />
-      <ReserveForm selected={selected} />
+      <Typography variant="h3" align="center" sx={{ mb: 2 }}>
+        The Lion King
+      </Typography>
+      <Typography variant="body1">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magnam eos cupiditate similique
+        tempore. Laboriosam eos consequatur magnam voluptas, delectus numquam itaque ad, repellat
+        vitae ipsa sunt explicabo ea recusandae aliquid! Lorem ipsum dolor sit amet consectetur
+        adipisicing elit. Asperiores itaque veritatis accusantium. Voluptatibus nihil dolor tempore?
+        Necessitatibus quae rem eum iusto at, debitis nihil? Cupiditate temporibus tempore officia
+        fugit velit!
+      </Typography>
+      <Typography sx={{ mt: 4, display: "flex" }}>
+        <Typography sx={{ fontWeight: "bold", mr: 1 }}>Duração:</Typography> 1h40min
+      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 5, flexWrap: "wrap" }}>
+        <Stack spacing={2}>
+          <FinalPrice selected={selected} />
+          <ReserveForm selected={selected} changeTicketType={changeTicketType} />
+        </Stack>
+        <SeatsPicker
+          selectSeat={selectSeat}
+          cancelSelection={cancelSelection}
+          selected={selected}
+          seats={seatingChart}
+        />
+      </Box>
     </PageContainer>
   );
 };

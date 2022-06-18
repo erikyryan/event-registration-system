@@ -1,23 +1,31 @@
-import { Paper, Typography, Box } from "@mui/material";
+import {
+  Typography,
+  Box,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  Radio,
+  FormControlLabel
+} from "@mui/material";
+import { useState } from "react";
+import Ticket from "./Ticket";
 
-interface Props {
-  selected: number[];
+interface SelectedSeat {
+  number: number;
+  type: string;
 }
 
-const ReserveForm = ({ selected }: Props) => {
+interface Props {
+  selected: SelectedSeat[];
+  changeTicketType: (seatNumber: number) => void;
+}
+
+const ReserveForm = ({ selected, changeTicketType }: Props) => {
   return (
     <form>
-      <Box sx={{ display: "flex" }}>
-        <Typography variant="h6">Selected seat(s):</Typography>
+      <Box>
         {selected.map((seat) => (
-          <Paper
-            sx={{
-              marginInline: "5px",
-              backgroundColor: "lightblue",
-              padding: "2px"
-            }}>
-            Seat #{seat}
-          </Paper>
+          <Ticket number={seat.number} changeTicketType={changeTicketType} />
         ))}
       </Box>
     </form>
