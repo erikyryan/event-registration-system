@@ -1,4 +1,4 @@
-import { Container, Grid, Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Seat from "./Seat";
 
 interface Seat {
@@ -7,16 +7,22 @@ interface Seat {
   selected?: boolean;
 }
 
+interface SelectedSeat {
+  number: number;
+  type: string;
+}
+
 interface Props {
   selectSeat: (number: number) => void;
   cancelSelection: (number: number) => void;
-  selected: number[];
+  selected: SelectedSeat[];
   seats: Seat[][];
 }
 
 const SeatsPicker = ({ selectSeat, cancelSelection, selected, seats }: Props) => {
   return (
     <Box sx={{ margin: "30px 0" }}>
+      <Typography variant="h5">Selecione assentos:</Typography>
       {seats.map((row, index) => (
         <div
           style={{
@@ -36,7 +42,7 @@ const SeatsPicker = ({ selectSeat, cancelSelection, selected, seats }: Props) =>
                 row={alphabet[index]}
                 col={seatNum}
                 number={seat.number}
-                selected={selected.includes(seat.number)}
+                selected={selected.some((s) => s.number === seat.number)}
                 user={seat.user}
                 select={selectSeat}
                 cancel={cancelSelection}
