@@ -1,7 +1,7 @@
 package asimo.v.services;
 
-import asimo.v.entities.Sessao;
-import asimo.v.repositories.SessaoRepository;
+import asimo.v.entities.Session;
+import asimo.v.repositories.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SessaoService {
+public class SessionService {
 
     @Autowired
-    private SessaoRepository sessaoRepository;
+    private SessionRepository sessaoRepository;
 
-    public ResponseEntity<Sessao> findById(Long id){
-        Optional<Sessao> sessao = sessaoRepository.findById(id);
+    public ResponseEntity<Session> findById(Long id){
+        Optional<Session> sessao = sessaoRepository.findById(id);
 
         if(sessao.isPresent()){
             return ResponseEntity.ok().body(sessao.get());
@@ -25,13 +25,13 @@ public class SessaoService {
         }
     }
 
-    public ResponseEntity<Sessao> save(Sessao sessao){
-        Sessao sessaoSaved = sessaoRepository.save(sessao);
+    public ResponseEntity<Session> save(Session sessao){
+        Session sessaoSaved = sessaoRepository.save(sessao);
         return ResponseEntity.ok().body(sessaoSaved);
     }
 
-    public ResponseEntity<Sessao> update(Long id, Sessao newSessao){
-        Optional<Sessao> oldSessao = sessaoRepository.findById(id);
+    public ResponseEntity<Session> update(Long id, Session newSessao){
+        Optional<Session> oldSessao = sessaoRepository.findById(id);
 
         if(oldSessao.isPresent()){
             newSessao.setId(oldSessao.get().getId());
@@ -41,8 +41,8 @@ public class SessaoService {
         }
     }
 
-    public ResponseEntity<Sessao> delete(Long id){
-        Optional<Sessao> sessao = sessaoRepository.findById(id);
+    public ResponseEntity<Session> delete(Long id){
+        Optional<Session> sessao = sessaoRepository.findById(id);
 
         if(sessao.isPresent()){
             sessaoRepository.deleteById(id);
@@ -52,8 +52,8 @@ public class SessaoService {
         }
     }
 
-    public ResponseEntity<List<Sessao>> findAll(){
-        List<Sessao> sessoes = sessaoRepository.findAll();
+    public ResponseEntity<List<Session>> findAll(){
+        List<Session> sessoes = sessaoRepository.findAll();
         return ResponseEntity.ok().body(sessoes);
     }
 }

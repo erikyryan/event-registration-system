@@ -1,14 +1,14 @@
 package asimo.v.entities.enums;
 
 
-public enum TipoUsuario {
+public enum UserRole {
     USER(0),
     ADMIN(1),
     VENDEDOR(2);
 
     private int code;
 
-    TipoUsuario(Integer code){
+    UserRole(Integer code){
         this.code = code;
     }
 

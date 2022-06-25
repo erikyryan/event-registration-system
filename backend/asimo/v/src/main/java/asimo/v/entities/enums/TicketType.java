@@ -1,12 +1,12 @@
 package asimo.v.entities.enums;
 
-public enum TipoIngresso {
+public enum TicketType {
     INTEIRA(0),
     MEIA(1);
 
     private int code;
 
-    TipoIngresso(Integer code){
+    TicketType(Integer code){
         this.code = code;
     }
 

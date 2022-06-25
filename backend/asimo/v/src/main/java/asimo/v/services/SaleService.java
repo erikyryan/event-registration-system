@@ -1,7 +1,7 @@
 package asimo.v.services;
 
-import asimo.v.entities.Venda;
-import asimo.v.repositories.VendaRepository;
+import asimo.v.entities.Sale;
+import asimo.v.repositories.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class VendaService {
+public class SaleService {
 
     @Autowired
-    private VendaRepository vendaRepository;
+    private SaleRepository vendaRepository;
 
-    public ResponseEntity<Venda> findById(Long id){
-        Optional<Venda> venda = vendaRepository.findById(id);
+    public ResponseEntity<Sale> findById(Long id){
+        Optional<Sale> venda = vendaRepository.findById(id);
 
         if(venda.isPresent()){
             return ResponseEntity.ok().body(venda.get());
@@ -25,13 +25,13 @@ public class VendaService {
         }
     }
 
-    public ResponseEntity<Venda> save(Venda venda){
-        Venda vendaSaved = vendaRepository.save(venda);
+    public ResponseEntity<Sale> save(Sale venda){
+        vendaRepository.save(venda);
         return ResponseEntity.ok().body(venda);
     }
 
-    public ResponseEntity<Venda> update(Long id, Venda newVenda){
-        Optional<Venda> oldVenda = vendaRepository.findById(id);
+    public ResponseEntity<Sale> update(Long id, Sale newVenda){
+        Optional<Sale> oldVenda = vendaRepository.findById(id);
 
         if(oldVenda.isPresent()){
             newVenda.setId(oldVenda.get().getId());
@@ -41,8 +41,8 @@ public class VendaService {
         }
     }
 
-    public ResponseEntity<Venda> delete(Long id){
-        Optional<Venda> user = vendaRepository.findById(id);
+    public ResponseEntity<Sale> delete(Long id){
+        Optional<Sale> user = vendaRepository.findById(id);
 
         if(user.isPresent()){
             vendaRepository.deleteById(id);
@@ -52,8 +52,8 @@ public class VendaService {
         }
     }
 
-    public ResponseEntity<List<Venda>> findAll(){
-        List<Venda> vendas = vendaRepository.findAll();
+    public ResponseEntity<List<Sale>> findAll(){
+        List<Sale> vendas = vendaRepository.findAll();
         return ResponseEntity.ok().body(vendas);
     }
 

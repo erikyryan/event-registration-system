@@ -1,7 +1,7 @@
 package asimo.v.services;
 
-import asimo.v.entities.Evento;
-import asimo.v.repositories.EventoRepository;
+import asimo.v.entities.Event;
+import asimo.v.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EventoService {
+public class EventService {
 
     @Autowired
-    private EventoRepository eventoRepository;
+    private EventRepository eventoRepository;
 
-    public ResponseEntity<Evento> findById(Long id){
-        Optional<Evento> evento = eventoRepository.findById(id);
+    public ResponseEntity<Event> findById(Long id){
+        Optional<Event> evento = eventoRepository.findById(id);
 
         if(evento.isPresent()){
             return ResponseEntity.ok().body(evento.get());
@@ -25,13 +25,13 @@ public class EventoService {
         }
     }
 
-    public ResponseEntity<Evento> save(Evento evento){
-        Evento eventoSaved = eventoRepository.save(evento);
+    public ResponseEntity<Event> save(Event evento){
+        eventoRepository.save(evento);
         return ResponseEntity.ok().body(evento);
     }
 
-    public ResponseEntity<Evento> update(Long id, Evento newEvento){
-        Optional<Evento> oldEvento = eventoRepository.findById(id);
+    public ResponseEntity<Event> update(Long id, Event newEvento){
+        Optional<Event> oldEvento = eventoRepository.findById(id);
 
         if(oldEvento.isPresent()){
             newEvento.setId(oldEvento.get().getId());
@@ -41,8 +41,8 @@ public class EventoService {
         }
     }
 
-    public ResponseEntity<Evento> delete(Long id){
-        Optional<Evento> user = eventoRepository.findById(id);
+    public ResponseEntity<Event> delete(Long id){
+        Optional<Event> user = eventoRepository.findById(id);
 
         if(user.isPresent()){
             eventoRepository.deleteById(id);
@@ -52,8 +52,8 @@ public class EventoService {
         }
     }
 
-    public ResponseEntity<List<Evento>> findAll(){
-        List<Evento> eventos = eventoRepository.findAll();
+    public ResponseEntity<List<Event>> findAll(){
+        List<Event> eventos = eventoRepository.findAll();
         return ResponseEntity.ok().body(eventos);
     }
 }
