@@ -1,24 +1,23 @@
 package asimo.v.services;
 
-import asimo.v.entities.Ingresso;
-import asimo.v.entities.Venda;
-import asimo.v.repositories.IngressoRepository;
-import asimo.v.repositories.VendaRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import asimo.v.entities.Ticket;
+import asimo.v.repositories.TicketRepository;
 
 @Service
-public class IngressoService {
+public class TicketService {
 
     @Autowired
-    private IngressoRepository ingressoRepository;
+    private TicketRepository ingressoRepository;
 
-    public ResponseEntity<Ingresso> findById(Long id){
-        Optional<Ingresso> venda = ingressoRepository.findById(id);
+    public ResponseEntity<Ticket> findById(Long id){
+        Optional<Ticket> venda = ingressoRepository.findById(id);
 
         if(venda.isPresent()){
             return ResponseEntity.ok().body(venda.get());
@@ -27,13 +26,13 @@ public class IngressoService {
         }
     }
 
-    public ResponseEntity<Ingresso> save(Ingresso ingresso){
-        Ingresso ingressoSaved = ingressoRepository.save(ingresso);
+    public ResponseEntity<Ticket> save(Ticket ingresso){
+        Ticket ingressoSaved = ingressoRepository.save(ingresso);
         return ResponseEntity.ok().body(ingressoSaved);
     }
 
-    public ResponseEntity<Ingresso> update(Long id, Ingresso newIngresso){
-        Optional<Ingresso> oldIngresso = ingressoRepository.findById(id);
+    public ResponseEntity<Ticket> update(Long id, Ticket newIngresso){
+        Optional<Ticket> oldIngresso = ingressoRepository.findById(id);
 
         if(oldIngresso.isPresent()){
             newIngresso.setId(oldIngresso.get().getId());
@@ -43,8 +42,8 @@ public class IngressoService {
         }
     }
 
-    public ResponseEntity<Ingresso> delete(Long id){
-        Optional<Ingresso> ingresso = ingressoRepository.findById(id);
+    public ResponseEntity<Ticket> delete(Long id){
+        Optional<Ticket> ingresso = ingressoRepository.findById(id);
 
         if(ingresso.isPresent()){
             ingressoRepository.deleteById(id);
@@ -54,8 +53,8 @@ public class IngressoService {
         }
     }
 
-    public ResponseEntity<List<Ingresso>> findAll(){
-        List<Ingresso> ingressos = ingressoRepository.findAll();
+    public ResponseEntity<List<Ticket>> findAll(){
+        List<Ticket> ingressos = ingressoRepository.findAll();
         return ResponseEntity.ok().body(ingressos);
     }
 

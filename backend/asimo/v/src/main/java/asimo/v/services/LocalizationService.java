@@ -1,23 +1,23 @@
 package asimo.v.services;
 
-import asimo.v.entities.Localizacao;
-import asimo.v.entities.Sessao;
-import asimo.v.repositories.LocalizacaoRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import asimo.v.entities.Localization;
+import asimo.v.repositories.LocalizacaoRepository;
 
 @Service
-public class LocalizacaoService {
+public class LocalizationService {
 
     @Autowired
     private LocalizacaoRepository localizacaoRepository;
 
-    public ResponseEntity<Localizacao> findById(Long id){
-        Optional<Localizacao> localizacao = localizacaoRepository.findById(id);
+    public ResponseEntity<Localization> findById(Long id){
+        Optional<Localization> localizacao = localizacaoRepository.findById(id);
 
         if(localizacao.isPresent()){
             return ResponseEntity.ok().body(localizacao.get());
@@ -26,13 +26,13 @@ public class LocalizacaoService {
         }
     }
 
-    public ResponseEntity<Localizacao> save(Localizacao localizacao){
-        Localizacao localizacaoSaved = localizacaoRepository.save(localizacao);
+    public ResponseEntity<Localization> save(Localization localizacao){
+        Localization localizacaoSaved = localizacaoRepository.save(localizacao);
         return ResponseEntity.ok().body(localizacaoSaved);
     }
 
-    public ResponseEntity<Localizacao> update(Long id, Localizacao newLocalizacao){
-        Optional<Localizacao> oldLocalizacao = localizacaoRepository.findById(id);
+    public ResponseEntity<Localization> update(Long id, Localization newLocalizacao){
+        Optional<Localization> oldLocalizacao = localizacaoRepository.findById(id);
 
         if(oldLocalizacao.isPresent()){
             newLocalizacao.setId(oldLocalizacao.get().getId());
@@ -42,8 +42,8 @@ public class LocalizacaoService {
         }
     }
 
-    public ResponseEntity<Localizacao> delete(Long id){
-        Optional<Localizacao> localizacao = localizacaoRepository.findById(id);
+    public ResponseEntity<Localization> delete(Long id){
+        Optional<Localization> localizacao = localizacaoRepository.findById(id);
 
         if(localizacao.isPresent()){
             localizacaoRepository.deleteById(id);
@@ -53,8 +53,8 @@ public class LocalizacaoService {
         }
     }
 
-    public ResponseEntity<List<Localizacao>> findAll(){
-        List<Localizacao> localizacaos = localizacaoRepository.findAll();
+    public ResponseEntity<List<Localization>> findAll(){
+        List<Localization> localizacaos = localizacaoRepository.findAll();
         return ResponseEntity.ok().body(localizacaos);
     }
 }
