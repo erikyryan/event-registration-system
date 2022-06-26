@@ -7,14 +7,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.lang.Nullable;
 
@@ -26,9 +20,8 @@ public class LoginSession {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id", unique = true)
     private Long id;
-	
-    @Column(nullable = false)
-	private Long userId;
+
+    private Long iduser;
 	
     @Column(nullable = false)
 	private String token;
@@ -40,19 +33,21 @@ public class LoginSession {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date expirationDate;
-   
-    @Nullable
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date logountDate;
 
 	public LoginSession(User user) {
-		this.userId = user.getId();
+		this.iduser = user.getId();
 		this.token = UUID.randomUUID().toString();
 		this.loginDate = new Date();
 		this.expirationDate = Date.from(LocalDateTime.now().plus(Duration.of(10, ChronoUnit.MINUTES)).atZone(ZoneId.systemDefault()).toInstant());
 	}
 
-	public String getToken() {
+    public LoginSession() {
+    }
+
+    public String getToken() {
 		return token;
 	}
 }
