@@ -16,10 +16,10 @@ const Navbar = () => {
           </Typography>
           <Box>
             <Button variant="contained" component={Link} to="/login">
-              Login
+              Entrar
             </Button>
             <Button variant="outlined" component={Link} to="/signup" sx={{ marginLeft: 2 }}>
-              Sign Up
+              Cadastrar-se
             </Button>
           </Box>
         </Toolbar>

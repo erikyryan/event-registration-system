@@ -56,17 +56,17 @@ const SignUpForm = ({ handleSubmit }: Props) => {
             disabled={step === 0}
             onClick={() => setStep((prev) => prev - 1)}
             sx={{ mr: 1 }}>
-            Back
+            Voltar
           </Button>
         )}
         <Box sx={{ flex: "1 1 auto" }} />
         {step === steps.length - 1 ? (
           <Button variant="contained" onClick={() => handleSubmit(data)}>
-            Submit
+            Cadastrar-se
           </Button>
         ) : (
           <Button onClick={() => setStep((prev) => prev + 1)} variant="contained">
-            Next
+            Avançar
           </Button>
         )}
       </Box>

@@ -18,18 +18,18 @@ const Login = () => {
       <Card sx={{ width: 350 }}>
         <CardContent>
           <Typography variant="h4" align="center">
-            Login
+            Entrar
           </Typography>
           <Stack sx={{ marginTop: 2 }} spacing={2}>
             <TextField label="Email" variant="standard" required />
-            <TextField label="Password" type="password" variant="standard" required />
+            <TextField label="Senha" type="password" variant="standard" required />
             <Button variant="contained" color="primary">
-              Login
+              Entrar
             </Button>
             <Typography variant="body2" align="center">
-              Do not have an account?{" "}
+              Ainda não tem uma conta?{" "}
               <Typography component={Link} to="/signup" variant="body2">
-                Sign Up
+                Cadastre-se
               </Typography>
             </Typography>
           </Stack>
