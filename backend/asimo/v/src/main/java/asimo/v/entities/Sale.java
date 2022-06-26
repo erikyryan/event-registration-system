@@ -52,8 +52,7 @@ public class Sale{
 
     @Column(name = "nrdocumento")
     private String doc;
-   
-    //Getters and Setters
+
 	public Long getId() {
 		return id;
 	}

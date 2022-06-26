@@ -1,13 +1,6 @@
 package asimo.v.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import asimo.v.entities.enums.TicketType;
 import lombok.AllArgsConstructor;
@@ -27,6 +20,7 @@ public class Ticket{
 
     private String seat;
 
+	@Column(name="type")
     private TicketType ticketType;
 
     private Long price;
@@ -39,7 +33,6 @@ public class Ticket{
     @JoinColumn(name="idvenda", referencedColumnName = "id")
     private Sale venda;
 
-    //Getters and Setters
 	public Long getId() {
 		return id;
 	}
