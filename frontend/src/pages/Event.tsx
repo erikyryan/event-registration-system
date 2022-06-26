@@ -5,6 +5,7 @@ import ReserveForm from "../components/ReserveForm";
 import SeatsPicker from "../components/SeatsPicker";
 import { Box } from "@mui/system";
 import FinalPrice from "../components/FinalPrice";
+import PaymentModal from "../components/PaymentModal";
 
 interface Seat {
   number: number;
@@ -111,6 +112,7 @@ const Event = () => {
           seats={seatingChart}
         />
       </Box>
+      <PaymentModal selected={selected} />
     </PageContainer>
   );
 };

@@ -15,8 +15,17 @@ const SignUp = () => {
   return (
     <Container
       sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
-      <Card sx={{ width: 500, padding: 2 }}>
+      <Card sx={{ width: 600, padding: 2 }}>
+        <Typography variant="h4" align="center" sx={{ mb: 2 }}>
+          Cadastrar-se
+        </Typography>
         <SignUpForm handleSubmit={handleSubmit} />
+        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+          Já possui uma conta?{" "}
+          <Typography component={Link} to="/login" variant="body2">
+            Entrar
+          </Typography>
+        </Typography>
       </Card>
     </Container>
   );
