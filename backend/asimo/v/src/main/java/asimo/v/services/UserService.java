@@ -1,11 +1,15 @@
 package asimo.v.services;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
 import javax.xml.bind.DatatypeConverter;
 
+import asimo.v.entities.UserObject;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +27,7 @@ public class UserService {
     private LoginSessionService loginSessionService;
  
     
-    public UserService(UserRepository userRepository, LoginSessionService loginSessionService) {
+    public UserService(UserRepository userRepository, @Lazy LoginSessionService loginSessionService) {
 		this.userRepository = userRepository;
 		this.loginSessionService = loginSessionService;
 	}
@@ -66,20 +70,21 @@ public class UserService {
     }
 
 	public String login(User userS) {
- 		validateLogin(userS);
- 		return loginSessionService.generateSession(userS);
+ 		User currentUser = validateLogin(userS);
+ 		return loginSessionService.generateSession(currentUser);
 	}
 
-	public User create(User userParams) {
+	public User create(UserObject userParams) {
 		validateCreationUser(userParams);
-		
+
 		User newUser = new User(userParams);
 		newUser.generatePassword(userParams.getPassword());
-		
-		return null;
+		this.save(newUser);
+
+		return newUser;
 	}
 
-	private void validateLogin(User userS) {
+	private User validateLogin(User userS) {
 		Optional<User> userL = userRepository.findByLogin(userS.getLogin());
 		if (!userL.isPresent()) {
 			throw new UserNotFound("Usuário não foi encontrado.");
@@ -87,12 +92,14 @@ public class UserService {
 		User currentUser = userL.get();
 		String passwordVerify = encryptPassword(userS.getPassword(), currentUser.getSalt());
 		
-		if (passwordVerify.equals(currentUser.getPassword())) {
+		if (!passwordVerify.equals(currentUser.getPassword())) {
 			throw new InvalidPasswordException("Senha inválida.");
 		}
+
+		return currentUser;
 	}
 	
-	private void validateCreationUser(User userParams) {
+	private void validateCreationUser(UserObject userParams) {
 		if (userRepository.findByLogin(userParams.getLogin()).isPresent()) {
 			throw new InvalidLogin("Login Inválido");
 		}
@@ -112,7 +119,7 @@ public class UserService {
 	public static String encryptPassword(String password, String salt) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
-			md.update(DatatypeConverter.parseByte(salt));
+			md.update(salt.getBytes(StandardCharsets.UTF_8));
 			
 			byte[] bytePassword = md.digest(password.getBytes());
 			

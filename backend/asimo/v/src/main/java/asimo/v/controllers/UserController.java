@@ -1,6 +1,7 @@
 package asimo.v.controllers;
 
 import asimo.v.entities.User;
+import asimo.v.entities.UserObject;
 import asimo.v.services.UserService;
 
 import javax.validation.Valid;
@@ -29,24 +30,24 @@ public class UserController {
     }
     
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> create(@RequestBody @Valid final User userSession){
+    public ResponseEntity<?> create(@RequestBody final UserObject userSession){
     	User createdUser = this.userService.create(userSession);
-    	return ResponseEntity.ok(createdUser);
+    	return ResponseEntity.ok(createdUser.toString());
     }
     
-//    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<User> create(@RequestBody User user, @RequestHeader("token") String token){
-//        return service.save(user);
-//    }
-//
-//    @PutMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<User> update(@PathVariable Long id,@RequestBody User user, @RequestHeader("token") String token){
-//        return service.update(id,user);
-//    }
-//
-//    @DeleteMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<User> delete(@PathVariable Long id, @RequestHeader("token") String token){
-//        return service.delete(id);
-//    }
+    //    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    //    public ResponseEntity<User> create(@RequestBody User user, @RequestHeader("token") String token){
+    //        return service.save(user);
+    //    }
+    //
+    //    @PutMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    //    public ResponseEntity<User> update(@PathVariable Long id,@RequestBody User user, @RequestHeader("token") String token){
+    //        return service.update(id,user);
+    //    }
+    //
+    //    @DeleteMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    //    public ResponseEntity<User> delete(@PathVariable Long id, @RequestHeader("token") String token){
+    //        return service.delete(id);
+    //    }
 
 }
