@@ -11,7 +11,7 @@ import asimo.v.entities.enums.UserRole;
 import asimo.v.services.UserService;
 
 @Entity
-@Table(name="users")
+@Table(name="usuario")
 public class User{
 
     @Id
