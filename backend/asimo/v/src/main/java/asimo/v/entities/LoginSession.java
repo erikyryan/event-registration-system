@@ -24,8 +24,8 @@ public class LoginSession {
     @ManyToOne
     @JoinColumn(name = "idusuario", referencedColumnName = "id",nullable = false)
     private User user;
-	
-    @Column(nullable = false)
+
+	@Column(nullable = false)
 	private String token;
 	
     @Temporal(TemporalType.TIMESTAMP)
@@ -55,14 +55,14 @@ public class LoginSession {
 	}
 
 	public void finish() {
-		this.logountDate = new Date();
+		this.logoutDate = new Date();
+	}
+	
+    public User getUser() {
+		return user;
 	}
 
-	public Long getIduser() {
-		return iduser;
-	}
-
-	public void setIduser(Long iduser) {
-		this.iduser = iduser;
+	public void setUser(User user) {
+		this.user = user;
 	}
 }
