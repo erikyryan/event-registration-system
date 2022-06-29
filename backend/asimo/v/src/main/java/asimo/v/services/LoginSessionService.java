@@ -55,7 +55,7 @@ public class LoginSessionService {
 	
 	public User findUser(String token) {
 		LoginSession session = this.findSessionByToken(token);
-		User user = userService.findById(session.getIduser());
+		User user = userService.findById(session.getUser().getId());
 		return user;
 	}
 }
