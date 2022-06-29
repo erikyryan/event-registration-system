@@ -50,4 +50,16 @@ public class LoginSession {
     public String getToken() {
 		return token;
 	}
+
+	public void finish() {
+		this.logountDate = new Date();
+	}
+
+	public Long getIduser() {
+		return iduser;
+	}
+
+	public void setIduser(Long iduser) {
+		this.iduser = iduser;
+	}
 }
