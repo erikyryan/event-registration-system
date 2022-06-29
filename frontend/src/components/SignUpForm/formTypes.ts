@@ -6,12 +6,12 @@ export default interface FormProps {
 }
 
 export interface FormData {
-  nome?: string;
-  cpf?: string;
-  datanascimento?: string;
+  name?: string;
+  doc?: string;
+  birthDate?: string;
   email?: string;
-  telefone?: string;
+  telephone?: string;
   login?: string;
-  senha?: string;
+  password?: string;
   confirm?: string;
 }

@@ -1,34 +1,34 @@
 import React from "react";
 import { Stack, TextField } from "@mui/material";
 import FormProps from "./formTypes";
+import MaskedInput from "../MaskedInput";
 
 const PersonalForm = ({ data, handleChange }: FormProps) => {
   return (
     <Stack spacing={2}>
       <TextField
-        name="nome"
+        name="name"
         label="Nome"
         fullWidth
         size="small"
-        value={data.nome}
+        value={data.name}
         onChange={handleChange}
       />
-      <TextField
-        name="cpf"
+      <MaskedInput
         label="CPF"
-        fullWidth
-        size="small"
-        value={data.cpf}
-        onChange={handleChange}
+        name="doc"
+        mask="999.999.999-99"
+        value={data.doc}
+        handleChange={handleChange}
       />
       <TextField
-        name="datanascimento"
+        name="birthDate"
         label="Data Nascimento"
         type="date"
         fullWidth
         size="small"
         InputLabelProps={{ shrink: true }}
-        value={data.datanascimento}
+        value={data.birthDate}
         onChange={handleChange}
       />
     </Stack>
