@@ -14,11 +14,11 @@ const ContactForm = ({ data, handleChange }: FormProps) => {
         onChange={handleChange}
       />
       <TextField
-        name="telefone"
+        name="telephone"
         label="Telefone"
         fullWidth
         size="small"
-        value={data.telefone}
+        value={data.telephone}
         onChange={handleChange}
       />
     </Stack>

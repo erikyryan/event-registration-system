@@ -1,5 +1,7 @@
 package asimo.v.entities;
 
+import asimo.v.entities.enums.MovieType;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,12 +21,21 @@ public class Event{
 
     private String name;
 
-    @Column(name = "dtevento")
+    @Column(name = "eventdate")
     private Date eventDate;
 
-    private String description;
+	private String duration;
 
-    //Getters and Setters
+	private String classification;
+
+	@Column(name = "launchyear")
+	private String launchYear;
+
+    private String synopsis;
+
+	@Column(name = "type")
+	private MovieType movieType;
+
 	public Long getId() {
 		return id;
 	}
@@ -49,11 +60,11 @@ public class Event{
 		this.eventDate = eventDate;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getSynopsis() {
+		return synopsis;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setSynopsis(String synopsis) {
+		this.synopsis = synopsis;
 	}
 }

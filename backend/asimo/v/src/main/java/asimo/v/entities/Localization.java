@@ -21,7 +21,6 @@ public class Localization{
     @Column(name = "numerodeassentos")
     private Long numberOfSeats;
 
-    //Getters and Setters
 	public Long getId() {
 		return id;
 	}
