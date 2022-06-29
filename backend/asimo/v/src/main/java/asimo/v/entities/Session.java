@@ -41,7 +41,6 @@ public class Session{
     @OneToMany(mappedBy="session")
     private List<Ticket> ticket;
 
-    //Getters and Setters
 	public Long getId() {
 		return id;
 	}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,9 +9,31 @@ import {
   Stack,
   Button
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../services/api";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const Login = () => {
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const { save, token, getToken } = useLocalStorage();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      const res = await api.post("/user/login", {
+        login,
+        password
+      });
+      save(res.data);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container
       sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
@@ -20,10 +42,23 @@ const Login = () => {
           <Typography variant="h4" align="center">
             Entrar
           </Typography>
-          <Stack sx={{ marginTop: 2 }} spacing={2}>
-            <TextField label="Email" variant="standard" required />
-            <TextField label="Senha" type="password" variant="standard" required />
-            <Button variant="contained" color="primary">
+          <Stack sx={{ marginTop: 2 }} spacing={2} component="form" onSubmit={handleSubmit}>
+            <TextField
+              label="Login"
+              variant="standard"
+              required
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
+            />
+            <TextField
+              label="Senha"
+              type="password"
+              variant="standard"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button variant="contained" color="primary" type="submit">
               Entrar
             </Button>
             <Typography variant="body2" align="center">

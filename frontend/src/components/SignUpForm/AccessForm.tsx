@@ -14,12 +14,12 @@ const AccessForm = ({ data, handleChange }: FormProps) => {
         onChange={handleChange}
       />
       <TextField
-        name="senha"
+        name="password"
         label="Senha"
         fullWidth
         size="small"
         type="password"
-        value={data.senha}
+        value={data.password}
         onChange={handleChange}
       />
       <TextField

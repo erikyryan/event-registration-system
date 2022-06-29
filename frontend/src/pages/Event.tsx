@@ -25,8 +25,8 @@ const Event = () => {
     [
       { number: 1, user: null },
       { number: 2, user: 1 },
-      { number: 3, user: null },
-      { number: 4, user: null },
+      { number: 3, user: 1 },
+      { number: 4, user: 1 },
       { number: 5, user: null },
       { number: 6, user: null },
       { number: 7, user: null },

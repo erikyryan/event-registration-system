@@ -1,17 +1,18 @@
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Box, Button, Modal, Typography, IconButton } from "@mui/material";
 import React, { useState } from "react";
 import FinalPrice from "./FinalPrice";
+import Close from "@mui/icons-material/Close";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 420,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4
+  p: 2
 };
 
 interface Props {
@@ -35,12 +36,17 @@ const PaymentModal = ({ selected }: Props) => {
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h5" component="h2" align="center">
-            Pagamento
-          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <Typography id="modal-modal-title" variant="h5" component="h2" align="center">
+              Pagamento
+            </Typography>
+            <IconButton sx={{ color: "#555555" }} onClick={handleClose} size="small">
+              <Close />
+            </IconButton>
+          </Box>
           <Box sx={{ mt: 2 }} id="modal-modal-description">
             <Typography variant="body1">Assentos selecionados:</Typography>
-            <Box sx={{ display: "flex", gap: 2 }}>
+            <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
               {selected.map((seat) => (
                 <Box>#{seat.number}</Box>
               ))}

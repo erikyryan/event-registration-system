@@ -13,13 +13,13 @@ interface Props {
 
 const SignUpForm = ({ handleSubmit }: Props) => {
   const [data, setData] = useState({
-    nome: "",
-    cpf: "",
-    datanascimento: "",
+    name: "",
+    doc: "",
+    birthDate: "",
     email: "",
-    telefone: "",
+    telephone: "",
     login: "",
-    senha: "",
+    password: "",
     confirm: ""
   });
   const [step, setStep] = useState(0);

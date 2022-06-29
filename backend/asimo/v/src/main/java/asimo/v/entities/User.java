@@ -11,7 +11,7 @@ import asimo.v.entities.enums.UserRole;
 import asimo.v.services.UserService;
 
 @Entity
-@Table(name="users")
+@Table(name="usuario")
 public class User{
 
     @Id
@@ -52,6 +52,9 @@ public class User{
 
     @OneToMany(mappedBy = "user")
     private List<Sale> tickets;
+
+	@OneToMany(mappedBy = "user")
+	private List<LoginSession> loginSessions;
 
 	public User() {
 
