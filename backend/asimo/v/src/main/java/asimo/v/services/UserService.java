@@ -5,15 +5,16 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
 import javax.xml.bind.DatatypeConverter;
 
-import asimo.v.entities.UserObject;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import asimo.v.entities.LoginSession;
 import asimo.v.entities.User;
+import asimo.v.entities.UserObject;
+import asimo.v.entities.dto.UserDTO;
 import asimo.v.exceptions.InvalidLogin;
 import asimo.v.exceptions.InvalidPasswordException;
 import asimo.v.exceptions.UserNotFound;
@@ -25,22 +26,11 @@ public class UserService {
     private UserRepository userRepository;
     
     private LoginSessionService loginSessionService;
- 
-    
+     
     public UserService(UserRepository userRepository, @Lazy LoginSessionService loginSessionService) {
 		this.userRepository = userRepository;
 		this.loginSessionService = loginSessionService;
 	}
-
-	public ResponseEntity<User> findById(Long id){
-        Optional<User> user = userRepository.findById(id);
-
-        if(user.isPresent()){
-            return ResponseEntity.ok().body(user.get());
-        }else{
-            return ResponseEntity.notFound().build();
-        }
-    }
 
     public ResponseEntity<User> save(User user){
         userRepository.save(user);
@@ -72,6 +62,15 @@ public class UserService {
 	public String login(User userS) {
  		User currentUser = validateLogin(userS);
  		return loginSessionService.generateSession(currentUser);
+	}
+
+	public LoginSession logout(String token) {
+		try {
+			LoginSession session = loginSessionService.logout(token);
+			return session;
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	public User create(UserObject userParams) {
@@ -129,4 +128,17 @@ public class UserService {
 		}
 	}
 
+	public UserDTO findByToken(String token) {
+		User user = this.loginSessionService.findUser(token);
+		UserDTO userDTO = new UserDTO(user);
+		return userDTO;
+	}
+	
+	public User findById(Long id) {
+		Optional<User> user = this.userRepository.findById(id);
+		if (user.isPresent()) {
+			return user.get();
+		}
+		throw new RuntimeException("User não encontrado");
+	}
 }
