@@ -23,7 +23,7 @@ public class LoginSessionService {
 
 
 	public String generateSession(User userS) {
-		Optional<LoginSession> session = loginSessionRepository.findByIduserAndlogountDateNotNull(userS.getId());
+		Optional<LoginSession> session = loginSessionRepository.findByUserIdAndlogoutDateNotNull(userS.getId());
 		if (session.isPresent()) {
 			return session.get().getToken();
 		}
