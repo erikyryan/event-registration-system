@@ -67,4 +67,8 @@ public class LoginSession {
 	public void finish() {
 		this.logoutDate = new Date();
 	}
+
+	public Date getLogoutDate() {
+		return logoutDate;
+	}
 }

@@ -1,5 +1,6 @@
 package asimo.v.services;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.context.annotation.Lazy;
@@ -21,7 +22,14 @@ public class LoginSessionService {
 		this.userService = userService;
 	}
 
-
+	public void validateToken(String token) {
+		LoginSession session = this.findSessionByToken(token);
+		Date expirationDate = session.getLogoutDate();
+		if (new Date().after(expirationDate)) {
+			throw new RuntimeException("Sessão expirou.");
+		}
+	}
+	
 	public String generateSession(User userS) {
 		Optional<LoginSession> session = loginSessionRepository.findByUserIdentifierAndlogoutDateNotNull(userS.getUserIdentifier());
 		if (session.isPresent()) {
@@ -42,8 +50,13 @@ public class LoginSessionService {
 			throw new RuntimeException("não existe essa sessão");
 		}
 	}
-
-
+	
+	public User findUser(String token) {
+		LoginSession session = this.findSessionByToken(token);
+		User user = userService.findByIdentifier(session.getUserIdentifier());
+		return user;
+	}
+	
 	public LoginSession logout(String token) {
 		LoginSession session = this.findSessionByToken(token);
 		session.finish();
@@ -51,11 +64,5 @@ public class LoginSessionService {
 		loginSessionRepository.save(session);
 		
 		return session;
-	}
-	
-	public User findUser(String token) {
-		LoginSession session = this.findSessionByToken(token);
-		User user = userService.findByIdentifier(session.getUserIdentifier());
-		return user;
 	}
 }
