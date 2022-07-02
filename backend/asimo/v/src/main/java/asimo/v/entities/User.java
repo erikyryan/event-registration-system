@@ -56,9 +56,6 @@ public class User{
     @OneToMany(mappedBy = "user")
     private List<Sale> tickets;
 
-	@OneToMany(mappedBy = "user")
-	private List<LoginSession> loginSessions;
-
 	public User() {
 
 	}
