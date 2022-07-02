@@ -24,7 +24,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           sx={{
             display: "flex",
             flex: "1 1 auto",
-            flexDiretion: "column",
+            flexDirection: "column",
             width: "100%",
             px: 2,
             py: 10
