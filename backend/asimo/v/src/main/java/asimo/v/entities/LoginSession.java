@@ -7,10 +7,16 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.lang.Nullable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "loginsession")
@@ -23,7 +29,7 @@ public class LoginSession {
 
     @ManyToOne
     @JoinColumn(name = "idusuario", referencedColumnName = "id",nullable = false)
-    private User user;
+    private String userIdentifier;
 
 	@Column(nullable = false)
 	private String token;
@@ -41,7 +47,7 @@ public class LoginSession {
     private Date logoutDate;
 
 	public LoginSession(User user) {
-		this.user = user;
+		this.userIdentifier = user.getUserIdentifier();
 		this.token = UUID.randomUUID().toString();
 		this.loginDate = new Date();
 		this.expirationDate = Date.from(LocalDateTime.now().plus(Duration.of(10, ChronoUnit.MINUTES)).atZone(ZoneId.systemDefault()).toInstant());
@@ -54,15 +60,11 @@ public class LoginSession {
 		return token;
 	}
 
-	public void finish() {
-		this.logoutDate = new Date();
-	}
-	
-    public User getUser() {
-		return user;
+	public String getUserIdentifier() {
+		return userIdentifier;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void finish() {
+		this.logoutDate = new Date();
 	}
 }
