@@ -27,8 +27,7 @@ public class LoginSession {
 	@Column(name = "id", unique = true)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "idusuario", referencedColumnName = "id",nullable = false)
+	@Column(name = "useridentifier")
     private String userIdentifier;
 
 	@Column(nullable = false)

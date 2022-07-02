@@ -9,7 +9,7 @@ import asimo.v.entities.LoginSession;
 
 @Repository
 public interface LoginSessionRepository extends JpaRepository<LoginSession, Long> {
-	Optional<LoginSession> findByUserIdentifierAndlogoutDateNotNull(String userIdentifier);
+	Optional<LoginSession> findByUserIdentifierAndLogoutDateNull(String userIdentifier);
 	
 	Optional<LoginSession> findByToken(String token);
 }
