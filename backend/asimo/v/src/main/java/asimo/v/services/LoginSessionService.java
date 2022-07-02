@@ -23,9 +23,9 @@ public class LoginSessionService {
 
 
 	public String generateSession(User userS) {
-		Optional<LoginSession> session = loginSessionRepository.findByUserIdAndlogoutDateNotNull(userS.getId());
+		Optional<LoginSession> session = loginSessionRepository.findByUserIdentifierAndlogoutDateNotNull(userS.getUserIdentifier());
 		if (session.isPresent()) {
-			return session.get().getToken();
+			session.get().finish();
 		}
 		
 		LoginSession userSession = new LoginSession(userS);
@@ -55,7 +55,7 @@ public class LoginSessionService {
 	
 	public User findUser(String token) {
 		LoginSession session = this.findSessionByToken(token);
-		User user = userService.findById(session.getUser().getId());
+		User user = userService.findByIdentifier(session.getUserIdentifier());
 		return user;
 	}
 }

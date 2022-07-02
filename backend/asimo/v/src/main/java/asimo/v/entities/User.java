@@ -2,6 +2,7 @@ package asimo.v.entities;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,6 +19,8 @@ public class User{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    private String userIdentifier;
+    
     @NotNull
     private String name;
 
@@ -156,8 +159,17 @@ public class User{
 		this.salt = salt;
 	}
 
+	public String getUserIdentifier() {
+		return userIdentifier;
+	}
+
+	public void setUserIdentifier(String userIdentifier) {
+		this.userIdentifier = userIdentifier;
+	}
+
 	public User(final UserObject user) {
 		this.name = user.getName();
+		this.setUserIdentifier(UUID.randomUUID().toString());
 		this.doc = user.getDoc();
 		this.sex = user.getSex();
 		this.email = user.getEmail();
@@ -185,4 +197,5 @@ public class User{
 				", role=" + role +
 				", tickets=" + tickets;
 	}
+
 }

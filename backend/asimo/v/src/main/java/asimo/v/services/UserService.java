@@ -141,4 +141,11 @@ public class UserService {
 		}
 		throw new RuntimeException("User não encontrado");
 	}
+	public User findByIdentifier(String identifier) {
+		Optional<User> user = this.userRepository.findByUserIdentifier(identifier);
+		if (user.isPresent()) {
+			return user.get();
+		}
+		throw new RuntimeException("User não encontrado");
+	}
 }
