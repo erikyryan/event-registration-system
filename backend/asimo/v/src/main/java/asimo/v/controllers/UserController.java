@@ -1,6 +1,5 @@
 package asimo.v.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +19,13 @@ import asimo.v.services.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserController(UserService userService) {
+		this.userService = userService;
+	}
+
+	@GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> findById(@PathVariable Long id, @RequestHeader("token") String token) {
         User user = this.userService.findById(id);
     	return ResponseEntity.ok(user);
@@ -43,29 +45,14 @@ public class UserController {
     
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> create(@RequestBody final UserObject userSession){
+    	
     	User createdUser = this.userService.create(userSession);
     	return ResponseEntity.ok(createdUser.toString());
     }
     
     @GetMapping(value = "/findByToken", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> FindByToken(@RequestHeader("token") String token){
-    	UserDTO user = this.userService.findByToken(token);
-    	return ResponseEntity.ok(user);
+    	UserDTO userDTO = new UserDTO(this.userService.findByToken(token));
+    	return ResponseEntity.ok(userDTO);
     }
-   
-    //    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    //    public ResponseEntity<User> create(@RequestBody User user, @RequestHeader("token") String token){
-    //        return service.save(user);
-    //    }
-    //
-    //    @PutMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    //    public ResponseEntity<User> update(@PathVariable Long id,@RequestBody User user, @RequestHeader("token") String token){
-    //        return service.update(id,user);
-    //    }
-    //
-    //    @DeleteMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    //    public ResponseEntity<User> delete(@PathVariable Long id, @RequestHeader("token") String token){
-    //        return service.delete(id);
-    //    }
-
 }

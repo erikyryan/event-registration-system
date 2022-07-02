@@ -8,13 +8,11 @@ import java.util.Optional;
 import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import asimo.v.entities.LoginSession;
 import asimo.v.entities.User;
 import asimo.v.entities.UserObject;
-import asimo.v.entities.dto.UserDTO;
 import asimo.v.exceptions.InvalidLogin;
 import asimo.v.exceptions.InvalidPasswordException;
 import asimo.v.exceptions.UserNotFound;
@@ -32,31 +30,8 @@ public class UserService {
 		this.loginSessionService = loginSessionService;
 	}
 
-    public ResponseEntity<User> save(User user){
+    public void save(User user){
         userRepository.save(user);
-        return ResponseEntity.ok().body(user);
-    }
-
-    public ResponseEntity<User> update(Long id, User newUser){
-        Optional<User> oldUser = userRepository.findById(id);
-
-        if(oldUser.isPresent()){
-            newUser.setId(oldUser.get().getId());
-            return save(newUser);
-        }else{
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    public ResponseEntity<User> delete(Long id){
-        Optional<User> user = userRepository.findById(id);
-
-        if(user.isPresent()){
-            userRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }else{
-            return ResponseEntity.badRequest().build();
-        }
     }
 
 	public String login(User userS) {
@@ -128,10 +103,10 @@ public class UserService {
 		}
 	}
 
-	public UserDTO findByToken(String token) {
+	public User findByToken(String token) {
+		this.loginSessionService.validateToken(token);
 		User user = this.loginSessionService.findUser(token);
-		UserDTO userDTO = new UserDTO(user);
-		return userDTO;
+		return user;
 	}
 	
 	public User findById(Long id) {

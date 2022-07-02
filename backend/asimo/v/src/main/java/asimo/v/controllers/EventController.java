@@ -25,20 +25,4 @@ public class EventController {
     public ResponseEntity<List<Event>> findAll( @RequestHeader("token") String token) {
         return service.findAll();
     }
-//
-//    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Event> save(@RequestBody Event evento, @RequestHeader("token") String token){
-//        return service.save(evento);
-//    }
-//
-//    @PutMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Event> update(@PathVariable Long id,@RequestBody Event evento, @RequestHeader("token") String token){
-//        return service.update(id,evento);
-//    }
-//
-//    @DeleteMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Event> delete(@PathVariable Long id, @RequestHeader("token") String token){
-//        return service.delete(id);
-//    }
-
 }
