@@ -7,9 +7,10 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
-import DashboardEvents from "./pages/DashboardEvents";
+import Movies from "./pages/Movies";
 import Sessions from "./pages/Sessions";
 import Rooms from "./pages/Rooms";
+import AddMovie from "./pages/AddMovie";
 
 function App() {
   return (
@@ -27,7 +28,8 @@ function App() {
         {/* admin routes */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
-        <Route path="/events" element={<DashboardEvents />} />
+        <Route path="/filmes" element={<Movies />} />
+        <Route path="/filmes/adicionar" element={<AddMovie />} />
         <Route path="/sessions" element={<Sessions />} />
         <Route path="/rooms" element={<Rooms />} />
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}></Route>
