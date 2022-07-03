@@ -9,7 +9,6 @@ import { FormData } from "../components/SignUpForm/formTypes";
 
 const SignUp = () => {
   const handleSubmit = async (data: FormData) => {
-    console.log(data);
     const res = await api.post("/user/create", {
       name: data.name,
       password: data.password,
@@ -18,9 +17,7 @@ const SignUp = () => {
       telephone: data.telephone,
       login: data.login,
       birthDate: data.birthDate,
-      sex: "M",
-      role: 0,
-      salt: "alçskdfjalskdfj"
+      sex: "M"
     });
     console.log(res);
   };

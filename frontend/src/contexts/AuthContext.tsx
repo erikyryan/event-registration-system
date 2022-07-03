@@ -1,9 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
+import api from "../services/api";
+import { IUser } from "../types/IUser";
+import getUserByToken from "../utils/getUserByToken";
 
 interface Value {
-  currentUser: any;
-  token: any;
+  currentUser: IUser | null;
+  token: string | null;
+  login: (login: string, password: string) => Promise<IUser>;
   logout: () => void;
 }
 
@@ -14,25 +17,54 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(true);
-  const [token, setToken] = useState("");
-  const { getToken, remove } = useLocalStorage();
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  const login = async (login: string, password: string) => {
+    try {
+      const res = await api.post("/user/login", {
+        login,
+        password
+      });
+      localStorage.setItem("token", res.data);
+
+      const user = await getUserByToken(res.data);
+      setCurrentUser(user);
+      return user;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  };
 
   const logout = () => {
-    remove();
+    localStorage.removeItem("token");
+    setCurrentUser(null);
+    setToken(null);
+  };
+
+  const getUser = async () => {
+    setLoading(true);
+    if (token) {
+      try {
+        const user = await getUserByToken(token);
+        setCurrentUser(user);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
-    setLoading(true);
-    const t = getToken();
-    setToken(t);
-    setLoading(false);
+    getUser();
   }, []);
 
   const value = {
     currentUser,
     token,
+    login,
     logout
   };
 

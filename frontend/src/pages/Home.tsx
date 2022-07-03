@@ -6,15 +6,14 @@ import MovieCard from "../components/MovieCard";
 import { useAuth } from "../contexts/AuthContext";
 
 const Home = () => {
-  const { token } = useAuth();
+  const { currentUser } = useAuth();
 
-  console.log(token);
+  console.log(currentUser);
 
   return (
     <PageContainer>
-      {token}
-      {events.map((event) => (
-        <MovieCard event={event} />
+      {events.map((event, index) => (
+        <MovieCard event={event} key={index} />
       ))}
     </PageContainer>
   );
