@@ -24,9 +24,9 @@ const items = [
     title: "Usuários"
   },
   {
-    href: "/events",
+    href: "/filmes",
     icon: <LocalActivityIcon />,
-    title: "Eventos"
+    title: "Filmes"
   },
   {
     href: "/sessions",

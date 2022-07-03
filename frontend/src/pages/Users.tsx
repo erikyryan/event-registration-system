@@ -19,7 +19,7 @@ const Users = () => {
           Usuários
         </Typography>
         <Box>
-          <Button variant="contained">Add Usuário</Button>
+          <Button variant="contained">Adicionar Usuário</Button>
         </Box>
       </Box>
 
