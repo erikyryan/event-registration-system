@@ -1,7 +1,11 @@
 package asimo.v.controllers;
 
 import asimo.v.entities.Event;
+import asimo.v.entities.EventObject;
+import asimo.v.entities.User;
+import asimo.v.entities.UserObject;
 import asimo.v.services.EventService;
+import asimo.v.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,16 +17,31 @@ import java.util.List;
 @RequestMapping("/event")
 public class EventController {
 
-    @Autowired
-    private EventService service;
+    private EventService eventService;
 
-    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Event> findById(@PathVariable Long id, @RequestHeader("token") String token) {
-        return service.findById(id);
+    private UserService userService;
+
+    public EventController(EventService eventService, UserService userService) {
+        this.eventService = eventService;
+        this.userService = userService;
+    }
+
+    @GetMapping(value = "/{identifier}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> findById(@PathVariable("identifier") String eventIdentifier, @RequestHeader("token") String token) {
+        return ResponseEntity.ok(eventService.findByEventIdentifier(eventIdentifier));
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Event>> findAll( @RequestHeader("token") String token) {
-        return service.findAll();
+    public ResponseEntity<?> findAll( @RequestHeader("token") String token) {
+        this.userService.findByToken(token);
+        return ResponseEntity.ok(eventService.findAll());
     }
+
+    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> create(@RequestHeader("token") final String token,@RequestBody final EventObject eventObject){
+        User user = userService.findByToken(token);
+        Event event = this.eventService.create(eventObject, user);
+        return ResponseEntity.ok(event.toString());
+    }
+
 }

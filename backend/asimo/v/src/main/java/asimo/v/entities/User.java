@@ -19,6 +19,7 @@ public class User{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+	@Column(name="useridentifier")
     private String userIdentifier;
     
     @NotNull
@@ -179,6 +180,30 @@ public class User{
 	public void generatePassword(final String password) {        
 		this.salt = UserService.generateSalt();
 		this.password = UserService.encryptPassword(password, salt);
+	}
+
+	public boolean isAdmin(){
+		if(this.role == UserRole.ADMIN){
+			return true;
+		}else{
+			throw new RuntimeException("Acesso negado");
+		}
+	}
+
+	public boolean isUser(){
+		if(this.role == UserRole.USER){
+			return true;
+		}else{
+			throw new RuntimeException("Acesso negado");
+		}
+	}
+
+	public boolean isVendedor(){
+		if(this.role == UserRole.VENDEDOR){
+			return true;
+		}else{
+			throw new RuntimeException("Acesso negado");
+		}
 	}
 
 	@Override
