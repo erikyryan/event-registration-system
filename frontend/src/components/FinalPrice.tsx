@@ -16,8 +16,9 @@ const FinalPrice = ({ selected }: Props) => {
   }, 0);
 
   return (
-    <Box>
-      <Typography variant="h6">Total: R${finalPrice},00</Typography>
+    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Typography variant="h6">Total</Typography>
+      <Typography variant="h6">R${finalPrice},00</Typography>
     </Box>
   );
 };
