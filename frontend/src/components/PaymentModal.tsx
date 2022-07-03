@@ -48,7 +48,7 @@ const PaymentModal = ({ selected }: Props) => {
             <Typography variant="body1">Assentos selecionados:</Typography>
             <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
               {selected.map((seat) => (
-                <Box>#{seat.number}</Box>
+                <Box key={seat.number}>#{seat.number}</Box>
               ))}
               <Box sx={{ ml: "auto", mt: 5 }}>
                 <FinalPrice selected={selected} />

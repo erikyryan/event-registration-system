@@ -25,7 +25,11 @@ const ReserveForm = ({ selected, changeTicketType }: Props) => {
     <form>
       <Box>
         {selected.map((seat) => (
-          <Ticket number={seat.number} changeTicketType={changeTicketType} />
+          <Ticket
+            number={seat.number}
+            changeTicketType={changeTicketType}
+            key={seat.number + "reserveForm"}
+          />
         ))}
       </Box>
     </form>

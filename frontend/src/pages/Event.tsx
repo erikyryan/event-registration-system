@@ -20,7 +20,6 @@ interface SelectedSeat {
 
 const Event = () => {
   const [selected, setSelected] = useState<SelectedSeat[]>([]);
-  console.log(selected);
   const [seatingChart, setSeatingChart] = useState<Seat[][]>([
     [
       { number: 1, user: null },
@@ -98,7 +97,7 @@ const Event = () => {
         fugit velit!
       </Typography>
       <Typography sx={{ mt: 4, display: "flex" }}>
-        <Typography sx={{ fontWeight: "bold", mr: 1 }}>Duração:</Typography> 1h40min
+        <span style={{ fontWeight: "bold", marginRight: 1 }}>Duração:</span> 1h40min
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "space-between", mt: 5, flexWrap: "wrap" }}>
         <Stack spacing={2}>

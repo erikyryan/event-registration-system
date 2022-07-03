@@ -3,7 +3,7 @@ import { AppBar, Button, Container, Toolbar, Typography, Box } from "@mui/materi
 import { useAuth } from "../contexts/AuthContext";
 
 const Navbar = () => {
-  const { token, logout } = useAuth();
+  const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -24,7 +24,7 @@ const Navbar = () => {
             Sigev
           </Typography>
           <Box>
-            {!token ? (
+            {!currentUser ? (
               <>
                 <Button variant="contained" component={Link} to="/login">
                   Entrar
