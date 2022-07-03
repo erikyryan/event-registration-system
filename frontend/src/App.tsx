@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
-import PrivateRoute from "./components/PrivateRoute";
+import RequireAuth from "./components/RequireAuth";
 import Event from "./pages/Event";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -18,10 +18,11 @@ function App() {
         {/* public routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/" element={<Home />} />
 
         {/* common user routes */}
-        <Route path="/" element={<Home />} />
         <Route path="/event" element={<Event />} />
+        <Route element={<RequireAuth allowedRoles={["USER", "VENDEDOR", "ADMIN"]} />}></Route>
 
         {/* admin routes */}
         <Route path="/dashboard" element={<Dashboard />} />
@@ -29,6 +30,7 @@ function App() {
         <Route path="/events" element={<DashboardEvents />} />
         <Route path="/sessions" element={<Sessions />} />
         <Route path="/rooms" element={<Rooms />} />
+        <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}></Route>
       </Routes>
     </AuthProvider>
   );
