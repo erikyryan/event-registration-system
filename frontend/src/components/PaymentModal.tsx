@@ -1,5 +1,5 @@
+import { useState } from "react";
 import { Box, Button, Modal, Typography, IconButton } from "@mui/material";
-import React, { useState } from "react";
 import FinalPrice from "./FinalPrice";
 import Close from "@mui/icons-material/Close";
 
@@ -31,8 +31,12 @@ const PaymentModal = ({ selected }: Props) => {
 
   return (
     <div>
-      <Button onClick={handleOpen} variant="contained">
-        Pagar
+      <Button
+        onClick={handleOpen}
+        variant="contained"
+        sx={{ width: "100%" }}
+        disabled={selected.length === 0}>
+        Comprar
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
