@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
 import Seat from "./Seat";
 
@@ -19,19 +20,35 @@ interface Props {
   seats: Seat[][];
 }
 
+const CinemaScreen = styled("div")(({ theme }) => ({
+  width: "100%",
+  height: 70,
+  backgroundColor: theme.palette.primary.light,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  color: theme.palette.primary.contrastText,
+  fontWeight: "bold",
+  fontSize: 25,
+  boxShadow: theme.shadows[20],
+  borderRadius: 2
+}));
+
 const SeatsPicker = ({ selectSeat, cancelSelection, selected, seats }: Props) => {
   return (
-    <Box sx={{ margin: "30px 0" }}>
-      <Typography variant="h5">Selecione assentos:</Typography>
+    <Box>
       {seats.map((row, index) => (
-        <div
+        <Box
           key={index}
-          style={{
-            display: "flex"
+          sx={{
+            display: "flex",
+            alignItems: "center"
           }}>
-          <h1 style={{ lineHeight: "30px", marginRight: "20px" }}>{alphabet[index]}</h1>
-          <div
-            style={{
+          <Typography variant="h6" sx={{ mr: 3 }}>
+            {alphabet[index]}
+          </Typography>
+          <Box
+            sx={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center"
@@ -48,9 +65,10 @@ const SeatsPicker = ({ selectSeat, cancelSelection, selected, seats }: Props) =>
                 cancel={cancelSelection}
               />
             ))}
-          </div>
-        </div>
+          </Box>
+        </Box>
       ))}
+      <CinemaScreen>Tela</CinemaScreen>
     </Box>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Paper } from "@mui/material";
+import { Box, IconButton, Paper } from "@mui/material";
+import WeekendIcon from "@mui/icons-material/Weekend";
 
 interface Props {
   row: string;
@@ -22,23 +23,18 @@ const Seat = ({ row, col, number, selected, user, select, cancel }: Props) => {
     }
   };
 
-  const color = user ? "gray" : selected ? "blue" : "green";
+  const color = user ? "gray" : selected ? "#B27B16" : "#10B981";
 
   return (
-    <Paper
+    <IconButton
       onClick={handleClick}
       sx={{
-        backgroundColor: color,
-        width: "40px",
-        textAlign: "center",
-        padding: "8px",
-        margin: "4px",
+        color: color,
         cursor: user ? "default" : "pointer",
-        color: "white",
-        borderRadius: "9000px"
+        fontSize: "45px"
       }}>
-      {number}
-    </Paper>
+      <WeekendIcon fontSize="inherit" />
+    </IconButton>
   );
 };
 
