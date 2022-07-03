@@ -49,8 +49,7 @@ const DashboardNavbar = ({ onSidebarOpen, ...other }: Props) => {
               height: 40,
               width: 40,
               ml: 1
-            }}
-            src="/static/images/avatars/avatar_1.png">
+            }}>
             <PersonIcon fontSize="small" />
           </Avatar>
         </Toolbar>

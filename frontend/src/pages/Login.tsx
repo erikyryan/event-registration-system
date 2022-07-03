@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -10,24 +10,23 @@ import {
   Button
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../services/api";
-import useLocalStorage from "../hooks/useLocalStorage";
+import { useAuth } from "../contexts/AuthContext";
 
 const Login = () => {
-  const [login, setLogin] = useState("");
+  const [userLogin, setUserLogin] = useState("");
   const [password, setPassword] = useState("");
-  const { save, token, getToken } = useLocalStorage();
   const navigate = useNavigate();
+  const { login, currentUser } = useAuth();
+
+  useEffect(() => {
+    if (currentUser) navigate("/");
+  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
-      const res = await api.post("/user/login", {
-        login,
-        password
-      });
-      save(res.data);
+      await login(userLogin, password);
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -47,8 +46,8 @@ const Login = () => {
               label="Login"
               variant="standard"
               required
-              value={login}
-              onChange={(e) => setLogin(e.target.value)}
+              value={userLogin}
+              onChange={(e) => setUserLogin(e.target.value)}
             />
             <TextField
               label="Senha"

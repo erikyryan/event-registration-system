@@ -25,6 +25,7 @@ const SeatsPicker = ({ selectSeat, cancelSelection, selected, seats }: Props) =>
       <Typography variant="h5">Selecione assentos:</Typography>
       {seats.map((row, index) => (
         <div
+          key={index}
           style={{
             display: "flex"
           }}>
@@ -34,8 +35,7 @@ const SeatsPicker = ({ selectSeat, cancelSelection, selected, seats }: Props) =>
               display: "flex",
               justifyContent: "center",
               alignItems: "center"
-            }}
-            key={index}>
+            }}>
             {row.map((seat, seatNum) => (
               <Seat
                 key={seatNum + seat.number + index}
