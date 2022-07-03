@@ -11,6 +11,8 @@ import Movies from "./pages/Movies";
 import Sessions from "./pages/Sessions";
 import Rooms from "./pages/Rooms";
 import AddMovie from "./pages/AddMovie";
+import Movie from "./pages/Movie";
+import Session from "./pages/Session";
 
 function App() {
   return (
@@ -29,8 +31,10 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
         <Route path="/filmes" element={<Movies />} />
+        <Route path="/filmes/filme" element={<Movie />} />
         <Route path="/filmes/adicionar" element={<AddMovie />} />
         <Route path="/sessions" element={<Sessions />} />
+        <Route path="/session" element={<Session />} />
         <Route path="/rooms" element={<Rooms />} />
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}></Route>
       </Routes>
