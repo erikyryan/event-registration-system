@@ -1,8 +1,8 @@
 package asimo.v.entities.dto;
 
-import asimo.v.entities.enums.MovieType;
-
 import java.util.Date;
+
+import asimo.v.entities.enums.MovieType;
 
 public class EventDTO {
 

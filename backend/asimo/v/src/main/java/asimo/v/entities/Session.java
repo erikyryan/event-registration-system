@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import asimo.v.entities.enums.EventStatus;
+
 @Entity
 @Table(name = "sessao")
 public class Session{
@@ -40,6 +42,9 @@ public class Session{
 
     @OneToMany(mappedBy="session")
     private List<Ticket> ticket;
+
+    @Column(name = "status")
+    private EventStatus sessiosStatus;
 
 	public Long getId() {
 		return id;
@@ -87,5 +92,13 @@ public class Session{
 
 	public void setTicket(List<Ticket> ticket) {
 		this.ticket = ticket;
+	}
+    
+	public EventStatus getSessiosStatus() {
+		return sessiosStatus;
+	}
+
+	public void setSessiosStatus(EventStatus sessiosStatus) {
+		this.sessiosStatus = sessiosStatus;
 	}
 }
