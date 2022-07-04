@@ -1,11 +1,15 @@
 import { useEffect } from "react";
-import { Box, Divider, Drawer, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Divider, Drawer, Stack, Typography, useMediaQuery } from "@mui/material";
 import NavItem from "../NavItem";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import GroupIcon from "@mui/icons-material/Group";
 import LocalActivityIcon from "@mui/icons-material/LocalActivity";
 import InsertInvitationIcon from "@mui/icons-material/InsertInvitation";
 import EventSeatIcon from "@mui/icons-material/EventSeat";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
+import { useAuth } from "../../contexts/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Props {
   open: boolean;
@@ -37,14 +41,27 @@ const items = [
     href: "/rooms",
     icon: <EventSeatIcon />,
     title: "Salas"
+  },
+  {
+    href: "/perfil",
+    icon: <PersonIcon />,
+    title: "Perfil"
   }
 ];
 
 const DashboardSidebar = ({ open, onClose }: Props) => {
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
+
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("lg"), {
     defaultMatches: true,
     noSsr: false
   });
+
+  const handleLogout = async () => {
+    logout();
+    navigate("/login");
+  };
 
   useEffect(() => {
     if (open) {
@@ -73,6 +90,33 @@ const DashboardSidebar = ({ open, onClose }: Props) => {
           {items.map((item) => (
             <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} />
           ))}
+        </Box>
+        <Divider
+          sx={{
+            borderColor: "#2D3748",
+            my: 3
+          }}
+        />
+        <Box sx={{ p: 2 }}>
+          {currentUser ? (
+            <Button
+              variant="contained"
+              color="error"
+              fullWidth
+              endIcon={<LogoutIcon />}
+              onClick={handleLogout}>
+              Sair
+            </Button>
+          ) : (
+            <Stack spacing={2}>
+              <Button variant="contained" component={Link} to="/login" color="secondary">
+                Entrar
+              </Button>
+              <Button variant="outlined" component={Link} to="/signup" color="secondary">
+                Cadastrar-se
+              </Button>
+            </Stack>
+          )}
         </Box>
       </Box>
     </>
