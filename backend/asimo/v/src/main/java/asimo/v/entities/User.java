@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import asimo.v.entities.enums.UserRole;
+import asimo.v.entities.operation.UserOperation;
 import asimo.v.services.UserService;
 
 @Entity
@@ -175,6 +176,15 @@ public class User{
 		this.login = user.getLogin();
 		this.birthDate = user.getBirthDate();
 		this.role = UserRole.USER;
+	}
+
+	public void editUser(UserOperation editUser) {
+		this.name = editUser.getName().isEmpty() ? editUser.getName() : this.name;
+		this.doc = editUser.getDoc().isEmpty() ? editUser.getDoc() : this.doc; 
+		this.sex = editUser.getSex().isEmpty() ? editUser.getSex() : this.sex; 
+		this.email = editUser.getEmail().isEmpty() ? editUser.getEmail() : this.email; 
+		this.telephone = editUser.getTelephone().isEmpty() ? editUser.getTelephone() : this.telephone; 
+		this.birthDate = editUser.getBirthDate().equals(null) ? editUser.getBirthDate() : this.birthDate; 
 	}
 
 	public void generatePassword(final String password) {        

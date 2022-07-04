@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import asimo.v.entities.User;
 import asimo.v.entities.UserObject;
 import asimo.v.entities.dto.UserDTO;
+import asimo.v.entities.operation.UserOperation;
+import asimo.v.services.LoginSessionService;
 import asimo.v.services.UserService;
 
 @RestController
@@ -21,8 +23,11 @@ public class UserController {
 
     private UserService userService;
 
-    public UserController(UserService userService) {
+    private LoginSessionService loginSessionService;
+    
+    public UserController(UserService userService, LoginSessionService loginSessionService) {
 		this.userService = userService;
+		this.loginSessionService = loginSessionService;
 	}
 
 	@GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -45,13 +50,22 @@ public class UserController {
     
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> create(@RequestBody final UserObject userSession){
-    	
     	User createdUser = this.userService.create(userSession);
     	return ResponseEntity.ok(createdUser.toString());
     }
-    
+   
+    @PostMapping(value = "/edit", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> edit(@RequestBody final UserOperation userEdit,
+    		@RequestHeader("token") String token, @RequestHeader("userIdentifier") String identifier){
+    	loginSessionService.validateToken(token);
+    	User userToEdit = this.userService.findByIdentifier(identifier);
+    	User editedUser = this.userService.editUser(userEdit, userToEdit);
+    	return ResponseEntity.ok(editedUser);
+    }
+
     @GetMapping(value = "/findByToken", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> FindByToken(@RequestHeader("token") String token){
+		this.loginSessionService.validateToken(token);
     	UserDTO userDTO = new UserDTO(this.userService.findByToken(token));
     	return ResponseEntity.ok(userDTO);
     }

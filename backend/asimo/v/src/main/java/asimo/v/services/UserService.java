@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import asimo.v.entities.LoginSession;
 import asimo.v.entities.User;
 import asimo.v.entities.UserObject;
+import asimo.v.entities.operation.UserOperation;
 import asimo.v.exceptions.InvalidLogin;
 import asimo.v.exceptions.InvalidPasswordException;
 import asimo.v.exceptions.UserNotFound;
@@ -104,7 +105,6 @@ public class UserService {
 	}
 
 	public User findByToken(String token) {
-		this.loginSessionService.validateToken(token);
 		User user = this.loginSessionService.findUser(token);
 		return user;
 	}
@@ -122,5 +122,12 @@ public class UserService {
 			return user.get();
 		}
 		throw new RuntimeException("User não encontrado");
+	}
+
+	public User editUser(UserOperation userEdit, User user) {
+		user.editUser(userEdit);
+		this.save(user);
+		
+		return user;
 	}
 }
