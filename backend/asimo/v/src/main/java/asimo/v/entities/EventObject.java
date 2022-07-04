@@ -12,9 +12,9 @@ public class EventObject {
 
     private String duration;
 
-    private Integer classification;
+    private String classification;
 
-    private Integer launchYear;
+    private String launchYear;
 
     private String synopsis;
 
@@ -52,19 +52,19 @@ public class EventObject {
         this.duration = duration;
     }
 
-    public Integer getClassification() {
+    public String getClassification() {
         return classification;
     }
 
-    public void setClassification(Integer classification) {
+    public void setClassification(String classification) {
         this.classification = classification;
     }
 
-    public Integer getLaunchYear() {
+    public String getLaunchYear() {
         return launchYear;
     }
 
-    public void setLaunchYear(Integer launchYear) {
+    public void setLaunchYear(String launchYear) {
         this.launchYear = launchYear;
     }
 
