@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Ticket{
 
     @Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String seat;

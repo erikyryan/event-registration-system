@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import asimo.v.entities.enums.UserRole;
-import asimo.v.entities.operation.UserOperation;
 import asimo.v.services.UserService;
 
 @Entity
@@ -17,7 +16,7 @@ import asimo.v.services.UserService;
 public class User{
 
     @Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
 	@Column(name="useridentifier")
@@ -39,7 +38,10 @@ public class User{
 
 	@NotNull
     private String telephone;
-      
+    
+    @NotNull
+    private String login;
+    
     @NotNull
     private String password; 
 
@@ -107,6 +109,14 @@ public class User{
 		this.telephone = telephone;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -162,16 +172,9 @@ public class User{
 		this.sex = user.getSex();
 		this.email = user.getEmail();
 		this.telephone = user.getTelephone();
+		this.login = user.getLogin();
 		this.birthDate = user.getBirthDate();
 		this.role = UserRole.USER;
-	}
-
-	public void editUser(UserOperation editUser) {
-		this.name = editUser.getName().isEmpty() ? editUser.getName() : this.name;
-		this.doc = editUser.getDoc().isEmpty() ? editUser.getDoc() : this.doc; 
-		this.sex = editUser.getSex().isEmpty() ? editUser.getSex() : this.sex; 
-		this.telephone = editUser.getTelephone().isEmpty() ? editUser.getTelephone() : this.telephone; 
-		this.birthDate = editUser.getBirthDate().equals(null) ? editUser.getBirthDate() : this.birthDate; 
 	}
 
 	public void generatePassword(final String password) {        
@@ -210,6 +213,7 @@ public class User{
 				", sex='" + sex + '\'' +
 				", email='" + email + '\'' +
 				", telephone='" + telephone + '\'' +
+				", login='" + login + '\'' +
 				", password='" + password + '\'' +
 				", birthDate=" + birthDate +
 				", role=" + role +
