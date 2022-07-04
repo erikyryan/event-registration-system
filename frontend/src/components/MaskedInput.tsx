@@ -7,15 +7,13 @@ interface Props {
   name: string;
   mask: string;
   value?: string;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const MaskedInput = ({ label, name, mask, value, handleChange }: Props) => {
   return (
     <InputMask mask={mask} value={value} onChange={handleChange}>
-      {(inputProps: any) => (
-        <TextField {...inputProps} fullWidth name={name} label={label} size="small" />
-      )}
+      {(inputProps: any) => <TextField {...inputProps} fullWidth name={name} label={label} />}
     </InputMask>
   );
 };
