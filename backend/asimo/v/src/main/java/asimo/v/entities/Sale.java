@@ -21,7 +21,7 @@ import asimo.v.entities.enums.SaleType;
 public class Sale{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nrprotocolo")

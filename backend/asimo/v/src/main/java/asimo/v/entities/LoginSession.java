@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 public class LoginSession {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true)
     private Long id;
 
