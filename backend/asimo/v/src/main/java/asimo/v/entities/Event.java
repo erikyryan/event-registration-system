@@ -11,13 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "evento")
 public class Event{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
 	@Column(name="eventidentifier")
@@ -30,11 +31,12 @@ public class Event{
 
 	private String duration;
 
-	private String classification;
+	private Integer classification;
 
 	@Column(name = "launchyear")
-	private String launchYear;
+	private Integer launchYear;
 
+	@Size(max=2000)
     private String synopsis;
 
 	@Column(name = "type")
@@ -90,19 +92,19 @@ public class Event{
 		this.duration = duration;
 	}
 
-	public String getClassification() {
+	public Integer getClassification() {
 		return classification;
 	}
 
-	public void setClassification(String classification) {
+	public void setClassification(Integer classification) {
 		this.classification = classification;
 	}
 
-	public String getLaunchYear() {
+	public Integer getLaunchYear() {
 		return launchYear;
 	}
 
-	public void setLaunchYear(String launchYear) {
+	public void setLaunchYear(Integer launchYear) {
 		this.launchYear = launchYear;
 	}
 

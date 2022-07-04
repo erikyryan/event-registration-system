@@ -22,7 +22,7 @@ import asimo.v.entities.enums.EventStatus;
 public class Session{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "dtsessao")
