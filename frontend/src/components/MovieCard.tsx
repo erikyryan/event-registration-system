@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { Button, Card, CardContent, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
@@ -19,18 +19,17 @@ const MovieCard = ({ event }: Props) => {
         <Typography variant="body2" sx={{ marginTop: 2 }}>
           {event.description}
         </Typography>
-      </CardContent>
-      <CardActions>
         <Button
           size="small"
           component={Link}
           endIcon={<ArrowForwardIcon />}
-          to="/event"
+          to="/filmes/filme"
           variant="outlined"
-          color="primary">
+          color="primary"
+          sx={{ mt: 2 }}>
           Ver sessões
         </Button>
-      </CardActions>
+      </CardContent>
     </Card>
   );
 };

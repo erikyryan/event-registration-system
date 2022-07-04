@@ -18,8 +18,8 @@ const Ticket = ({ number, changeTicketType }: Props) => {
   };
 
   return (
-    <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-      <Typography variant="h6">Assento #{number}</Typography>
+    <Box sx={{ display: "flex", gap: 2, alignItems: "center", justifyContent: "space-between" }}>
+      <Typography variant="h6">#{number}</Typography>
       <FormControl>
         <RadioGroup row value={value} onChange={handleChange}>
           <FormControlLabel value="inteira" control={<Radio size="small" />} label="Inteira" />
