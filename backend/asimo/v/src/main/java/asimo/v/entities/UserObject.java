@@ -24,9 +24,6 @@ public class UserObject {
     private String telephone;
 
     @NotNull
-    private String login;
-
-    @NotNull
     private String password;
 
     private Date birthDate;
@@ -71,14 +68,6 @@ public class UserObject {
         this.telephone = telephone;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -95,13 +84,12 @@ public class UserObject {
         this.birthDate = birthDate;
     }
 
-    public UserObject(String name, String doc, String sex, String email, String telephone, String login, String password, Date birthDate) {
+    public UserObject(String name, String doc, String sex, String email, String telephone, String password, Date birthDate) {
         this.name = name;
         this.doc = doc;
         this.sex = sex;
         this.email = email;
         this.telephone = telephone;
-        this.login = login;
         this.password = password;
         this.birthDate = birthDate;
     }
