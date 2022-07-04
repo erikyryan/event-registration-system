@@ -13,6 +13,7 @@ import Rooms from "./pages/Rooms";
 import AddMovie from "./pages/AddMovie";
 import Movie from "./pages/Movie";
 import Session from "./pages/Session";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/sessions" element={<Sessions />} />
         <Route path="/session" element={<Session />} />
         <Route path="/rooms" element={<Rooms />} />
+        <Route path="/perfil" element={<Profile />} />
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}></Route>
       </Routes>
     </AuthProvider>
