@@ -30,12 +30,6 @@ public class UserController {
 		this.loginSessionService = loginSessionService;
 	}
 
-	@GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> findById(@PathVariable Long id, @RequestHeader("token") String token) {
-        User user = this.userService.findById(id);
-    	return ResponseEntity.ok(user);
-    }
-
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> login(@RequestBody final User userSession){
     	String token = this.userService.login(userSession);
@@ -43,7 +37,7 @@ public class UserController {
     }
     
     @PostMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> logout(@RequestBody final String token){
+    public ResponseEntity<?> logout(@RequestHeader("token") final String token){
     	this.userService.logout(token);	
     	return ResponseEntity.ok("");
     }
