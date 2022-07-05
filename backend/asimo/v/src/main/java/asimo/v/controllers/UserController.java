@@ -3,7 +3,6 @@ package asimo.v.controllers;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import asimo.v.entities.User;
-import asimo.v.entities.UserObject;
+import asimo.v.entities.objects.UserObject;
 import asimo.v.entities.dto.UserDTO;
 import asimo.v.entities.operation.UserOperation;
 import asimo.v.services.LoginSessionService;

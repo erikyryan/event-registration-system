@@ -1,4 +1,4 @@
-package asimo.v.entities;
+package asimo.v.entities.objects;
 
 import asimo.v.entities.enums.MovieType;
 

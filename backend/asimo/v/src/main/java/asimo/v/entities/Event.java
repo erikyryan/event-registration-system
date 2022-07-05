@@ -2,6 +2,7 @@ package asimo.v.entities;
 
 import asimo.v.entities.enums.EventStatus;
 import asimo.v.entities.enums.MovieType;
+import asimo.v.entities.objects.EventObject;
 
 import java.util.Date;
 
