@@ -22,10 +22,10 @@ public class EventService {
 
     public Event findByEventIdentifier(String eventIdentifier){
         Optional<Event> event = this.eventRepository.findByEventIdentifier(eventIdentifier);
-        if (event.isPresent()) {
+        if (event.isPresent() && event.get().getEventStatus() != EventStatus.FINALIZADO) {
             return event.get();
         }
-        throw new RuntimeException("User não encontrado");
+        throw new RuntimeException("Evento não encontrado");
     }
 
     public Event create(final EventObject eventObject, final User user){
