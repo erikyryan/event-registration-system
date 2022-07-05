@@ -58,8 +58,7 @@ public class UserController {
     public ResponseEntity<?> edit(@RequestBody final UserOperation userEdit,
     		@RequestHeader("token") String token, @RequestHeader("userIdentifier") String identifier){
     	loginSessionService.validateToken(token);
-    	User userToEdit = this.userService.findByIdentifier(identifier);
-    	User editedUser = this.userService.editUser(userEdit, userToEdit);
+    	User editedUser = this.userService.editUser(userEdit, this.userService.findByIdentifier(identifier));
     	return ResponseEntity.ok(editedUser);
     }
 

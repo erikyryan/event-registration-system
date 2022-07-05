@@ -121,6 +121,16 @@ public class UserService {
 
 	public User editUser(UserOperation userEdit, User user) {
 		user.editUser(userEdit);
+		if (!userEdit.getPassword().isEmpty() || !userEdit.getPassword().isBlank()) {
+			user.setPassword(encryptPassword(userEdit.getPassword(), user.getSalt()));
+		}
+		if (!userEdit.getEmail().isEmpty() || !userEdit.getEmail().isBlank()) {
+			if (userRepository.findByEmail(userEdit.getEmail()).isPresent()) {
+				throw new InvalidEmail("Email Inválido");
+			}
+			user.setEmail(userEdit.getEmail());
+		}
+		
 		this.save(user);
 		
 		return user;
