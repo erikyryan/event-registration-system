@@ -21,20 +21,22 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
 
+        <Route path="/filmes" element={<Movies />} />
+        <Route path="/filmes/:id" element={<Movie />} />
+        <Route path="/session" element={<Session />} />
         {/* common user routes */}
-        <Route element={<RequireAuth allowedRoles={["USER", "VENDEDOR", "ADMIN"]} />}></Route>
+        <Route element={<RequireAuth allowedRoles={["USER", "VENDEDOR", "ADMIN"]} />}>
+          <Route path="/perfil" element={<Profile />} />
+        </Route>
 
         {/* admin routes */}
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/filmes" element={<Movies />} />
-        <Route path="/filmes/filme" element={<Movie />} />
-        <Route path="/filmes/adicionar" element={<AddMovie />} />
-        <Route path="/sessions" element={<Sessions />} />
-        <Route path="/session" element={<Session />} />
-        <Route path="/rooms" element={<Rooms />} />
-        <Route path="/perfil" element={<Profile />} />
-        <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}></Route>
+        <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/filmes/adicionar" element={<AddMovie />} />
+          <Route path="/sessions" element={<Sessions />} />
+          <Route path="/rooms" element={<Rooms />} />
+        </Route>
       </Routes>
     </AuthProvider>
   );

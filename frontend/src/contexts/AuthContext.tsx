@@ -6,7 +6,7 @@ import getUserByToken from "../utils/getUserByToken";
 interface Value {
   currentUser: IUser | null;
   token: string | null;
-  login: (login: string, password: string) => Promise<IUser>;
+  login: (email: string, password: string) => Promise<IUser>;
   logout: () => void;
 }
 
@@ -21,10 +21,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-  const login = async (login: string, password: string) => {
+  const login = async (email: string, password: string) => {
     try {
       const res = await api.post("/user/login", {
-        login,
+        email,
         password
       });
       localStorage.setItem("token", res.data);
