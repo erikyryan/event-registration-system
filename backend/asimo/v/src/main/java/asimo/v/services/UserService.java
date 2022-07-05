@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import asimo.v.entities.LoginSession;
 import asimo.v.entities.User;
-import asimo.v.entities.UserObject;
+import asimo.v.entities.objects.UserObject;
 import asimo.v.entities.operation.UserOperation;
 import asimo.v.exceptions.InvalidPasswordException;
 import asimo.v.exceptions.UserNotFound;

@@ -24,7 +24,7 @@ public class LoginSessionService {
 
 	public void validateToken(String token) {
 		LoginSession session = this.findSessionByToken(token);
-		Date expirationDate = session.getLogoutDate();
+		Date expirationDate = session.getExpirationDate();
 		if (new Date().after(expirationDate)) {
 			throw new RuntimeException("Sessão expirou.");
 		}

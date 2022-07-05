@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import asimo.v.entities.enums.UserRole;
+import asimo.v.entities.objects.UserObject;
 import asimo.v.entities.operation.UserOperation;
 import asimo.v.services.UserService;
 
@@ -46,7 +47,6 @@ public class User{
     private String salt; 
 
     @Column(name="dtnascimento")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date birthDate;
 
     @Column(name="tipousuario")

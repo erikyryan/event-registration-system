@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import asimo.v.entities.objects.EventObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import asimo.v.entities.Event;
-import asimo.v.entities.EventObject;
 import asimo.v.entities.User;
 import asimo.v.entities.enums.EventStatus;
 import asimo.v.exceptions.InvalidEvent;

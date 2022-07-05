@@ -1,8 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import RequireAuth from "./components/RequireAuth";
-import Event from "./pages/Event";
-import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
@@ -22,23 +20,23 @@ function App() {
         {/* public routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/" element={<Home />} />
 
+        <Route path="/filmes" element={<Movies />} />
+        <Route path="/filmes/:id" element={<Movie />} />
+        <Route path="/session" element={<Session />} />
         {/* common user routes */}
-        <Route path="/event" element={<Event />} />
-        <Route element={<RequireAuth allowedRoles={["USER", "VENDEDOR", "ADMIN"]} />}></Route>
+        <Route element={<RequireAuth allowedRoles={["USER", "VENDEDOR", "ADMIN"]} />}>
+          <Route path="/perfil" element={<Profile />} />
+        </Route>
 
         {/* admin routes */}
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/filmes" element={<Movies />} />
-        <Route path="/filmes/filme" element={<Movie />} />
-        <Route path="/filmes/adicionar" element={<AddMovie />} />
-        <Route path="/sessions" element={<Sessions />} />
-        <Route path="/session" element={<Session />} />
-        <Route path="/rooms" element={<Rooms />} />
-        <Route path="/perfil" element={<Profile />} />
-        <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}></Route>
+        <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/filmes/adicionar" element={<AddMovie />} />
+          <Route path="/sessions" element={<Sessions />} />
+          <Route path="/rooms" element={<Rooms />} />
+        </Route>
       </Routes>
     </AuthProvider>
   );

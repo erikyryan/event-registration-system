@@ -30,16 +30,13 @@ public class LoginSession {
 
 	@Column(nullable = false)
 	private String token;
-	
-    @Temporal(TemporalType.TIMESTAMP)
+
     @Column(name = "logindate",nullable = false)
     private Date loginDate;
     
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "expirationdate",nullable = false)
     private Date expirationDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "logoutdate")
     private Date logoutDate;
 
@@ -61,11 +58,19 @@ public class LoginSession {
 		return userIdentifier;
 	}
 
+
 	public void finish() {
 		this.logoutDate = new Date();
 	}
-
 	public Date getLogoutDate() {
 		return logoutDate;
+	}
+
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
 	}
 }

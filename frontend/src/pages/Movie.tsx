@@ -1,13 +1,27 @@
 import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
 import MovieInfo from "../components/MovieInfo";
-import ReservationPanel from "../components/ReservationPanel";
 import SessionCard from "../components/SessionCard";
+import api from "../services/api";
 
 const Movie = () => {
+  const { id } = useParams();
+  const [movie, setMovie] = useState(null);
+
+  const fetchMovie = async () => {
+    const res = await api.get(`/event/outside/${id}`);
+    setMovie(res.data);
+  };
+
+  useEffect(() => {
+    fetchMovie();
+  }, []);
+
   return (
     <DashboardLayout>
-      <MovieInfo />
+      <MovieInfo movie={movie} />
       <Typography variant="h5" sx={{ mt: 4, mb: 2, fontWeight: "bold" }}>
         Sessões disponíveis
       </Typography>

@@ -6,6 +6,7 @@ import GroupIcon from "@mui/icons-material/Group";
 import LocalActivityIcon from "@mui/icons-material/LocalActivity";
 import InsertInvitationIcon from "@mui/icons-material/InsertInvitation";
 import EventSeatIcon from "@mui/icons-material/EventSeat";
+
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
 import { useAuth } from "../../contexts/AuthContext";
@@ -18,34 +19,40 @@ interface Props {
 
 const items = [
   {
-    href: "/dashboard",
+    href: "/",
     icon: <BarChartIcon />,
-    title: "Dashboard"
+    title: "Dashboard",
+    allowedRoles: ["ADMIN"]
   },
   {
     href: "/users",
     icon: <GroupIcon />,
-    title: "Usuários"
+    title: "Usuários",
+    allowedRoles: ["ADMIN"]
   },
   {
     href: "/filmes",
     icon: <LocalActivityIcon />,
-    title: "Filmes"
+    title: "Filmes",
+    allowedRoles: ["ADMIN", "USER", "VENDEDOR", "PUBLIC"]
   },
   {
     href: "/sessions",
     icon: <InsertInvitationIcon />,
-    title: "Sessões"
+    title: "Sessões",
+    allowedRoles: ["ADMIN"]
   },
   {
     href: "/rooms",
     icon: <EventSeatIcon />,
-    title: "Salas"
+    title: "Salas",
+    allowedRoles: ["ADMIN"]
   },
   {
     href: "/perfil",
     icon: <PersonIcon />,
-    title: "Perfil"
+    title: "Perfil",
+    allowedRoles: ["ADMIN", "USER", "VENDEDOR"]
   }
 ];
 
@@ -87,9 +94,12 @@ const DashboardSidebar = ({ open, onClose }: Props) => {
           }}
         />
         <Box sx={{ flexGrow: 1 }}>
-          {items.map((item) => (
-            <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} />
-          ))}
+          {items.map(
+            (item) =>
+              item.allowedRoles.includes(currentUser?.role || "PUBLIC") && (
+                <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} />
+              )
+          )}
         </Box>
         <Divider
           sx={{
