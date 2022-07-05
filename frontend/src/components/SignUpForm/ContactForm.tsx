@@ -5,19 +5,11 @@ import FormProps from "./formTypes";
 const ContactForm = ({ data, handleChange }: FormProps) => {
   return (
     <Stack spacing={2}>
-      <TextField
-        name="email"
-        label="Email"
-        fullWidth
-        size="small"
-        value={data.email}
-        onChange={handleChange}
-      />
+      <TextField name="email" label="Email" fullWidth value={data.email} onChange={handleChange} />
       <TextField
         name="telephone"
         label="Telefone"
         fullWidth
-        size="small"
         value={data.telephone}
         onChange={handleChange}
       />

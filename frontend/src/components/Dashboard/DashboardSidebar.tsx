@@ -18,14 +18,16 @@ interface Props {
 
 const items = [
   {
-    href: "/dashboard",
+    href: "/",
     icon: <BarChartIcon />,
-    title: "Dashboard"
+    title: "Dashboard",
+    role: "ADMIN"
   },
   {
     href: "/users",
     icon: <GroupIcon />,
-    title: "Usuários"
+    title: "Usuários",
+    role: "ADMIN"
   },
   {
     href: "/filmes",
@@ -35,12 +37,14 @@ const items = [
   {
     href: "/sessions",
     icon: <InsertInvitationIcon />,
-    title: "Sessões"
+    title: "Sessões",
+    role: "ADMIN"
   },
   {
     href: "/rooms",
     icon: <EventSeatIcon />,
-    title: "Salas"
+    title: "Salas",
+    role: "ADMIN"
   },
   {
     href: "/perfil",
