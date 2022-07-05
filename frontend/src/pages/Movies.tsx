@@ -4,12 +4,14 @@ import DashboardLayout from "../components/Dashboard/DashboardLayout";
 import MovieCard from "../components/MovieCard";
 import { Link } from "react-router-dom";
 import api from "../services/api";
+import { useAuth } from "../contexts/AuthContext";
 
 const Movies = () => {
+  const { currentUser } = useAuth();
   const [movies, setMovies] = useState([]);
 
   const fetchMovies = async () => {
-    const res = await api.get("/event/available");
+    const res = await api.get("/event/outside/available");
     setMovies(res.data);
   };
 
@@ -23,11 +25,13 @@ const Movies = () => {
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
           Filmes em cartaz
         </Typography>
-        <Box>
-          <Button variant="contained" component={Link} to="/filmes/adicionar">
-            Adicionar Filme
-          </Button>
-        </Box>
+        {currentUser?.role === "ADMIN" && (
+          <Box>
+            <Button variant="contained" component={Link} to="/filmes/adicionar">
+              Adicionar Filme
+            </Button>
+          </Box>
+        )}
       </Box>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {movies.map((movie, index) => (

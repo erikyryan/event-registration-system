@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 const Login = () => {
-  const [userLogin, setUserLogin] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { login, currentUser } = useAuth();
@@ -26,7 +26,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await login(userLogin, password);
+      await login(email, password);
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -43,11 +43,11 @@ const Login = () => {
           </Typography>
           <Stack sx={{ marginTop: 2 }} spacing={2} component="form" onSubmit={handleSubmit}>
             <TextField
-              label="Login"
+              label="Email"
               variant="standard"
               required
-              value={userLogin}
-              onChange={(e) => setUserLogin(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               label="Senha"

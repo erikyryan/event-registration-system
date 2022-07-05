@@ -3,16 +3,17 @@ import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
 import MaskedInput from "../components/MaskedInput";
 import { useAuth } from "../contexts/AuthContext";
+import api from "../services/api";
 
 const Profile = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, token } = useAuth();
+  console.log(currentUser);
   const [data, setData] = useState({
     name: currentUser?.name || "",
     email: currentUser?.email || "",
-    login: currentUser?.login || "",
     doc: currentUser?.doc || "",
-    telephone: currentUser?.phone || "",
-    birthDate: currentUser?.birthDate || ""
+    telephone: currentUser?.telephone || "",
+    birthDate: currentUser?.birthDate.split("T")[0] || ""
   });
 
   const handleChange = (e: any) => {
@@ -22,9 +23,21 @@ const Profile = () => {
     }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log(data);
+
+    try {
+      const res = await api.post("/user/edit", {
+        headers: {
+          token,
+          userIdentifier: currentUser?.id
+        },
+        body: {
+          ...data
+        }
+      });
+    } catch (error) {}
   };
 
   return (
@@ -49,15 +62,6 @@ const Profile = () => {
               name="email"
               fullWidth
               value={data.email}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <TextField
-              label="Login"
-              name="login"
-              fullWidth
-              value={data.login}
               onChange={handleChange}
             />
           </Grid>
