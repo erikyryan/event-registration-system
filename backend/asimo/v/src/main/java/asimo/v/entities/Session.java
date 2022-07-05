@@ -26,7 +26,6 @@ public class Session{
     private Long id;
 
     @Column(name = "dtsessao")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date sessionDate;
 
     @OneToOne

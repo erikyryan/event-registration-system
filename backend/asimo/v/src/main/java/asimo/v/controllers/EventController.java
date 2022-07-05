@@ -27,7 +27,6 @@ public class EventController {
 
 	@GetMapping(value = "/available",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Event>> availableSession(@RequestHeader("token") String token) {
-		this.loginSessionService.validateToken(token);
 		return ResponseEntity.ok(eventService.listAllAvailable());
     }
 

@@ -31,7 +31,6 @@ public class Sale{
     private Long price;
 
     @Column(name = "dtvenda")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date saleDate;
 
     @ManyToOne

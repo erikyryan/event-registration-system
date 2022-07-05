@@ -46,7 +46,6 @@ public class User{
     private String salt; 
 
     @Column(name="dtnascimento")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date birthDate;
 
     @Column(name="tipousuario")
