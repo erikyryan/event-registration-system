@@ -6,14 +6,7 @@ import MaskedInput from "../MaskedInput";
 const PersonalForm = ({ data, handleChange }: FormProps) => {
   return (
     <Stack spacing={2}>
-      <TextField
-        name="name"
-        label="Nome"
-        fullWidth
-        size="small"
-        value={data.name}
-        onChange={handleChange}
-      />
+      <TextField name="name" label="Nome" fullWidth value={data.name} onChange={handleChange} />
       <MaskedInput
         label="CPF"
         name="doc"
@@ -26,7 +19,6 @@ const PersonalForm = ({ data, handleChange }: FormProps) => {
         label="Data Nascimento"
         type="date"
         fullWidth
-        size="small"
         InputLabelProps={{ shrink: true }}
         value={data.birthDate}
         onChange={handleChange}
