@@ -167,11 +167,11 @@ public class User{
 	}
 
 	public void editUser(UserOperation editUser) {
-		this.name = editUser.getName().isEmpty() ? editUser.getName() : this.name;
-		this.doc = editUser.getDoc().isEmpty() ? editUser.getDoc() : this.doc; 
-		this.sex = editUser.getSex().isEmpty() ? editUser.getSex() : this.sex; 
-		this.telephone = editUser.getTelephone().isEmpty() ? editUser.getTelephone() : this.telephone; 
-		this.birthDate = editUser.getBirthDate().equals(null) ? editUser.getBirthDate() : this.birthDate; 
+		this.name = editUser.getName().isEmpty() ? this.name : editUser.getName();
+		this.doc = editUser.getDoc().isEmpty() ? this.doc :editUser.getDoc(); 
+		this.sex = editUser.getSex().isEmpty() ?  this.sex : editUser.getSex(); 
+		this.telephone = editUser.getTelephone().isEmpty() ? this.telephone : editUser.getTelephone(); 
+		this.birthDate = editUser.getBirthDate().equals(null) ? this.birthDate : editUser.getBirthDate(); 
 	}
 
 	public void generatePassword(final String password) {        
