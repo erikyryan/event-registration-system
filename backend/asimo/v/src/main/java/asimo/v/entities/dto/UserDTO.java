@@ -20,8 +20,10 @@ public class UserDTO {
     private Date birthDate;
     
     private UserRole role;
+    
+    private String userIdentifier;
 
-    public UserDTO(User user) {
+	public UserDTO(User user) {
 		this.name = user.getName();
 		this.doc = user.getDoc();
 		this.sex = user.getSex();
@@ -29,6 +31,7 @@ public class UserDTO {
 		this.telephone = user.getTelephone();
 		this.birthDate = user.getBirthDate();
 		this.role = user.getRole();
+		this.userIdentifier = user.getUserIdentifier();
     }
     
 	public UserDTO() {
@@ -88,5 +91,13 @@ public class UserDTO {
 
 	public void setRole(UserRole role) {
 		this.role = role;
+	}
+
+    public String getUserIdentifier() {
+		return userIdentifier;
+	}
+
+	public void setUserIdentifier(String userIdentifier) {
+		this.userIdentifier = userIdentifier;
 	}
 }
