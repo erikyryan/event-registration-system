@@ -1,19 +1,28 @@
 import { useState } from "react";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography
+} from "@mui/material";
+import AddSessionForm from "../components/AddSessionForm";
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
 
 import { Link } from "react-router-dom";
-import AddMovieForm from "../components/AddMovieForm";
 
-const AddMovie = () => {
+const AddSession = () => {
   const [formData, setFormData] = useState({
-    title: "",
-    synopsis: "",
-    duration: "",
-    classification: "Livre",
-    launchYear: "2022",
-    genre: "Ação"
+    sessionDate: "",
+    place: "",
+    event: "",
+    ticketPrice: ""
   });
 
   const handleChange = (e: any) => {
@@ -35,23 +44,27 @@ const AddMovie = () => {
           <Button
             startIcon={<ArrowBackIcon />}
             component={Link}
-            to="/filmes"
+            to="/sessions"
             variant="text"
             size="small"
             color="secondary"
             sx={{ display: "flex", justifyContent: "start", px: 0 }}>
-            Voltar para Filmes
+            Voltar para Sessões
           </Button>
           <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-            Adicionar Filme
+            Adicionar Sessão
           </Typography>
         </Stack>
       </Box>
       <Box>
-        <AddMovieForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+        <AddSessionForm
+          formData={formData}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
       </Box>
     </DashboardLayout>
   );
 };
 
-export default AddMovie;
+export default AddSession;
