@@ -22,7 +22,8 @@ const AddSession = () => {
     sessionDate: "",
     place: "",
     event: "",
-    ticketPrice: ""
+    ticketPrice: "",
+    sessiosStatus: 0
   });
 
   const handleChange = (e: any) => {

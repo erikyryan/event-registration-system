@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         password
       });
       localStorage.setItem("token", res.data);
+      setToken(res.data);
 
       const user = await getUserByToken(res.data);
       setCurrentUser(user);

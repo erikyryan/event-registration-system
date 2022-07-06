@@ -12,6 +12,7 @@ import AddMovie from "./pages/AddMovie";
 import Movie from "./pages/Movie";
 import Session from "./pages/Session";
 import Profile from "./pages/Profile";
+import AddSession from "./pages/AddSession";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/filmes/adicionar" element={<AddMovie />} />
           <Route path="/sessions" element={<Sessions />} />
+          <Route path="/sessions/adicionar" element={<AddSession />} />
           <Route path="/rooms" element={<Rooms />} />
         </Route>
       </Routes>

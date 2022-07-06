@@ -5,15 +5,18 @@ import DashboardLayout from "../components/Dashboard/DashboardLayout";
 
 import { Link } from "react-router-dom";
 import AddMovieForm from "../components/AddMovieForm";
+import api from "../services/api";
+import { useAuth } from "../contexts/AuthContext";
 
 const AddMovie = () => {
+  const { token } = useAuth();
   const [formData, setFormData] = useState({
-    title: "",
+    name: "",
     synopsis: "",
     duration: "",
-    classification: "Livre",
+    classification: 18,
     launchYear: "2022",
-    genre: "Ação"
+    movieType: 0
   });
 
   const handleChange = (e: any) => {
@@ -23,9 +26,17 @@ const AddMovie = () => {
     }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const res = await api.post("/event/create", formData, {
+        headers: {
+          token: token
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
