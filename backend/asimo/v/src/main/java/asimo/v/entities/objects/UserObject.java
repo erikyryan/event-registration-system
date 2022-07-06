@@ -93,4 +93,7 @@ public class UserObject {
         this.password = password;
         this.birthDate = birthDate;
     }
+
+    public UserObject() {
+    }
 }
