@@ -43,12 +43,12 @@ public class EventController {
         return ResponseEntity.ok(event.toString());
     }
 
-    @GetMapping(value = "/outside/{identifier}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/public/{identifier}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> findByIdentifier(@PathVariable("identifier") String eventIdentifier) {
         return ResponseEntity.ok(eventService.findByEventIdentifier(eventIdentifier));
     }
 
-    @GetMapping(value = "/outside/available",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/public/available",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Event>> availableSession() {
         return ResponseEntity.ok(eventService.listAllAvailable());
     }

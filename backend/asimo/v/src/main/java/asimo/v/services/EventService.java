@@ -34,6 +34,7 @@ public class EventService {
             validateCreationEvent(eventObject);
             Event event =  new Event(eventObject);
             eventRepository.save(event);
+            return event;
         }
 
         throw new RuntimeException("Não foi possível salvar");
