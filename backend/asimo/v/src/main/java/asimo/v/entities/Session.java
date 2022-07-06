@@ -26,8 +26,8 @@ public class Session{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-	@Column(name="eventidentifier")
-	private String eventIdentifier;
+	@Column(name="sessionidentifier")
+	private String sessionIdentifier;
 
 	@Column(name = "dtsessao")
     private Date sessionDate;
@@ -116,8 +116,7 @@ public class Session{
 	@Override
 	public String toString() {
 		return "Session{" +
-				"id=" + id +
-				", eventIdentifier='" + eventIdentifier + '\'' +
+				"  sessionIdentifier='" + sessionIdentifier + '\'' +
 				", sessionDate=" + sessionDate +
 				", place=" + place +
 				", event=" + event +

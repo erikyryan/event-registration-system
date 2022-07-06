@@ -1,24 +1,36 @@
 package asimo.v.entities.objects;
 
+import asimo.v.entities.enums.EventStatus;
 import asimo.v.entities.enums.MovieType;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class EventObject {
 
+    @NotNull
     private String name;
 
+    @NotNull
     private Date eventDate;
 
+    @NotNull
     private String duration;
 
+    @NotNull
     private Integer classification;
 
+    @NotNull
     private Integer launchYear;
 
+    @NotNull
     private String synopsis;
 
+    @NotNull
     private MovieType movieType;
+
+    @NotNull
+    private EventStatus eventStatus;
 
     public String getName() {
         return name;
@@ -74,5 +86,13 @@ public class EventObject {
 
     public void setMovieType(MovieType movieType) {
         this.movieType = movieType;
+    }
+
+    public EventStatus getEventStatus() {
+        return eventStatus;
+    }
+
+    public void setEventStatus(EventStatus eventStatus) {
+        this.eventStatus = eventStatus;
     }
 }

@@ -5,6 +5,7 @@ import asimo.v.entities.enums.MovieType;
 import asimo.v.entities.objects.EventObject;
 
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -25,6 +27,7 @@ public class Event{
 	@Column(name="eventidentifier")
 	private String eventIdentifier;
 
+	@NotNull
     private String name;
 
     @Column(name = "eventdate")
@@ -117,8 +120,17 @@ public class Event{
 		this.movieType = movieType;
 	}
 
+	public String getEventIdentifier() {
+		return eventIdentifier;
+	}
+
+	public void setEventIdentifier(String eventIdentifier) {
+		this.eventIdentifier = eventIdentifier;
+	}
+
 	public Event(EventObject eventObject) {
 		this.name = eventObject.getName();
+		this.setEventIdentifier(UUID.randomUUID().toString());
 		this.eventDate = eventObject.getEventDate();
 		this.synopsis = eventObject.getSynopsis();
 		this.duration = eventObject.getDuration();
@@ -127,22 +139,21 @@ public class Event{
 		this.movieType = eventObject.getMovieType();
 	}
 
-
-
 	public Event() {
 	}
 
 	@Override
 	public String toString() {
 		return "Event{" +
-				"id=" + id +
+				"  eventIdentifier='" + eventIdentifier + '\'' +
 				", name='" + name + '\'' +
 				", eventDate=" + eventDate +
 				", duration='" + duration + '\'' +
-				", classification='" + classification + '\'' +
-				", launchYear='" + launchYear + '\'' +
+				", classification=" + classification +
+				", launchYear=" + launchYear +
 				", synopsis='" + synopsis + '\'' +
 				", movieType=" + movieType +
+				", eventStatus=" + eventStatus +
 				'}';
 	}
 }
