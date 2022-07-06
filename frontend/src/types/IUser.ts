@@ -1,10 +1,10 @@
 export interface IUser {
-  id?: string;
+  userIdentifier?: string;
   name: string;
   email: string;
   login: string;
   doc: string;
-  birthDate: string;
+  birthDate: number;
   telephone: string;
   role: string;
 }
