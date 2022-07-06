@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import asimo.v.entities.enums.EventStatus;
+import asimo.v.entities.objects.SessionObject;
 
 @Entity
 @Table(name = "sessao")
@@ -25,7 +26,10 @@ public class Session{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "dtsessao")
+	@Column(name="eventidentifier")
+	private String eventIdentifier;
+
+	@Column(name = "dtsessao")
     private Date sessionDate;
 
     @OneToOne
@@ -44,6 +48,14 @@ public class Session{
 
     @Column(name = "status")
     private EventStatus sessiosStatus;
+
+	public Session(SessionObject sessionObject) {
+
+	}
+
+	public Session() {
+
+	}
 
 	public Long getId() {
 		return id;
@@ -99,5 +111,19 @@ public class Session{
 
 	public void setSessiosStatus(EventStatus sessiosStatus) {
 		this.sessiosStatus = sessiosStatus;
+	}
+
+	@Override
+	public String toString() {
+		return "Session{" +
+				"id=" + id +
+				", eventIdentifier='" + eventIdentifier + '\'' +
+				", sessionDate=" + sessionDate +
+				", place=" + place +
+				", event=" + event +
+				", ticketPrice=" + ticketPrice +
+				", ticket=" + ticket +
+				", sessiosStatus=" + sessiosStatus +
+				'}';
 	}
 }
