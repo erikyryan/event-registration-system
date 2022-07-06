@@ -52,7 +52,7 @@ public class UserController {
     		@RequestHeader("token") String token, @RequestHeader("userIdentifier") String identifier){
     	loginSessionService.validateToken(token);
     	User editedUser = this.userService.editUser(userEdit, this.userService.findByIdentifier(identifier));
-    	return ResponseEntity.ok(editedUser);
+    	return ResponseEntity.ok(true);
     }
 
     @GetMapping(value = "/findByToken", produces = MediaType.APPLICATION_JSON_VALUE)

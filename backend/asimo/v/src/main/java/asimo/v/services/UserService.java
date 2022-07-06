@@ -3,6 +3,7 @@ package asimo.v.services;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.xml.bind.DatatypeConverter;
@@ -121,10 +122,12 @@ public class UserService {
 
 	public User editUser(UserOperation userEdit, User user) {
 		user.editUser(userEdit);
-		if (!userEdit.getPassword().isEmpty() || !userEdit.getPassword().isBlank()) {
+
+
+		if (!Objects.equals(userEdit.getPassword(),null)) {
 			user.setPassword(encryptPassword(userEdit.getPassword(), user.getSalt()));
 		}
-		if (!userEdit.getEmail().isEmpty() || !userEdit.getEmail().isBlank()) {
+		if (!Objects.equals(userEdit.getEmail(),null)) {
 			if (userRepository.findByEmail(userEdit.getEmail()).isPresent()) {
 				throw new InvalidEmail("Email Inválido");
 			}

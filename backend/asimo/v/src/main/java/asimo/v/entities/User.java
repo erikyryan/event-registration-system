@@ -2,6 +2,7 @@ package asimo.v.entities;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import javax.persistence.*;
@@ -167,11 +168,12 @@ public class User{
 	}
 
 	public void editUser(UserOperation editUser) {
-		this.name = editUser.getName().isEmpty() ? this.name : editUser.getName();
-		this.doc = editUser.getDoc().isEmpty() ? this.doc :editUser.getDoc(); 
-		this.sex = editUser.getSex().isEmpty() ?  this.sex : editUser.getSex(); 
-		this.telephone = editUser.getTelephone().isEmpty() ? this.telephone : editUser.getTelephone(); 
-		this.birthDate = editUser.getBirthDate().equals(null) ? this.birthDate : editUser.getBirthDate(); 
+		this.name = Objects.equals(editUser.getName(), null) ? this.name : editUser.getName();
+		this.doc = Objects.equals(editUser.getDoc(), null) ? this.doc :editUser.getDoc();
+		this.sex = Objects.equals(editUser.getSex(), null) ?  this.sex : editUser.getSex();
+		this.telephone = Objects.equals(editUser.getTelephone(), null)? this.telephone : editUser.getTelephone();
+		this.birthDate = Objects.equals(editUser.getBirthDate(), null) ? this.birthDate : editUser.getBirthDate();
+
 	}
 
 	public void generatePassword(final String password) {        
