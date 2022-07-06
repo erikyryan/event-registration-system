@@ -11,7 +11,8 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
 
   const fetchMovies = async () => {
-    const res = await api.get("/event/outside/available");
+    const res = await api.get("/event/public/available");
+    console.log(res.data);
     setMovies(res.data);
   };
 

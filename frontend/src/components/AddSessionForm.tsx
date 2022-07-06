@@ -9,11 +9,13 @@ interface Props {
   handleSubmit: (e: any) => void;
 }
 
+const status = ["EM ANDAMENTO", "FINALIZADO", "AGENDADO"];
+
 const AddSessionForm = ({ formData, handleChange, handleSubmit }: Props) => {
   const [movies, setMovies] = useState<IMovie[]>([]);
 
   const fetchMovies = async () => {
-    const res = await api.get("/event/available");
+    const res = await api.get("/event/public/available");
     setMovies(res.data);
   };
 
@@ -50,6 +52,20 @@ const AddSessionForm = ({ formData, handleChange, handleSubmit }: Props) => {
           onChange={handleChange}>
           {movies?.map((movie) => (
             <MenuItem value={movie.id}>{movie.name}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl fullWidth>
+        <InputLabel id="status">Status</InputLabel>
+        <Select
+          name="sessiosStatus"
+          labelId="status"
+          id="status"
+          label="Status"
+          value={formData.sessiosStatus}
+          onChange={handleChange}>
+          {status?.map((stat, index) => (
+            <MenuItem value={index}>{stat}</MenuItem>
           ))}
         </Select>
       </FormControl>
