@@ -16,4 +16,6 @@ public interface SessionRepository extends JpaRepository<Session,Long> {
     Optional<Session> findByPlaceAndEvent(Localization place, Event event);
 
     Optional<Session> findByEventAndSessionDate(Event event, Date sessionDate);
+
+    Optional<Session> findBySessionIdentifier(String sessionIdentifier);
 }

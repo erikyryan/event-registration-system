@@ -16,13 +16,13 @@ import asimo.v.services.LocalizationService;
 @RequestMapping("/localization")
 public class LocalizationController {
 
-    @Autowired
-    private LocalizationService service;
+//    @Autowired
+//    private LocalizationService service;
 
-    @GetMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Localization> findById(@PathVariable Long id, @RequestHeader("token") String token) {
-        return service.findById(id);
-    }
+//    @GetMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Localization> findById(@PathVariable Long id, @RequestHeader("token") String token) {
+//        return service.findById(id);
+//    }
 
 //    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 //    public ResponseEntity<Localization> save(@RequestBody Localization sessao, @RequestHeader("token") String token){

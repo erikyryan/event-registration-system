@@ -1,51 +1,69 @@
 package asimo.v.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import asimo.v.entities.enums.TicketType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+import java.util.Date;
+import java.util.UUID;
+
 @Entity
 @Table(name = "ingresso")
 public class Ticket{
+
 
     @Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    private String seat;
+	@Column(name="ticketidentifier")
+	private String ticketIdentifier;
+
+    private Integer seat;
 
 	@Column(name="type")
     private TicketType ticketType;
 
     private Long price;
 
-    @ManyToOne
-    @JoinColumn(name="idsessao",referencedColumnName = "id")
-    private Session session;
+	@Column(name = "sessionidentifier",nullable = false)
+    private String sessionIdentifier;
 
-    @OneToOne
-    @JoinColumn(name="idvenda", referencedColumnName = "id")
-    private Sale venda;
+	@Column(name="eventidentifier",nullable = false)
+	private String eventIdentifier;
 
-	public Long getId() {
-		return id;
+	@Column(name = "localizationidentifier",nullable = false)
+	private String localizationIdentifier;
+
+    @Column(name = "saleidentifier",nullable = true)
+    private String saleidentifier;
+
+	@Column(name="useridentifier",nullable = true)
+	private String useridentifier;
+
+	@NotNull
+	private Boolean occupied;
+
+	@Column(name = "startdate")
+	private Date startDate;
+
+	@Column(name = "enddate")
+	private Date endDate;
+
+	public String getTicketIdentifier() {
+		return ticketIdentifier;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setTicketIdentifier(String ticketIdentifier) {
+		this.ticketIdentifier = ticketIdentifier;
 	}
 
-	public String getSeat() {
+	public Integer getSeat() {
 		return seat;
 	}
 
-	public void setSeat(String seat) {
+	public void setSeat(Integer seat) {
 		this.seat = seat;
 	}
 
@@ -65,19 +83,95 @@ public class Ticket{
 		this.price = price;
 	}
 
-	public Session getSession() {
-		return session;
+	public String getSessionIdentifier() {
+		return sessionIdentifier;
 	}
 
-	public void setSession(Session session) {
-		this.session = session;
+	public void setSessionIdentifier(String sessionIdentifier) {
+		this.sessionIdentifier = sessionIdentifier;
 	}
 
-	public Sale getVenda() {
-		return venda;
+	public String getEventIdentifier() {
+		return eventIdentifier;
 	}
 
-	public void setVenda(Sale venda) {
-		this.venda = venda;
+	public void setEventIdentifier(String eventIdentifier) {
+		this.eventIdentifier = eventIdentifier;
 	}
+
+	public String getLocalizationIdentifier() {
+		return localizationIdentifier;
+	}
+
+	public void setLocalizationIdentifier(String localizationIdentifier) {
+		this.localizationIdentifier = localizationIdentifier;
+	}
+
+	public String getSaleidentifier() {
+		return saleidentifier;
+	}
+
+	public void setSaleidentifier(String saleidentifier) {
+		this.saleidentifier = saleidentifier;
+	}
+
+	public String getUseridentifier() {
+		return useridentifier;
+	}
+
+	public void setUseridentifier(String useridentifier) {
+		this.useridentifier = useridentifier;
+	}
+
+	public Boolean getOccupied() {
+		return occupied;
+	}
+
+	public void setOccupied(Boolean occupied) {
+		this.occupied = occupied;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Ticket() {
+	}
+
+	public Ticket(Integer seat, TicketType ticketType, Long price, String sessionIdentifier, String eventIdentifier, String localizationIdentifier, String saleidentifier, String useridentifier, Boolean occupied, Date startDate, Date endDate) {
+		this.setTicketIdentifier(UUID.randomUUID().toString());
+		this.seat = seat;
+		this.ticketType = ticketType;
+		this.price = price;
+		this.sessionIdentifier = sessionIdentifier;
+		this.eventIdentifier = eventIdentifier;
+		this.localizationIdentifier = localizationIdentifier;
+		this.saleidentifier = saleidentifier;
+		this.useridentifier = useridentifier;
+		this.occupied = occupied;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
+	public Ticket(Integer seat, String eventIdentifier,String localizationIdentifier, String sessionIdentifier){
+		this.setSeat(seat);
+		this.setTicketIdentifier(UUID.randomUUID().toString());
+		this.setEventIdentifier(eventIdentifier);
+		this.setLocalizationIdentifier(localizationIdentifier);
+		this.setSessionIdentifier(sessionIdentifier);
+		this.setOccupied(false);
+	}
+
 }

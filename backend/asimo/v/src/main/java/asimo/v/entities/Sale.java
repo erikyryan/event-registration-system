@@ -24,6 +24,9 @@ public class Sale{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+	@Column(name="saleidentifier")
+	private String saleIdentifier;
+
     @Column(name = "nrprotocolo")
     private Long protocol;
 
@@ -130,5 +133,37 @@ public class Sale{
 
 	public void setDoc(String doc) {
 		this.doc = doc;
+	}
+
+	public Sale() {
+	}
+
+	public Sale(String saleIdentifier, Long protocol, Long price, Date saleDate, User user, String paymentForm, SaleType saleType, String userName, DocType docType, String doc) {
+		this.saleIdentifier = saleIdentifier;
+		this.protocol = protocol;
+		this.price = price;
+		this.saleDate = saleDate;
+		this.user = user;
+		this.paymentForm = paymentForm;
+		this.saleType = saleType;
+		this.userName = userName;
+		this.docType = docType;
+		this.doc = doc;
+	}
+
+	@Override
+	public String toString() {
+		return "Sale{" +
+				"saleIdentifier='" + saleIdentifier + '\'' +
+				", protocol=" + protocol +
+				", price=" + price +
+				", saleDate=" + saleDate +
+				", user=" + user +
+				", paymentForm='" + paymentForm + '\'' +
+				", saleType=" + saleType +
+				", userName='" + userName + '\'' +
+				", docType=" + docType +
+				", doc='" + doc + '\'' +
+				'}';
 	}
 }

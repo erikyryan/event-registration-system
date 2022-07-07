@@ -16,13 +16,14 @@ import asimo.v.services.TicketService;
 @RequestMapping("/ticket")
 public class TicketController {
 
-    @Autowired
-    private TicketService service;
 
-    @GetMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Ticket> findById(@PathVariable Long id, @RequestHeader("token") String token) {
-        return service.findById(id);
-    }
+//    @Autowired
+//    private TicketService service;
+
+//    @GetMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Ticket> findById(@PathVariable Long id, @RequestHeader("token") String token) {
+//        return service.findById(id);
+//    }
 
 //    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 //    public ResponseEntity<Ticket> save(@RequestBody Ticket ingresso, @RequestHeader("token") String token){

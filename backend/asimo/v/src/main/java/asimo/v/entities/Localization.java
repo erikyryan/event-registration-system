@@ -15,11 +15,22 @@ public class Localization{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+	@Column(name = "localizationidentifier")
+	private String localizationIdentifier;
+
     @Column(name = "localevento")
     private String place;
 
     @Column(name = "numerodeassentos")
-    private Long numberOfSeats;
+    private Integer numberOfSeats;
+
+	public String getLocalizationIdentifier() {
+		return localizationIdentifier;
+	}
+
+	public void setLocalizationIdentifier(String localizationIdentifier) {
+		this.localizationIdentifier = localizationIdentifier;
+	}
 
 	public Long getId() {
 		return id;
@@ -37,11 +48,30 @@ public class Localization{
 		this.place = place;
 	}
 
-	public Long getNumberOfSeats() {
+	public Integer getNumberOfSeats() {
 		return numberOfSeats;
 	}
 
-	public void setNumberOfSeats(Long numberOfSeats) {
+	public void setNumberOfSeats(Integer numberOfSeats) {
+		this.numberOfSeats = numberOfSeats;
+	}
+
+	public Localization() {
+	}
+
+	@Override
+	public String toString() {
+		return "Localization{" +
+				"id=" + id +
+				", localizationIdentifier='" + localizationIdentifier + '\'' +
+				", place='" + place + '\'' +
+				", numberOfSeats=" + numberOfSeats +
+				'}';
+	}
+
+	public Localization(String localizationIdentifier, String place, Integer numberOfSeats) {
+		this.localizationIdentifier = localizationIdentifier;
+		this.place = place;
 		this.numberOfSeats = numberOfSeats;
 	}
 }

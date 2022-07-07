@@ -5,6 +5,7 @@ import java.util.List;
 import asimo.v.entities.Event;
 import asimo.v.entities.objects.EventObject;
 import asimo.v.entities.objects.SessionObject;
+import asimo.v.entities.operation.SessionOperation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +28,9 @@ public class SessaoController {
 	}
 
 	@PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> create(@RequestHeader("token") final String token,@RequestBody final SessionObject sessionObject){
+	public ResponseEntity<?> create(@RequestHeader("token") final String token,@RequestBody final SessionOperation sessionOperation){
 		this.loginSessionService.validateToken(token);
-		Session session = this.sessionService.create(sessionObject, loginSessionService.findUser(token));
+		Session session = this.sessionService.create(sessionOperation, loginSessionService.findUser(token));
 		return ResponseEntity.ok(session.toString());
 	}
 

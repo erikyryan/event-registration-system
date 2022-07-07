@@ -2,6 +2,7 @@ package asimo.v.entities;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.persistence.TemporalType;
 
 import asimo.v.entities.enums.EventStatus;
 import asimo.v.entities.objects.SessionObject;
+import asimo.v.entities.operation.SessionOperation;
 
 @Entity
 @Table(name = "sessao")
@@ -43,18 +45,36 @@ public class Session{
     @Column(name = "valorinteira")
     private Long ticketPrice;
 
-    @OneToMany(mappedBy="session")
-    private List<Ticket> ticket;
-
     @Column(name = "status")
     private EventStatus sessiosStatus;
 
-	public Session(SessionObject sessionObject) {
+	public Session(SessionOperation SessionOperation) {
+
+	}
+
+	public Session(SessionOperation sessionOperation, Localization localization, Event event) {
+		this.setSessionIdentifier(UUID.randomUUID().toString());
+		this.setSessionDate(sessionOperation.getSessionDate());
+		this.setPlace(localization);
+		this.setEvent(event);
+		this.setTicketPrice(sessionOperation.getTicketPrice());
+		this.setSessiosStatus(sessionOperation.getSessiosStatus());
+	}
+
+	public Session(SessionObject SessionObject) {
 
 	}
 
 	public Session() {
 
+	}
+
+	public String getSessionIdentifier() {
+		return sessionIdentifier;
+	}
+
+	public void setSessionIdentifier(String sessionIdentifier) {
+		this.sessionIdentifier = sessionIdentifier;
 	}
 
 	public Long getId() {
@@ -96,14 +116,6 @@ public class Session{
 	public void setTicketPrice(Long ticketPrice) {
 		this.ticketPrice = ticketPrice;
 	}
-
-	public List<Ticket> getTicket() {
-		return ticket;
-	}
-
-	public void setTicket(List<Ticket> ticket) {
-		this.ticket = ticket;
-	}
     
 	public EventStatus getSessiosStatus() {
 		return sessiosStatus;
@@ -121,7 +133,6 @@ public class Session{
 				", place=" + place +
 				", event=" + event +
 				", ticketPrice=" + ticketPrice +
-				", ticket=" + ticket +
 				", sessiosStatus=" + sessiosStatus +
 				'}';
 	}
