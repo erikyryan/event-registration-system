@@ -33,9 +33,6 @@ public class Ticket{
 	@Column(name="eventidentifier",nullable = false)
 	private String eventIdentifier;
 
-	@Column(name = "localizationidentifier",nullable = false)
-	private String localizationIdentifier;
-
     @Column(name = "saleidentifier",nullable = true)
     private String saleidentifier;
 
@@ -99,14 +96,6 @@ public class Ticket{
 		this.eventIdentifier = eventIdentifier;
 	}
 
-	public String getLocalizationIdentifier() {
-		return localizationIdentifier;
-	}
-
-	public void setLocalizationIdentifier(String localizationIdentifier) {
-		this.localizationIdentifier = localizationIdentifier;
-	}
-
 	public String getSaleidentifier() {
 		return saleidentifier;
 	}
@@ -150,14 +139,13 @@ public class Ticket{
 	public Ticket() {
 	}
 
-	public Ticket(Integer seat, TicketType ticketType, Long price, String sessionIdentifier, String eventIdentifier, String localizationIdentifier, String saleidentifier, String useridentifier, Boolean occupied, Date startDate, Date endDate) {
+	public Ticket(Integer seat, TicketType ticketType, Long price, String sessionIdentifier, String eventIdentifier, String saleidentifier, String useridentifier, Boolean occupied, Date startDate, Date endDate) {
 		this.setTicketIdentifier(UUID.randomUUID().toString());
 		this.seat = seat;
 		this.ticketType = ticketType;
 		this.price = price;
 		this.sessionIdentifier = sessionIdentifier;
 		this.eventIdentifier = eventIdentifier;
-		this.localizationIdentifier = localizationIdentifier;
 		this.saleidentifier = saleidentifier;
 		this.useridentifier = useridentifier;
 		this.occupied = occupied;
@@ -165,11 +153,10 @@ public class Ticket{
 		this.endDate = endDate;
 	}
 
-	public Ticket(Integer seat, String eventIdentifier,String localizationIdentifier, String sessionIdentifier){
+	public Ticket(Integer seat, String eventIdentifier, String sessionIdentifier){
 		this.setSeat(seat);
 		this.setTicketIdentifier(UUID.randomUUID().toString());
 		this.setEventIdentifier(eventIdentifier);
-		this.setLocalizationIdentifier(localizationIdentifier);
 		this.setSessionIdentifier(sessionIdentifier);
 		this.setOccupied(false);
 	}

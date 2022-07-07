@@ -1,17 +1,13 @@
 package asimo.v.entities.objects;
 
 import asimo.v.entities.Event;
-import asimo.v.entities.Localization;
 import asimo.v.entities.enums.EventStatus;
 
-import javax.persistence.Column;
 import java.util.Date;
 
 public class SessionObject {
 
     private Date sessionDate;
-
-    private Localization place;
 
     private Event event;
 
@@ -25,14 +21,6 @@ public class SessionObject {
 
     public void setSessionDate(Date sessionDate) {
         this.sessionDate = sessionDate;
-    }
-
-    public Localization getPlace() {
-        return place;
-    }
-
-    public void setPlace(Localization place) {
-        this.place = place;
     }
 
     public Event getEvent() {

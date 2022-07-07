@@ -24,9 +24,6 @@ public class TicketObject {
     @NotNull
     private String eventIdentifier;
 
-    @NotNull
-    private String localizationIdentifier;
-
     private String saleidentifier;
 
     private String useridentifier;

@@ -23,15 +23,12 @@ public class SessionService {
     private SessionRepository sessionRepository;
 	private TicketService ticketService;
 
-	private LocalizationService localizationService;
-
 	private EventService eventService;
 
 
-	public SessionService(SessionRepository sessionRepository, TicketService ticketService, LocalizationService localizationService, EventService eventService) {
+	public SessionService(SessionRepository sessionRepository, TicketService ticketService, EventService eventService) {
 		this.sessionRepository = sessionRepository;
 		this.ticketService = ticketService;
-		this.localizationService = localizationService;
 		this.eventService = eventService;
 	}
 
@@ -45,13 +42,12 @@ public class SessionService {
 
     public Session create(SessionOperation sessionOperation, User user) {
 		if(user.isAdmin()){
-			//validateCreationSession(sessionOperation);
+			validateCreationSession(sessionOperation);
 			Event event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
-			Localization localization = localizationService.findByLocalizationIdentifier(sessionOperation.getLocalizationIdentifier());
 
-			Session session =  new Session(sessionOperation,localization,event);
+			Session session =  new Session(sessionOperation,event);
 			sessionRepository.save(session);
-			ticketService.generateSessionTicket(session.getPlace().getNumberOfSeats(),session.getEvent().getEventIdentifier(),session.getPlace().getLocalizationIdentifier(), session.getSessionIdentifier());
+			ticketService.generateSessionTicket(session.getNumberOfSeats(),session.getEvent().getEventIdentifier(), session.getSessionIdentifier());
 			return session;
 		}
 		throw new RuntimeException("Não foi possível salvar");
@@ -67,11 +63,6 @@ public class SessionService {
 
 	private void validateCreationSession(SessionOperation sessionOperation) {
 		Event event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
-		Localization localization = localizationService.findByLocalizationIdentifier(sessionOperation.getLocalizationIdentifier());
-		if (!sessionRepository.findByPlaceAndEvent(localization,event).isPresent()) {
-			throw new InvalidEvent("Sessão Inválida");
-		}
-
 		if (!sessionRepository.findByEventAndSessionDate(event,sessionOperation.getSessionDate()).isPresent()) {
 			throw new InvalidEvent("Sessão Inválida");
 		}

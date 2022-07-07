@@ -35,27 +35,25 @@ public class Session{
     private Date sessionDate;
 
     @OneToOne
-    @JoinColumn(name="idlocal", referencedColumnName = "id")
-    private Localization place;
-
-    @OneToOne
     @JoinColumn(name="idevento", referencedColumnName = "id")
     private Event event;
 
-    @Column(name = "valorinteira")
+    @Column(name = "valor")
     private Long ticketPrice;
 
     @Column(name = "status")
     private EventStatus sessiosStatus;
 
+	@Column(name = "numerodeassentos")
+	private Integer numberOfSeats;
+
 	public Session(SessionOperation SessionOperation) {
 
 	}
 
-	public Session(SessionOperation sessionOperation, Localization localization, Event event) {
+	public Session(SessionOperation sessionOperation, Event event) {
 		this.setSessionIdentifier(UUID.randomUUID().toString());
 		this.setSessionDate(sessionOperation.getSessionDate());
-		this.setPlace(localization);
 		this.setEvent(event);
 		this.setTicketPrice(sessionOperation.getTicketPrice());
 		this.setSessiosStatus(sessionOperation.getSessiosStatus());
@@ -63,6 +61,14 @@ public class Session{
 
 	public Session(SessionObject SessionObject) {
 
+	}
+
+	public Integer getNumberOfSeats() {
+		return numberOfSeats;
+	}
+
+	public void setNumberOfSeats(Integer numberOfSeats) {
+		this.numberOfSeats = numberOfSeats;
 	}
 
 	public Session() {
@@ -91,14 +97,6 @@ public class Session{
 
 	public void setSessionDate(Date sessionDate) {
 		this.sessionDate = sessionDate;
-	}
-
-	public Localization getPlace() {
-		return place;
-	}
-
-	public void setPlace(Localization place) {
-		this.place = place;
 	}
 
 	public Event getEvent() {
@@ -130,7 +128,6 @@ public class Session{
 		return "Session{" +
 				"  sessionIdentifier='" + sessionIdentifier + '\'' +
 				", sessionDate=" + sessionDate +
-				", place=" + place +
 				", event=" + event +
 				", ticketPrice=" + ticketPrice +
 				", sessiosStatus=" + sessiosStatus +

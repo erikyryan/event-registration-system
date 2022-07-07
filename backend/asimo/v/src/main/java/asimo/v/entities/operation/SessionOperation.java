@@ -8,8 +8,6 @@ public class SessionOperation {
 
     private Date sessionDate;
 
-    private String localizationIdentifier;
-
     private String eventIdentifier;
 
     private Long ticketPrice;
@@ -22,14 +20,6 @@ public class SessionOperation {
 
     public void setSessionDate(Date sessionDate) {
         this.sessionDate = sessionDate;
-    }
-
-    public String getLocalizationIdentifier() {
-        return localizationIdentifier;
-    }
-
-    public void setLocalizationIdentifier(String localizationIdentifier) {
-        this.localizationIdentifier = localizationIdentifier;
     }
 
     public String getEventIdentifier() {
@@ -59,9 +49,8 @@ public class SessionOperation {
     public SessionOperation() {
     }
 
-    public SessionOperation(Date sessionDate, String localizationIdentifier, String eventIdentifier, Long ticketPrice, EventStatus sessiosStatus) {
+    public SessionOperation(Date sessionDate, String eventIdentifier, Long ticketPrice, EventStatus sessiosStatus) {
         this.sessionDate = sessionDate;
-        this.localizationIdentifier = localizationIdentifier;
         this.eventIdentifier = eventIdentifier;
         this.ticketPrice = ticketPrice;
         this.sessiosStatus = sessiosStatus;
