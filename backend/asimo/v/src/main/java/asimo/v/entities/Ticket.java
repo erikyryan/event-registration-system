@@ -3,6 +3,7 @@ package asimo.v.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import asimo.v.entities.dto.TicketDTO;
 import asimo.v.entities.enums.TicketType;
 
 import java.util.Date;
@@ -33,20 +34,25 @@ public class Ticket{
 	@Column(name="eventidentifier",nullable = false)
 	private String eventIdentifier;
 
-    @Column(name = "saleidentifier",nullable = true)
+    @Column(name = "saleidentifier")
     private String saleidentifier;
 
-	@Column(name="useridentifier",nullable = true)
+	@Column(name="useridentifier")
 	private String useridentifier;
 
-	@NotNull
-	private Boolean occupied;
+	@Column(name = "occupiedseat",nullable = false)
+	private Boolean occupiedSeat;
 
 	@Column(name = "startdate")
 	private Date startDate;
 
 	@Column(name = "enddate")
 	private Date endDate;
+
+	public TicketDTO generateTicketDTO(){
+		return new TicketDTO(this.occupiedSeat,this.seat);
+	}
+
 
 	public String getTicketIdentifier() {
 		return ticketIdentifier;
@@ -113,11 +119,11 @@ public class Ticket{
 	}
 
 	public Boolean getOccupied() {
-		return occupied;
+		return occupiedSeat;
 	}
 
-	public void setOccupied(Boolean occupied) {
-		this.occupied = occupied;
+	public void setOccupied(Boolean occupiedSeat) {
+		this.occupiedSeat = occupiedSeat;
 	}
 
 	public Date getStartDate() {
@@ -139,7 +145,7 @@ public class Ticket{
 	public Ticket() {
 	}
 
-	public Ticket(Integer seat, TicketType ticketType, Long price, String sessionIdentifier, String eventIdentifier, String saleidentifier, String useridentifier, Boolean occupied, Date startDate, Date endDate) {
+	public Ticket(Integer seat, TicketType ticketType, Long price, String sessionIdentifier, String eventIdentifier, String saleidentifier, String useridentifier, Boolean occupiedSeat, Date startDate, Date endDate) {
 		this.setTicketIdentifier(UUID.randomUUID().toString());
 		this.seat = seat;
 		this.ticketType = ticketType;
@@ -148,7 +154,7 @@ public class Ticket{
 		this.eventIdentifier = eventIdentifier;
 		this.saleidentifier = saleidentifier;
 		this.useridentifier = useridentifier;
-		this.occupied = occupied;
+		this.occupiedSeat = occupiedSeat;
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}

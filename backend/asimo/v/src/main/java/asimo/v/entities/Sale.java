@@ -15,6 +15,7 @@ import javax.persistence.TemporalType;
 
 import asimo.v.entities.enums.DocType;
 import asimo.v.entities.enums.SaleType;
+import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 @Table(name = "venda")
@@ -28,7 +29,7 @@ public class Sale{
 	private String saleIdentifier;
 
     @Column(name = "nrprotocolo")
-    private Long protocol;
+    private String protocol = String.format("%05d",id.toString());;
 
     @Column(name="nrvalorvenda")
     private Long price;
@@ -53,6 +54,7 @@ public class Sale{
     private DocType docType;
 
     @Column(name = "nrdocumento")
+	@GeneratedValue()
     private String doc;
 
 	public Long getId() {
@@ -63,11 +65,15 @@ public class Sale{
 		this.id = id;
 	}
 
-	public Long getProtocol() {
+	public String generateProtocol(){
+		return String.format("%05d",id.toString());
+	}
+
+	public String getProtocol() {
 		return protocol;
 	}
 
-	public void setProtocol(Long protocol) {
+	public void setProtocol(String protocol) {
 		this.protocol = protocol;
 	}
 
@@ -138,9 +144,8 @@ public class Sale{
 	public Sale() {
 	}
 
-	public Sale(String saleIdentifier, Long protocol, Long price, Date saleDate, User user, String paymentForm, SaleType saleType, String userName, DocType docType, String doc) {
+	public Sale(String saleIdentifier, Long price, Date saleDate, User user, String paymentForm, SaleType saleType, String userName, DocType docType, String doc) {
 		this.saleIdentifier = saleIdentifier;
-		this.protocol = protocol;
 		this.price = price;
 		this.saleDate = saleDate;
 		this.user = user;

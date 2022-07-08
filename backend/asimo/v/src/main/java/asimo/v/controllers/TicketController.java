@@ -1,5 +1,7 @@
 package asimo.v.controllers;
 
+import asimo.v.entities.dto.TicketDTO;
+import asimo.v.services.LoginSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,32 +14,31 @@ import org.springframework.web.bind.annotation.RestController;
 import asimo.v.entities.Ticket;
 import asimo.v.services.TicketService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/ticket")
 public class TicketController {
 
+    private LoginSessionService loginSessionService;
 
-//    @Autowired
-//    private TicketService service;
+    private TicketService ticketService;
 
-//    @GetMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Ticket> findById(@PathVariable Long id, @RequestHeader("token") String token) {
-//        return service.findById(id);
-//    }
+    public TicketController(LoginSessionService loginSessionService, TicketService ticketService) {
+        this.loginSessionService = loginSessionService;
+        this.ticketService = ticketService;
+    }
 
-//    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Ticket> save(@RequestBody Ticket ingresso, @RequestHeader("token") String token){
-//        return service.save(ingresso);
-//    }
-//
-//    @PutMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Ticket> update(@PathVariable Long id,@RequestBody Ticket ingresso, @RequestHeader("token") String token){
-//        return service.update(id,ingresso);
-//    }
-//
-//    @DeleteMapping(name = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Ticket> delete(@PathVariable Long id, @RequestHeader("token") String token){
-//        return service.delete(id);
-//    }
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> listAllSeats(@RequestHeader("token") String token, @RequestHeader("sessionidentifier") String sessionIdentifier) {
+        this.loginSessionService.validateToken(token);
+        List<TicketDTO> tickets = ticketService.findAllTicketsBySessionIdentifier(sessionIdentifier)
+                .stream().map(Ticket::generateTicketDTO)
+                .collect(Collectors.toList()
+                );
+
+        return ResponseEntity.ok(tickets);
+    }
 
 }

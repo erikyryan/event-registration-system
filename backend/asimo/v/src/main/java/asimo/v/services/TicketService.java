@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import asimo.v.entities.Ticket;
 import asimo.v.repositories.TicketRepository;
 
+import java.util.List;
+
 @Service
 public class TicketService {
 
@@ -12,6 +14,14 @@ public class TicketService {
 
     public TicketService(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
+    }
+
+    public List<Ticket> findAllTicketsBySessionIdentifier(String sessionIdentifier){
+        return ticketRepository.findAllBySessionIdentifier(sessionIdentifier);
+    }
+
+    public Ticket findTicketBySession(String sessionIdentifier){
+        return ticketRepository.findTicketBySessionIdentifier(sessionIdentifier);
     }
 
     public void createTicket(Integer seat, String eventIdentifier, String sessionIdentifier){
@@ -24,5 +34,4 @@ public class TicketService {
             this.createTicket(seat,eventIdentifier,sessionIdentifier);
         }
     }
-
 }
