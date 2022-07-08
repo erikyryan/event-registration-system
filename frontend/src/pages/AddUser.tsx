@@ -1,23 +1,18 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Link } from "react-router-dom";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import AddUserForm from "../components/AddUserForm";
 
-import { Link, useNavigate } from "react-router-dom";
-import AddMovieForm from "../components/AddMovieForm";
-import api from "../services/api";
-import { useAuth } from "../contexts/AuthContext";
-
-const AddMovie = () => {
-  const { token } = useAuth();
-  const navigate = useNavigate();
+const AddUser = () => {
   const [formData, setFormData] = useState({
     name: "",
-    synopsis: "",
-    duration: "",
-    classification: 18,
-    launchYear: "2022",
-    movieType: 0
+    doc: "",
+    email: "",
+    telephone: "",
+    password: "",
+    role: "VENDEDOR"
   });
 
   const handleChange = (e: any) => {
@@ -29,18 +24,7 @@ const AddMovie = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (token) {
-      try {
-        const res = await api.post("/event/create", formData, {
-          headers: {
-            token: token
-          }
-        });
-        navigate("/filmes");
-      } catch (error) {
-        console.log(error);
-      }
-    }
+    console.log(formData);
   };
 
   return (
@@ -50,23 +34,23 @@ const AddMovie = () => {
           <Button
             startIcon={<ArrowBackIcon />}
             component={Link}
-            to="/filmes"
+            to="/users"
             variant="text"
             size="small"
             color="secondary"
             sx={{ display: "flex", justifyContent: "start", px: 0 }}>
-            Voltar para Filmes
+            Voltar para usuários
           </Button>
           <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-            Adicionar Filme
+            Adicionar usuário
           </Typography>
         </Stack>
       </Box>
       <Box>
-        <AddMovieForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+        <AddUserForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
       </Box>
     </DashboardLayout>
   );
 };
 
-export default AddMovie;
+export default AddUser;

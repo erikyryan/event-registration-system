@@ -1,34 +1,24 @@
 import React, { useState } from "react";
-import { Box, Button, Grid, TextField, Typography, Snackbar } from "@mui/material";
-import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
 import MaskedInput from "../components/MaskedInput";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../services/api";
 import EditPasswordForm from "../components/EditPasswordForm";
-
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+import EditEmailForm from "../components/EditEmailForm";
+import useToast from "../hooks/useToast";
+import Toast from "../components/Toast";
 
 const Profile = () => {
   const { currentUser, token } = useAuth();
-  const [open, setOpen] = useState(false);
+  const { toast, open, setOpen, toastProps } = useToast();
+
   const [data, setData] = useState({
     name: currentUser?.name || "",
     doc: currentUser?.doc || "",
-    email: currentUser?.email || "",
     telephone: currentUser?.telephone || "",
     birthDate: new Date(currentUser?.birthDate).toISOString().split("T")[0] || ""
   });
-
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   const handleChange = (e: any) => {
     setData((prev) => ({
@@ -39,22 +29,18 @@ const Profile = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
     if (token && currentUser?.userIdentifier) {
       try {
-        const res = await api.post(
-          "/user/edit",
-          { ...data },
-          {
-            headers: {
-              token: token,
-              userIdentifier: currentUser?.userIdentifier
-            }
+        const res = await api.post("/user/edit", data, {
+          headers: {
+            token: token,
+            userIdentifier: currentUser?.userIdentifier
           }
-        );
-        setOpen(true);
+        });
+        toast("Perfil atualizado com sucesso!", "success");
         console.log(res);
       } catch (error) {
+        toast("Erro ao atualizar perfil, tente novamente mais tarde!", "error");
         console.log(error);
       }
     }
@@ -62,15 +48,6 @@ const Profile = () => {
 
   return (
     <DashboardLayout>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          Perfil alterado com sucesso!
-        </Alert>
-      </Snackbar>
       <Box
         sx={{
           display: "flex",
@@ -78,6 +55,7 @@ const Profile = () => {
           alignItems: "center",
           flexDirection: "column"
         }}>
+        <Toast toastProps={toastProps} open={open} setOpen={setOpen} />
         <Typography variant="h4" sx={{ fontWeight: "bold", mb: 3 }}>
           Perfil
         </Typography>
@@ -103,16 +81,6 @@ const Profile = () => {
             </Grid>
             <Grid item xs={2}>
               <TextField
-                label="Email"
-                name="email"
-                type="email"
-                fullWidth
-                value={data.email}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={2}>
-              <TextField
                 label="Telefone"
                 name="telephone"
                 fullWidth
@@ -131,17 +99,20 @@ const Profile = () => {
                 onChange={handleChange}
               />
             </Grid>
+            <Grid item xs={4}>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={handleSubmit}
+                size="large">
+                Salvar
+              </Button>
+            </Grid>
           </Grid>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ mt: 2 }}
-            fullWidth
-            onClick={handleSubmit}>
-            Salvar
-          </Button>
+          <EditEmailForm initialEmailValue={currentUser?.email} />
+          <EditPasswordForm />
         </Box>
-        <EditPasswordForm />
       </Box>
     </DashboardLayout>
   );

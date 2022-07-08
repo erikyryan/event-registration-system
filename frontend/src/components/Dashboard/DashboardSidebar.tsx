@@ -5,7 +5,6 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import GroupIcon from "@mui/icons-material/Group";
 import LocalActivityIcon from "@mui/icons-material/LocalActivity";
 import InsertInvitationIcon from "@mui/icons-material/InsertInvitation";
-import EventSeatIcon from "@mui/icons-material/EventSeat";
 
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
@@ -40,12 +39,6 @@ const items = [
     href: "/sessions",
     icon: <InsertInvitationIcon />,
     title: "Sessões",
-    allowedRoles: ["ADMIN"]
-  },
-  {
-    href: "/rooms",
-    icon: <EventSeatIcon />,
-    title: "Salas",
     allowedRoles: ["ADMIN"]
   },
   {

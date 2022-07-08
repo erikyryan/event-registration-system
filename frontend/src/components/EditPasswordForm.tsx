@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { useState } from "react";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../services/api";
 
@@ -45,9 +45,9 @@ const EditPasswordForm = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 600, width: "100%" }}>
+    <>
       <Typography variant="h6" fontWeight="bold" marginTop={4} marginBottom={2}>
-        Editar Senha
+        Editar senha
       </Typography>
       <Grid container columns={{ xs: 4 }} spacing={2}>
         <Grid item xs={4}>
@@ -75,10 +75,16 @@ const EditPasswordForm = () => {
           />
         </Grid>
       </Grid>
-      <Button variant="contained" color="primary" sx={{ mt: 2 }} fullWidth onClick={handleSubmit}>
-        Salvar
+      <Button
+        variant="contained"
+        size="large"
+        color="primary"
+        sx={{ mt: 2 }}
+        fullWidth
+        onClick={handleSubmit}>
+        Salvar senha
       </Button>
-    </Box>
+    </>
   );
 };
 
