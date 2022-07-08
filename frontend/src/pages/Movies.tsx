@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import api from "../services/api";
+import { Grid } from "@mui/material";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
 import MovieCard from "../components/MovieCard";
-import { Link } from "react-router-dom";
-import api from "../services/api";
-import { useAuth } from "../contexts/AuthContext";
+import PageHeader from "../components/PageHeader";
 
 const Movies = () => {
-  const { currentUser } = useAuth();
   const [movies, setMovies] = useState([]);
 
   const fetchMovies = async () => {
     const res = await api.get("/event/public/available");
-    console.log(res.data);
     setMovies(res.data);
   };
 
@@ -22,18 +19,11 @@ const Movies = () => {
 
   return (
     <DashboardLayout>
-      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
-        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          Filmes em cartaz
-        </Typography>
-        {currentUser?.role === "ADMIN" && (
-          <Box>
-            <Button variant="contained" component={Link} to="/filmes/adicionar">
-              Adicionar Filme
-            </Button>
-          </Box>
-        )}
-      </Box>
+      <PageHeader
+        title="Filmes em cartaz"
+        addButtonUrl="/filmes/adicionar"
+        addButtonText="Adicionar Filme"
+      />
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {movies.map((movie, index) => (
           <Grid item xs={4} sm={4} md={6} key={index}>
@@ -46,36 +36,3 @@ const Movies = () => {
 };
 
 export default Movies;
-
-const events = [
-  {
-    name: "The Lion King",
-    synopsis:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate doloremque aliquid quidem sed est similique ullam minima tenetur cumque aut recusandae enim veniam voluptates voluptatum, error ratione ex saepe odio."
-  },
-  {
-    name: "Funny Games",
-    synopsis:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate doloremque aliquid quidem sed est similique ullam minima tenetur cumque aut recusandae enim veniam voluptates voluptatum, error ratione ex saepe odio."
-  },
-  {
-    name: "Fight Club",
-    synopsis:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate doloremque aliquid quidem sed est similique ullam minima tenetur cumque aut recusandae enim veniam voluptates voluptatum, error ratione ex saepe odio."
-  },
-  {
-    name: "Split",
-    synopsis:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate doloremque aliquid quidem sed est similique ullam minima tenetur cumque aut recusandae enim veniam voluptates voluptatum, error ratione ex saepe odio."
-  },
-  {
-    name: "Moana",
-    synopsis:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate doloremque aliquid quidem sed est similique ullam minima tenetur cumque aut recusandae enim veniam voluptates voluptatum, error ratione ex saepe odio."
-  },
-  {
-    name: "Soul",
-    synopsis:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate doloremque aliquid quidem sed est similique ullam minima tenetur cumque aut recusandae enim veniam voluptates voluptatum, error ratione ex saepe odio."
-  }
-];

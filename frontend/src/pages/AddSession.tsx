@@ -1,23 +1,13 @@
 import { useState } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-  Typography
-} from "@mui/material";
+import { Box } from "@mui/material";
 import AddSessionForm from "../components/AddSessionForm";
-
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
-
-import { Link } from "react-router-dom";
+import HeaderBackButton from "../components/HeaderBackButton";
+import useToast from "../hooks/useToast";
+import Toast from "../components/Toast";
 
 const AddSession = () => {
+  const { toast, open, setOpen, toastProps } = useToast();
   const [formData, setFormData] = useState({
     sessionDate: "",
     place: "",
@@ -36,27 +26,17 @@ const AddSession = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log(formData);
+    toast("Sessão adicionada com sucesso!", "success");
   };
 
   return (
     <DashboardLayout>
-      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
-        <Stack>
-          <Button
-            startIcon={<ArrowBackIcon />}
-            component={Link}
-            to="/sessions"
-            variant="text"
-            size="small"
-            color="secondary"
-            sx={{ display: "flex", justifyContent: "start", px: 0 }}>
-            Voltar para Sessões
-          </Button>
-          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-            Adicionar Sessão
-          </Typography>
-        </Stack>
-      </Box>
+      <Toast toastProps={toastProps} open={open} setOpen={setOpen} />
+      <HeaderBackButton
+        title="Adicionar Sessão"
+        backUrl="/sessions"
+        backButtonText="Voltar para sessões"
+      />
       <Box>
         <AddSessionForm
           formData={formData}
