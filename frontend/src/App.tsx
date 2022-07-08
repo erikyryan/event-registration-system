@@ -7,12 +7,12 @@ import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import Movies from "./pages/Movies";
 import Sessions from "./pages/Sessions";
-import Rooms from "./pages/Rooms";
 import AddMovie from "./pages/AddMovie";
 import Movie from "./pages/Movie";
 import Session from "./pages/Session";
 import Profile from "./pages/Profile";
 import AddSession from "./pages/AddSession";
+import AddUser from "./pages/AddUser";
 
 function App() {
   return (
@@ -34,10 +34,10 @@ function App() {
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/users/adicionar" element={<AddUser />} />
           <Route path="/filmes/adicionar" element={<AddMovie />} />
           <Route path="/sessions" element={<Sessions />} />
           <Route path="/sessions/adicionar" element={<AddSession />} />
-          <Route path="/rooms" element={<Rooms />} />
         </Route>
       </Routes>
     </AuthProvider>
