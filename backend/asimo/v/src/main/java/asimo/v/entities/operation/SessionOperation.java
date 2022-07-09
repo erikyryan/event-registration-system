@@ -40,6 +40,14 @@ public class SessionOperation {
         this.sessiosStatus = sessiosStatus;
     }
 
+    public Integer getNumberOfSeats() {
+        return numberOfSeats;
+    }
+
+    public void setNumberOfSeats(Integer numberOfSeats) {
+        this.numberOfSeats = numberOfSeats;
+    }
+
     public SessionOperation() {
     }
 

@@ -2,16 +2,7 @@ package asimo.v.entities;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import asimo.v.entities.enums.DocType;
 import asimo.v.entities.enums.SaleType;
@@ -29,7 +20,7 @@ public class Sale{
 	private String saleIdentifier;
 
     @Column(name = "nrprotocolo")
-    private String protocol = String.format("%05d",id.toString());;
+    private String protocol;
 
     @Column(name="nrvalorvenda")
     private Long price;
@@ -65,9 +56,9 @@ public class Sale{
 		this.id = id;
 	}
 
-	public String generateProtocol(){
-		return String.format("%05d",id.toString());
-	}
+//	public String generateProtocol(){
+//		return String.format("%05d",.toString());
+//	}
 
 	public String getProtocol() {
 		return protocol;
