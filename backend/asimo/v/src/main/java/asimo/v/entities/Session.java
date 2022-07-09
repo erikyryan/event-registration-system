@@ -35,16 +35,16 @@ public class Session{
     private Date sessionDate;
 
     @OneToOne
-    @JoinColumn(name="idevento", referencedColumnName = "id")
+    @JoinColumn(name="idevent", referencedColumnName = "id")
     private Event event;
 
-    @Column(name = "valor")
+    @Column(name = "value")
     private Long ticketPrice;
 
     @Column(name = "status")
     private EventStatus sessiosStatus;
 
-	@Column(name = "numerodeassentos")
+	@Column(name = "numberofseats")
 	private Integer numberOfSeats;
 
 	public Session(SessionOperation SessionOperation) {
@@ -57,6 +57,7 @@ public class Session{
 		this.setEvent(event);
 		this.setTicketPrice(sessionOperation.getTicketPrice());
 		this.setSessiosStatus(sessionOperation.getSessiosStatus());
+		this.setNumberOfSeats(sessionOperation.getNumberOfSeats());
 	}
 
 	public Session(SessionObject SessionObject) {

@@ -20,16 +20,16 @@ public class VendaController {
 
     @Autowired
     private SaleService service;
-
-    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Sale> findById(@PathVariable Long id, @RequestHeader("token") String token) {
-        return service.findById(id);
-    }
-
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Sale>> findAll(@RequestHeader("token") String token) {
-        return service.findAll();
-    }
+//
+//    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Sale> findById(@PathVariable Long id, @RequestHeader("token") String token) {
+//        return service.findById(id);
+//    }
+//
+//    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<List<Sale>> findAll(@RequestHeader("token") String token) {
+//        return service.findAll();
+//    }
 
 //    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 //    public ResponseEntity<Sale> save(@RequestBody Sale venda, @RequestHeader("token") String token){

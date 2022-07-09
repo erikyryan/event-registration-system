@@ -43,8 +43,8 @@ public class Ticket{
 	@Column(name = "occupiedseat",nullable = false)
 	private Boolean occupiedSeat;
 
-	@Column(name = "startdate")
-	private Date startDate;
+	@Column(name = "saledate")
+	private Date saleDate;
 
 	@Column(name = "enddate")
 	private Date endDate;
@@ -126,12 +126,20 @@ public class Ticket{
 		this.occupiedSeat = occupiedSeat;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public Boolean getOccupiedSeat() {
+		return occupiedSeat;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setOccupiedSeat(Boolean occupiedSeat) {
+		this.occupiedSeat = occupiedSeat;
+	}
+
+	public Date getSaleDate() {
+		return saleDate;
+	}
+
+	public void setSaleDate(Date saleDate) {
+		this.saleDate = saleDate;
 	}
 
 	public Date getEndDate() {
@@ -145,7 +153,7 @@ public class Ticket{
 	public Ticket() {
 	}
 
-	public Ticket(Integer seat, TicketType ticketType, Long price, String sessionIdentifier, String eventIdentifier, String saleidentifier, String useridentifier, Boolean occupiedSeat, Date startDate, Date endDate) {
+	public Ticket(Integer seat, TicketType ticketType, Long price, String sessionIdentifier, String eventIdentifier, String saleidentifier, String useridentifier, Boolean occupiedSeat, Date saleDate, Date endDate) {
 		this.setTicketIdentifier(UUID.randomUUID().toString());
 		this.seat = seat;
 		this.ticketType = ticketType;
@@ -155,7 +163,7 @@ public class Ticket{
 		this.saleidentifier = saleidentifier;
 		this.useridentifier = useridentifier;
 		this.occupiedSeat = occupiedSeat;
-		this.startDate = startDate;
+		this.saleDate  = saleDate;
 		this.endDate = endDate;
 	}
 

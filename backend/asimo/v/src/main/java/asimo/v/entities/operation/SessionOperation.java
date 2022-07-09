@@ -14,6 +14,8 @@ public class SessionOperation {
 
     private EventStatus sessiosStatus;
 
+    private Integer numberOfSeats;
+
     public Date getSessionDate() {
         return sessionDate;
     }
@@ -46,13 +48,22 @@ public class SessionOperation {
         this.sessiosStatus = sessiosStatus;
     }
 
+    public Integer getNumberOfSeats() {
+        return numberOfSeats;
+    }
+
+    public void setNumberOfSeats(Integer numberOfSeats) {
+        this.numberOfSeats = numberOfSeats;
+    }
+
     public SessionOperation() {
     }
 
-    public SessionOperation(Date sessionDate, String eventIdentifier, Long ticketPrice, EventStatus sessiosStatus) {
+    public SessionOperation(Date sessionDate, String eventIdentifier, Long ticketPrice, EventStatus sessiosStatus, Integer numberOfSeats) {
         this.sessionDate = sessionDate;
         this.eventIdentifier = eventIdentifier;
         this.ticketPrice = ticketPrice;
         this.sessiosStatus = sessiosStatus;
+        this.numberOfSeats = numberOfSeats;
     }
 }
