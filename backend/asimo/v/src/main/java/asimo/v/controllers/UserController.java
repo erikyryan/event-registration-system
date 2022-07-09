@@ -46,12 +46,20 @@ public class UserController {
     	User createdUser = this.userService.create(userSession);
     	return ResponseEntity.ok(createdUser.toString());
     }
-   
+
+    @PostMapping(value = "/create/admin", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createAdmin(@RequestBody final User userSession,
+    		@RequestHeader("token") String token){
+    	this.loginSessionService.validateToken(token);
+    	User createdUser = this.userService.createAdmin(userSession);
+    	return ResponseEntity.ok(createdUser.toString());
+    }
+
     @PostMapping(value = "/edit", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> edit(@RequestBody final UserOperation userEdit,
     		@RequestHeader("token") String token, @RequestHeader("userIdentifier") String identifier){
     	loginSessionService.validateToken(token);
-    	User editedUser = this.userService.editUser(userEdit, this.userService.findByIdentifier(identifier));
+    	this.userService.editUser(userEdit, this.userService.findByIdentifier(identifier));
     	return ResponseEntity.ok(true);
     }
 

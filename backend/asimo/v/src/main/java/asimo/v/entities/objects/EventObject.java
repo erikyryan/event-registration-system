@@ -12,7 +12,10 @@ public class EventObject {
     private String name;
 
     @NotNull
-    private Date eventDate;
+    private Date eventStartDate;
+
+    @NotNull
+    private Date eventEndDate;
 
     @NotNull
     private String duration;
@@ -40,15 +43,23 @@ public class EventObject {
         this.name = name;
     }
 
-    public Date getEventDate() {
-        return eventDate;
-    }
+    public Date getEventStartDate() {
+		return eventStartDate;
+	}
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
-    }
+	public void setEventStartDate(Date eventStartDate) {
+		this.eventStartDate = eventStartDate;
+	}
 
-    public String getSynopsis() {
+	public Date getEventEndDate() {
+		return eventEndDate;
+	}
+
+	public void setEventEndDate(Date eventEndDate) {
+		this.eventEndDate = eventEndDate;
+	}
+
+	public String getSynopsis() {
         return synopsis;
     }
 

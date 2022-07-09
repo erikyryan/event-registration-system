@@ -1,26 +1,25 @@
 package asimo.v.services;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import asimo.v.entities.*;
-import asimo.v.entities.enums.TicketType;
-import asimo.v.entities.objects.EventObject;
-import asimo.v.entities.objects.SessionObject;
-import asimo.v.entities.operation.SessionOperation;
-import asimo.v.exceptions.InvalidEvent;
-import asimo.v.repositories.TicketRepository;
 import org.springframework.stereotype.Service;
 
+import asimo.v.entities.Event;
+import asimo.v.entities.Session;
+import asimo.v.entities.User;
 import asimo.v.entities.enums.EventStatus;
+import asimo.v.entities.operation.SessionOperation;
+import asimo.v.exceptions.InvalidEvent;
 import asimo.v.repositories.SessionRepository;
 
 @Service
 public class SessionService {
 
     private SessionRepository sessionRepository;
+    
 	private TicketService ticketService;
 
 	private EventService eventService;
@@ -40,17 +39,33 @@ public class SessionService {
     			.collect(Collectors.toList());
     }
 
+	public List<Session> listToFinalize(){
+    	List<Session> findAll = sessionRepository.findAll();
+    	
+    	return findAll.stream()
+    			.filter(s -> new Date().before(s.getSessionEndDate()))
+    			.collect(Collectors.toList());
+    }
+
+	public List<Session> listToInitializer(){
+    	List<Session> findAll = sessionRepository.findAll();
+    	
+    	return findAll.stream()
+    			.filter(s -> new Date().after(s.getSessionStartDate()))
+    			.collect(Collectors.toList());
+    }
+
     public Session create(SessionOperation sessionOperation, User user) {
 		if(user.isAdmin()){
 			validateCreationSession(sessionOperation);
 			Event event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
 
-			Session session =  new Session(sessionOperation,event);
+			Session session = new Session(sessionOperation ,event);
 			sessionRepository.save(session);
-			ticketService.generateSessionTicket(session.getNumberOfSeats(),session.getEvent().getEventIdentifier(), session.getSessionIdentifier());
+			ticketService.generateSessionTicket(session.getNumberOfSeats(),event.getEventIdentifier(), session.getSessionIdentifier());
 			return session;
 		}
-		throw new RuntimeException("Não foi possível salvar");
+		throw new RuntimeException("Você não pode criar.");
     }
 
 	public Session findBySessionIdentifier(String sessionIdentifier){
@@ -63,7 +78,7 @@ public class SessionService {
 
 	private void validateCreationSession(SessionOperation sessionOperation) {
 		Event event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
-		if (!sessionRepository.findByEventAndSessionDate(event,sessionOperation.getSessionDate()).isPresent()) {
+		if (!sessionRepository.findByEventAndSessionDate(event,sessionOperation.getSessionStartDate()).isPresent()) {
 			throw new InvalidEvent("Sessão Inválida");
 		}
 	}

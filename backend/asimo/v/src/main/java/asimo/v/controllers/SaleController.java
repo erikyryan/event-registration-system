@@ -16,7 +16,7 @@ import asimo.v.services.SaleService;
 
 @RestController
 @RequestMapping("/sale")
-public class VendaController {
+public class SaleController {
 
     @Autowired
     private SaleService service;

@@ -1,16 +1,17 @@
 package asimo.v.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import asimo.v.entities.objects.EventObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import asimo.v.entities.Event;
 import asimo.v.entities.User;
 import asimo.v.entities.enums.EventStatus;
+import asimo.v.entities.objects.EventObject;
 import asimo.v.exceptions.InvalidEvent;
 import asimo.v.repositories.EventRepository;
 
@@ -41,17 +42,35 @@ public class EventService {
     }
 
     private void validateCreationEvent(EventObject eventObject) {
-        if (eventRepository.findByNameAndEventDateAndLaunchYear(eventObject.getName(),eventObject.getEventDate(),eventObject.getLaunchYear()).isPresent()) {
+        if (eventRepository.findByNameAndEventStartDateAndLaunchYear(eventObject.getName(),eventObject.getEventStartDate(),eventObject.getLaunchYear()).isPresent()) {
             throw new InvalidEvent("Evento Inválido");
         }
 
-        if (eventRepository.findByNameAndEventDate(eventObject.getName(),eventObject.getEventDate()).isPresent()) {
+        if (eventRepository.findByNameAndEventStartDate(eventObject.getName(),eventObject.getEventStartDate()).isPresent()) {
             throw new InvalidEvent("Evento Inválido");
         }
     }
+
+    
 
     public List<Event> listAllAvailable(){
         List<Event> events = eventRepository.findAll();
-        return events.stream().filter(e -> e.getEventStatus() != EventStatus.FINALIZADO).collect(Collectors.toList());
+        return events.stream()
+        		.filter(e -> e.getEventStatus() != EventStatus.FINALIZADO)
+        		.collect(Collectors.toList());
     }
+
+	public List<Event> listToFinalize() {
+        List<Event> events = eventRepository.findAll();
+        return events.stream()
+    			.filter(e -> new Date().before(e.getEventEndDate()))
+    			.collect(Collectors.toList());
+	}
+
+	public List<Event> listToInitializer() {
+        List<Event> events = eventRepository.findAll();
+        return events.stream()
+    			.filter(e -> new Date().after(e.getEventStartDate()))
+    			.collect(Collectors.toList());
+	}	
 }

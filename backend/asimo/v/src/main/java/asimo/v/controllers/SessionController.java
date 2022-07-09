@@ -2,27 +2,29 @@ package asimo.v.controllers;
 
 import java.util.List;
 
-import asimo.v.entities.Event;
-import asimo.v.entities.objects.EventObject;
-import asimo.v.entities.objects.SessionObject;
-import asimo.v.entities.operation.SessionOperation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import asimo.v.entities.Session;
+import asimo.v.entities.operation.SessionOperation;
 import asimo.v.services.LoginSessionService;
 import asimo.v.services.SessionService;
 
 @RestController
 @RequestMapping("/session")
-public class SessaoController {
+public class SessionController {
 
     private SessionService sessionService;
 
     private LoginSessionService loginSessionService;
     
-    public SessaoController(SessionService service, LoginSessionService loginSessionService) {
+    public SessionController(SessionService service, LoginSessionService loginSessionService) {
 		this.sessionService = service;
 		this.loginSessionService = loginSessionService;
 	}

@@ -1,7 +1,6 @@
 package asimo.v.entities;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -10,11 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import asimo.v.entities.enums.EventStatus;
 import asimo.v.entities.objects.SessionObject;
@@ -31,9 +27,12 @@ public class Session{
 	@Column(name="sessionidentifier")
 	private String sessionIdentifier;
 
-	@Column(name = "dtsessao")
-    private Date sessionDate;
+	@Column
+    private Date sessionStartDate;
 
+	@Column
+    private Date sessionEndDate;
+	
     @OneToOne
     @JoinColumn(name="idevent", referencedColumnName = "id")
     private Event event;
@@ -51,9 +50,22 @@ public class Session{
 
 	}
 
+	public Session(Long id, String sessionIdentifier, Date sessionStartDate, Date sessionEndDate, Event event,
+			Long ticketPrice, EventStatus sessiosStatus, Integer numberOfSeats) {
+		this.id = id;
+		this.sessionIdentifier = UUID.randomUUID().toString();
+		this.sessionStartDate = sessionStartDate;
+		this.sessionEndDate = sessionEndDate;
+		this.event = event;
+		this.ticketPrice = ticketPrice;
+		this.sessiosStatus = sessiosStatus;
+		this.numberOfSeats = numberOfSeats;
+	}
+
 	public Session(SessionOperation sessionOperation, Event event) {
 		this.setSessionIdentifier(UUID.randomUUID().toString());
-		this.setSessionDate(sessionOperation.getSessionDate());
+		this.setSessionStartDate(sessionOperation.getSessionStartDate());
+		this.setSessionEndDate(sessionOperation.getSessionEndDate());
 		this.setEvent(event);
 		this.setTicketPrice(sessionOperation.getTicketPrice());
 		this.setSessiosStatus(sessionOperation.getSessiosStatus());
@@ -61,7 +73,6 @@ public class Session{
 	}
 
 	public Session(SessionObject SessionObject) {
-
 	}
 
 	public Integer getNumberOfSeats() {
@@ -72,8 +83,14 @@ public class Session{
 		this.numberOfSeats = numberOfSeats;
 	}
 
-	public Session() {
+	public Session() {}
 
+	public void initialize() {
+		this.setSessiosStatus(EventStatus.EM_ANDAMENTO);
+	}
+
+	public void finalize() {
+		this.setSessiosStatus(EventStatus.FINALIZADO);
 	}
 
 	public String getSessionIdentifier() {
@@ -90,14 +107,6 @@ public class Session{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Date getSessionDate() {
-		return sessionDate;
-	}
-
-	public void setSessionDate(Date sessionDate) {
-		this.sessionDate = sessionDate;
 	}
 
 	public Event getEvent() {
@@ -124,14 +133,19 @@ public class Session{
 		this.sessiosStatus = sessiosStatus;
 	}
 
-	@Override
-	public String toString() {
-		return "Session{" +
-				"  sessionIdentifier='" + sessionIdentifier + '\'' +
-				", sessionDate=" + sessionDate +
-				", event=" + event +
-				", ticketPrice=" + ticketPrice +
-				", sessiosStatus=" + sessiosStatus +
-				'}';
+	public Date getSessionStartDate() {
+		return sessionStartDate;
+	}
+
+	public void setSessionStartDate(Date sessionStartDate) {
+		this.sessionStartDate = sessionStartDate;
+	}
+
+	public Date getSessionEndDate() {
+		return sessionEndDate;
+	}
+
+	public void setSessionEndDate(Date sessionEndDate) {
+		this.sessionEndDate = sessionEndDate;
 	}
 }

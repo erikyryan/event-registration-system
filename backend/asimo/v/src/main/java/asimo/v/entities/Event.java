@@ -30,9 +30,12 @@ public class Event{
 	@NotNull
     private String name;
 
-    @Column(name = "eventdate")
-    private Date eventDate;
+    @Column
+    private Date eventStartDate;
 
+    @Column
+    private Date eventEndDate;
+    
 	private String duration;
 
 	private Integer classification;
@@ -72,13 +75,6 @@ public class Event{
 		this.name = name;
 	}
 
-	public Date getEventDate() {
-		return eventDate;
-	}
-
-	public void setEventDate(Date eventDate) {
-		this.eventDate = eventDate;
-	}
 
 	public String getSynopsis() {
 		return synopsis;
@@ -128,10 +124,51 @@ public class Event{
 		this.eventIdentifier = eventIdentifier;
 	}
 
+	public Date getEventStartDate() {
+		return eventStartDate;
+	}
+
+	public void setEventStartDate(Date eventStartDate) {
+		this.eventStartDate = eventStartDate;
+	}
+
+	public Date getEventEndDate() {
+		return eventEndDate;
+	}
+
+	public void setEventEndDate(Date eventEndDate) {
+		this.eventEndDate = eventEndDate;
+	}
+
+	public void finalize() {
+		this.eventStatus = EventStatus.FINALIZADO;
+	}
+
+	public void initialize() {
+		this.eventStatus = EventStatus.FINALIZADO;
+	}
+
+	public Event(Long id, String eventIdentifier, @NotNull String name, Date eventStartDate, Date eventEndDate,
+			String duration, Integer classification, Integer launchYear, @Size(max = 2000) String synopsis,
+			MovieType movieType) {
+		super();
+		this.id = id;
+		this.eventIdentifier = UUID.randomUUID().toString();
+		this.name = name;
+		this.eventStartDate = eventStartDate;
+		this.eventEndDate = eventEndDate;
+		this.duration = duration;
+		this.classification = classification;
+		this.launchYear = launchYear;
+		this.synopsis = synopsis;
+		this.movieType = movieType;
+	}
+
 	public Event(EventObject eventObject) {
 		this.name = eventObject.getName();
 		this.setEventIdentifier(UUID.randomUUID().toString());
-		this.eventDate = eventObject.getEventDate();
+		this.eventStartDate = eventObject.getEventStartDate();
+		this.eventEndDate = eventObject.getEventEndDate();
 		this.synopsis = eventObject.getSynopsis();
 		this.duration = eventObject.getDuration();
 		this.classification = eventObject.getClassification();
@@ -139,21 +176,13 @@ public class Event{
 		this.movieType = eventObject.getMovieType();
 	}
 
-	public Event() {
-	}
+	public Event() {}
 
 	@Override
 	public String toString() {
-		return "Event{" +
-				"  eventIdentifier='" + eventIdentifier + '\'' +
-				", name='" + name + '\'' +
-				", eventDate=" + eventDate +
-				", duration='" + duration + '\'' +
-				", classification=" + classification +
-				", launchYear=" + launchYear +
-				", synopsis='" + synopsis + '\'' +
-				", movieType=" + movieType +
-				", eventStatus=" + eventStatus +
-				'}';
+		return "Event [id=" + id + ", eventIdentifier=" + eventIdentifier + ", name=" + name + ", eventStartDate="
+				+ eventStartDate + ", eventEndDate=" + eventEndDate + ", duration=" + duration + ", classification="
+				+ classification + ", launchYear=" + launchYear + ", synopsis=" + synopsis + ", movieType=" + movieType
+				+ ", eventStatus=" + eventStatus + "]";
 	}
 }

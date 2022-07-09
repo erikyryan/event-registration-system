@@ -1,14 +1,14 @@
 package asimo.v;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-public class VApplication {
+@EnableScheduling
+public class VApplication{
 
 	public static void main(String[] args) {
 		SpringApplication.run(VApplication.class, args);
 	}
-
 }
