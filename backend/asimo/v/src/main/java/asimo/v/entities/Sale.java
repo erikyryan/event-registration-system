@@ -56,9 +56,9 @@ public class Sale{
 		this.id = id;
 	}
 
-//	public String generateProtocol(){
-//		return String.format("%05d",.toString());
-//	}
+	public String generateProtocol(Integer value){
+		return String.format("%05d",value.toString());
+	}
 
 	public String getProtocol() {
 		return protocol;
