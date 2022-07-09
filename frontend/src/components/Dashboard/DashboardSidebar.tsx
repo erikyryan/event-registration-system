@@ -100,27 +100,6 @@ const DashboardSidebar = ({ open, onClose }: Props) => {
             my: 3
           }}
         />
-        <Box sx={{ p: 2 }}>
-          {currentUser ? (
-            <Button
-              variant="contained"
-              color="error"
-              fullWidth
-              endIcon={<LogoutIcon />}
-              onClick={handleLogout}>
-              Sair
-            </Button>
-          ) : (
-            <Stack spacing={2}>
-              <Button variant="contained" component={Link} to="/login" color="secondary">
-                Entrar
-              </Button>
-              <Button variant="outlined" component={Link} to="/signup" color="secondary">
-                Cadastrar-se
-              </Button>
-            </Stack>
-          )}
-        </Box>
       </Box>
     </>
   );

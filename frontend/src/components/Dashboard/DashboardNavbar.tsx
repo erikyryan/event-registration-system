@@ -1,8 +1,9 @@
-import React from "react";
-import styled from "@emotion/styled";
-import { AppBar, Avatar, Box, IconButton, Toolbar } from "@mui/material";
+import { useAuth } from "../../contexts/AuthContext";
+import { Link } from "react-router-dom";
+import { AppBar, Box, Button, IconButton, Stack, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import PersonIcon from "@mui/icons-material/Person";
+import LogoutIcon from "@mui/icons-material/Logout";
+import styled from "@emotion/styled";
 
 interface Props {
   onSidebarOpen: () => void;
@@ -14,6 +15,8 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 const DashboardNavbar = ({ onSidebarOpen, ...other }: Props) => {
+  const { currentUser } = useAuth();
+
   return (
     <>
       <DashboardNavbarRoot
@@ -44,14 +47,21 @@ const DashboardNavbar = ({ onSidebarOpen, ...other }: Props) => {
             <MenuIcon fontSize="small" />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
-          <Avatar
-            sx={{
-              height: 40,
-              width: 40,
-              ml: 1
-            }}>
-            <PersonIcon fontSize="small" />
-          </Avatar>
+
+          {currentUser ? (
+            <Button variant="contained" color="error" fullWidth endIcon={<LogoutIcon />}>
+              Sair
+            </Button>
+          ) : (
+            <Stack direction="row" spacing={2}>
+              <Button variant="contained" component={Link} to="/login" color="secondary">
+                Entrar
+              </Button>
+              <Button variant="outlined" component={Link} to="/signup" color="secondary">
+                Cadastrar-se
+              </Button>
+            </Stack>
+          )}
         </Toolbar>
       </DashboardNavbarRoot>
     </>
