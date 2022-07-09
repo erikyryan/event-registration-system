@@ -43,7 +43,7 @@ public class SessionService {
     	List<Session> findAll = sessionRepository.findAll();
     	
     	return findAll.stream()
-    			.filter(s -> new Date().after(s.getSessionEndDate()))
+    			.filter(s -> s.getSessionEndDate().before(new Date()))
     			.collect(Collectors.toList());
     }
 
@@ -51,7 +51,7 @@ public class SessionService {
     	List<Session> findAll = sessionRepository.findAll();
     	
     	return findAll.stream()
-    			.filter(s -> new Date().before(s.getSessionStartDate()))
+    			.filter(s -> s.getSessionStartDate().before(new Date()))
     			.collect(Collectors.toList());
     }
 
