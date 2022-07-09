@@ -11,9 +11,9 @@ import asimo.v.entities.Event;
 @Repository
 public interface EventRepository extends JpaRepository<Event,Long> {
 
-    Optional<Event> findByNameAndEventDateAndLaunchYear(String name, Date eventDate, Integer launchYear);
+    Optional<Event> findByNameAndEventStartDateAndLaunchYear(String name, Date eventStartDate, Integer launchYear);
 
-    Optional<Event> findByNameAndEventDate(String name, Date eventDate);
+    Optional<Event> findByNameAndEventStartDate(String name, Date eventDate);
 
     Optional<Event> findByEventIdentifier(String identifier);
 }

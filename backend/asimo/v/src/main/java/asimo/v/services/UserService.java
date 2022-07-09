@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import asimo.v.entities.LoginSession;
 import asimo.v.entities.User;
+import asimo.v.entities.enums.UserRole;
 import asimo.v.entities.objects.UserObject;
 import asimo.v.entities.operation.UserOperation;
 import asimo.v.exceptions.InvalidPasswordException;
@@ -59,6 +60,16 @@ public class UserService {
 		return newUser;
 	}
 
+	public User createAdmin(User userParams) {
+		validateCreationUserAdmin(userParams);
+
+		User newUser = new User(userParams);
+		newUser.generatePassword(userParams.getPassword());
+		this.save(newUser);
+
+		return newUser;
+	}
+
 	private User validateLogin(User userS) {
 		Optional<User> userL = userRepository.findByEmail(userS.getEmail());
 		if (!userL.isPresent()) {
@@ -79,6 +90,16 @@ public class UserService {
 			throw new InvalidEmail("Email Inválido");
 		}
 	}
+
+	private void validateCreationUserAdmin(User userParams) {
+		if (userRepository.findByEmail(userParams.getEmail()).isPresent()) {
+			throw new InvalidEmail("Email Inválido");
+		}
+		if(userParams.getRole() != UserRole.ADMIN) {
+			throw new RuntimeException("voce não pode fazer isso.");
+		}
+	}
+
 	public static String generateSalt() {
 		SecureRandom random = new SecureRandom();
 		byte[] salt = new byte[32];

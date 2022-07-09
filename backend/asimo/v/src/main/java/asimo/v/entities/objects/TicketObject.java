@@ -1,13 +1,8 @@
 package asimo.v.entities.objects;
 
-import asimo.v.entities.Event;
-import asimo.v.entities.Sale;
-import asimo.v.entities.Session;
-import asimo.v.entities.User;
-import asimo.v.entities.enums.TicketType;
-
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
+
+import asimo.v.entities.enums.TicketType;
 
 public class TicketObject {
 

@@ -167,6 +167,17 @@ public class User{
 		this.role = UserRole.USER;
 	}
 
+	public User(final User user) {
+		this.name = user.getName();
+		this.setUserIdentifier(UUID.randomUUID().toString());
+		this.doc = user.getDoc();
+		this.sex = user.getSex();
+		this.email = user.getEmail();
+		this.telephone = user.getTelephone();
+		this.birthDate = user.getBirthDate();
+		this.role = user.getRole();
+	}
+
 	public void editUser(UserOperation editUser) {
 		this.name = Objects.equals(editUser.getName(), null) ? this.name : editUser.getName();
 		this.doc = Objects.equals(editUser.getDoc(), null) ? this.doc :editUser.getDoc();
