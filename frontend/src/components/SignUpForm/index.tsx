@@ -16,6 +16,7 @@ const SignUpForm = ({ handleSubmit }: Props) => {
     name: "",
     doc: "",
     birthDate: "",
+    sex: "F",
     email: "",
     telephone: "",
     login: "",

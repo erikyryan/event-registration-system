@@ -11,6 +11,7 @@ import {
 import { IUser } from "../types/IUser";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import UserRow from "./UserRow";
 
 interface Props {
   users?: IUser[];
@@ -18,7 +19,7 @@ interface Props {
 
 const UsersList = ({ users }: Props) => {
   return (
-    <Box sx={{ minWidth: 1050 }}>
+    <Box sx={{ minWidth: 1000 }}>
       <Table>
         <TableHead>
           <TableRow>
@@ -32,33 +33,8 @@ const UsersList = ({ users }: Props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.slice(0, 10).map((user) => (
-            <TableRow hover key={user.id}>
-              <TableCell>
-                <Box
-                  sx={{
-                    alignItems: "center",
-                    display: "flex"
-                  }}>
-                  <Typography color="textPrimary" variant="body1">
-                    {user.name}
-                  </Typography>
-                </Box>
-              </TableCell>
-              <TableCell>{user.email}</TableCell>
-              <TableCell>{user.doc}</TableCell>
-              <TableCell>{user.phone}</TableCell>
-              <TableCell>{user.birthDate}</TableCell>
-              <TableCell>{user.role}</TableCell>
-              <TableCell>
-                <Button startIcon={<EditIcon />} size="small" variant="outlined" sx={{ mr: 1 }}>
-                  Editar
-                </Button>
-                <Button startIcon={<DeleteIcon />} size="small" variant="outlined" color="error">
-                  Deletar
-                </Button>
-              </TableCell>
-            </TableRow>
+          {users?.slice(0, 10).map((user) => (
+            <UserRow user={user} />
           ))}
         </TableBody>
       </Table>

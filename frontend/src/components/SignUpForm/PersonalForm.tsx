@@ -1,5 +1,13 @@
 import React from "react";
-import { Stack, TextField } from "@mui/material";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  Stack,
+  TextField
+} from "@mui/material";
 import FormProps from "./formTypes";
 import MaskedInput from "../MaskedInput";
 
@@ -23,6 +31,19 @@ const PersonalForm = ({ data, handleChange }: FormProps) => {
         value={data.birthDate}
         onChange={handleChange}
       />
+      <FormControl>
+        <FormLabel id="demo-radio-buttons-group-label">Sexo</FormLabel>
+        <RadioGroup
+          row
+          aria-labelledby="demo-radio-buttons-group-label"
+          defaultValue="F"
+          name="sex"
+          value={data.sex}
+          onChange={handleChange}>
+          <FormControlLabel value="F" control={<Radio />} label="Feminino" />
+          <FormControlLabel value="M" control={<Radio />} label="Masculino" />
+        </RadioGroup>
+      </FormControl>
     </Stack>
   );
 };

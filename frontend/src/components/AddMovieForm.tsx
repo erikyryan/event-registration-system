@@ -1,13 +1,4 @@
-import {
-  Button,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  TextField
-} from "@mui/material";
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import getYears from "../utils/getYears";
 import MaskedInput from "./MaskedInput";
 
@@ -39,15 +30,20 @@ const AddMovieForm = ({ formData, handleChange, handleSubmit }: Props) => {
         />
       </Grid>
       <Grid item xs={4} md={6}>
-        <TextField
-          label="Sinopse"
-          name="synopsis"
-          fullWidth
-          multiline
-          maxRows={4}
-          value={formData.synopsis}
-          onChange={handleChange}
-        />
+        <FormControl fullWidth>
+          <InputLabel id="movieType">Tipo de exibição</InputLabel>
+          <Select
+            name="movieType"
+            labelId="movieType"
+            id="movieType"
+            label="Tipo de exibição"
+            value={formData.movieType}
+            onChange={handleChange}>
+            {movieTypes.map((movieType, index) => (
+              <MenuItem value={index}>{movieType}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Grid>
       <Grid item xs={4} md={6}>
         <TextField
@@ -102,20 +98,15 @@ const AddMovieForm = ({ formData, handleChange, handleSubmit }: Props) => {
         </FormControl>
       </Grid>
       <Grid item xs={12}>
-        <FormControl fullWidth>
-          <InputLabel id="movieType">Tipo de filme</InputLabel>
-          <Select
-            name="movieType"
-            labelId="movieType"
-            id="movieType"
-            label="Tipo de filme"
-            value={formData.movieType}
-            onChange={handleChange}>
-            {movieTypes.map((movieType, index) => (
-              <MenuItem value={index}>{movieType}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <TextField
+          label="Sinopse"
+          name="synopsis"
+          fullWidth
+          multiline
+          maxRows={4}
+          value={formData.synopsis}
+          onChange={handleChange}
+        />
       </Grid>
       <Grid item xs={12} sx={{ mt: 2 }}>
         <Button variant="contained" type="submit" size="large" fullWidth>

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { Box, Button, Stack, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Box } from "@mui/material";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddUserForm from "../components/AddUserForm";
+import HeaderBackButton from "../components/HeaderBackButton";
 
 const AddUser = () => {
   const [formData, setFormData] = useState({
@@ -29,23 +28,11 @@ const AddUser = () => {
 
   return (
     <DashboardLayout>
-      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
-        <Stack>
-          <Button
-            startIcon={<ArrowBackIcon />}
-            component={Link}
-            to="/users"
-            variant="text"
-            size="small"
-            color="secondary"
-            sx={{ display: "flex", justifyContent: "start", px: 0 }}>
-            Voltar para usuários
-          </Button>
-          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-            Adicionar usuário
-          </Typography>
-        </Stack>
-      </Box>
+      <HeaderBackButton
+        title="Adicionar Usuário"
+        backUrl="/users"
+        backButtonText="Voltar para usuários"
+      />
       <Box>
         <AddUserForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
       </Box>
