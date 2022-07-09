@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface SessionRepository extends JpaRepository<Session,Long> {
 
-    Optional<Session> findByEventAndSessionDate(Event event, Date sessionDate);
+    Optional<Session> findByEventAndSessionStartDate(Event event, Date sessionStartDate);
 
     Optional<Session> findBySessionIdentifier(String sessionIdentifier);
     

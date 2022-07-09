@@ -61,16 +61,16 @@ public class EventService {
     }
 
 	public List<Event> listToFinalize() {
-        List<Event> events = eventRepository.findAll();
-        return events.stream()
-    			.filter(e -> new Date().before(e.getEventEndDate()))
-    			.collect(Collectors.toList());
+        List<Event> events = eventRepository.findByEventStatus(EventStatus.EM_ANDAMENTO);
+        return events.stream().
+                filter(e -> e.getEventEndDate().before(new Date()))
+                .collect(Collectors.toList());
 	}
 
 	public List<Event> listToInitializer() {
-        List<Event> events = eventRepository.findAll();
+        List<Event> events = eventRepository.findByEventStatus(EventStatus.AGENDADO);
         return events.stream()
-    			.filter(e -> new Date().after(e.getEventStartDate()))
+    			.filter(e -> e.getEventStartDate().before(new Date()))
     			.collect(Collectors.toList());
 	}	
 }

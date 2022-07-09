@@ -140,14 +140,6 @@ public class Event{
 		this.eventEndDate = eventEndDate;
 	}
 
-	public void finalize() {
-		this.eventStatus = EventStatus.FINALIZADO;
-	}
-
-	public void initialize() {
-		this.eventStatus = EventStatus.FINALIZADO;
-	}
-
 	public Event(Long id, String eventIdentifier, @NotNull String name, Date eventStartDate, Date eventEndDate,
 			String duration, Integer classification, Integer launchYear, @Size(max = 2000) String synopsis,
 			MovieType movieType) {
@@ -174,6 +166,7 @@ public class Event{
 		this.classification = eventObject.getClassification();
 		this.launchYear = eventObject.getLaunchYear();
 		this.movieType = eventObject.getMovieType();
+		this.eventStatus = EventStatus.AGENDADO;
 	}
 
 	public Event() {}

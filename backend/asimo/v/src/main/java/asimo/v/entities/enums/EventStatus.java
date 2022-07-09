@@ -1,9 +1,10 @@
 package asimo.v.entities.enums;
 
 public enum EventStatus {
-    EM_ANDAMENTO(0),
-    FINALIZADO(1),
-    AGENDADO(2);
+    AGENDADO(0),
+    EM_ANDAMENTO(1),
+    FINALIZADO(2);
+
 
     private Integer code;
 

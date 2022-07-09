@@ -32,9 +32,6 @@ public class EventObject {
     @NotNull
     private MovieType movieType;
 
-    @NotNull
-    private EventStatus eventStatus;
-
     public String getName() {
         return name;
     }
@@ -99,11 +96,4 @@ public class EventObject {
         this.movieType = movieType;
     }
 
-    public EventStatus getEventStatus() {
-        return eventStatus;
-    }
-
-    public void setEventStatus(EventStatus eventStatus) {
-        this.eventStatus = eventStatus;
-    }
 }
