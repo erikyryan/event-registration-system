@@ -29,7 +29,7 @@ public class Sale{
 	private String saleIdentifier;
 
     @Column(name = "nrprotocolo")
-    private String protocol = String.format("%05d",id.toString());;
+    private String protocol;
 
     @Column(name="nrvalorvenda")
     private Long price;
