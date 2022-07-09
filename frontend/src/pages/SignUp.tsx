@@ -1,25 +1,27 @@
-import React, { useState } from "react";
-import { Card, CardContent, Typography, Container, Stack, Button } from "@mui/material";
-import { Link } from "react-router-dom";
-
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../services/api";
-import SignUpForm from "../components/SignUpForm";
 import { FormData } from "../components/SignUpForm/formTypes";
+import { Card, Typography, Container } from "@mui/material";
+import SignUpForm from "../components/SignUpForm";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = async (data: FormData) => {
-    const res = await api.post("/user/create", {
-      name: data.name,
-      password: data.password,
-      doc: data.doc,
-      email: data.email,
-      telephone: data.telephone,
-      login: data.login,
-      birthDate: data.birthDate,
-      sex: "M"
-    });
-    console.log(res);
+    try {
+      const res = await api.post("/user/create", {
+        name: data.name,
+        password: data.password,
+        doc: data.doc,
+        sex: data.sex,
+        email: data.email,
+        telephone: data.telephone,
+        birthDate: data.birthDate
+      });
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -9,9 +9,9 @@ export interface FormData {
   name?: string;
   doc?: string;
   birthDate?: string;
+  sex: string;
   email?: string;
   telephone?: string;
-  login?: string;
   password?: string;
   confirm?: string;
 }
