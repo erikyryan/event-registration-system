@@ -18,6 +18,7 @@ const AddSession = () => {
     ticketPrice: "",
     numberOfSeats: ""
   });
+  const [submitting, setSubmitting] = useState(false);
 
   const setEndDate = (value: string) => {
     setFormData((prev) => ({
@@ -39,6 +40,7 @@ const AddSession = () => {
 
     if (token) {
       try {
+        setSubmitting(true);
         const res = await api.post(
           "/session/create",
           {
@@ -52,6 +54,14 @@ const AddSession = () => {
             }
           }
         );
+        setSubmitting(false);
+        setFormData({
+          eventIdentifier: "",
+          ticketPrice: "",
+          sessionStartDate: "",
+          sessionEndDate: "",
+          numberOfSeats: ""
+        });
         console.log(res);
         toast("Sessão adicionada com sucesso!", "success");
       } catch (error) {
@@ -74,6 +84,7 @@ const AddSession = () => {
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           setEndDate={setEndDate}
+          submitting={submitting}
         />
       </Box>
     </DashboardLayout>
