@@ -18,8 +18,11 @@ import asimo.v.repositories.EventRepository;
 @Service
 public class EventService {
 
-    @Autowired
     private EventRepository eventRepository;
+
+    public EventService(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
 
     public Event findByEventIdentifier(String eventIdentifier){
         Optional<Event> event = this.eventRepository.findByEventIdentifier(eventIdentifier);

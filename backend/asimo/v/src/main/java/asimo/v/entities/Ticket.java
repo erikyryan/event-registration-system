@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import asimo.v.entities.dto.SaleTicketDTO;
 import asimo.v.entities.dto.TicketDTO;
 import asimo.v.entities.enums.TicketType;
 
@@ -53,10 +54,21 @@ public class Ticket{
 	@Column(name = "enddate")
 	private Date endDate;
 
+	private String nameUser;
+
+	private String sex;
+
+	private String doc;
+
+	private String protocol;
+
 	public TicketDTO generateTicketDTO(){
-		return new TicketDTO(this.occupiedSeat,this.seat);
+		return new TicketDTO(this.ticketIdentifier,this.occupiedSeat,this.seat);
 	}
 
+	public SaleTicketDTO generateSaleTicketDTO(){
+		return new SaleTicketDTO(this.nameUser,this.seat,this.price,this.doc);
+	}
 
 	public String getTicketIdentifier() {
 		return ticketIdentifier;
@@ -154,6 +166,42 @@ public class Ticket{
 		this.endDate = endDate;
 	}
 
+	public String getNameUser() {
+		return nameUser;
+	}
+
+	public void setNameUser(String nameUser) {
+		this.nameUser = nameUser;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getDoc() {
+		return doc;
+	}
+
+	public void setDoc(String doc) {
+		this.doc = doc;
+	}
+
+	public String getProtocol() {
+		return protocol;
+	}
+
+	public void setProtocol(String protocol) {
+		this.protocol = protocol;
+	}
+
+	public String generateProtocol(Integer value){
+		return String.format("%05d",value.toString());
+	}
+
 	public Ticket() {
 	}
 
@@ -179,4 +227,21 @@ public class Ticket{
 		this.setOccupied(false);
 	}
 
+	public Ticket(Integer seat, TicketType ticketType, Long price, String sessionIdentifier, String eventIdentifier, String saleidentifier, String useridentifier, Boolean occupiedSeat, Date saleDate, Date endDate, String nameUser, String sex, String doc,String protocol) {
+		this.setTicketIdentifier(UUID.randomUUID().toString());
+		this.seat = seat;
+		this.ticketType = ticketType;
+		this.price = price;
+		this.sessionIdentifier = sessionIdentifier;
+		this.eventIdentifier = eventIdentifier;
+		this.saleidentifier = saleidentifier;
+		this.useridentifier = useridentifier;
+		this.occupiedSeat = occupiedSeat;
+		this.saleDate = saleDate;
+		this.endDate = endDate;
+		this.nameUser = nameUser;
+		this.sex = sex;
+		this.doc = doc;
+		this.protocol = protocol;
+	}
 }

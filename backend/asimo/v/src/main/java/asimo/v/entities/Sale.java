@@ -1,11 +1,16 @@
 package asimo.v.entities;
 
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.*;
 
+import asimo.v.entities.dto.SaleDTO;
+import asimo.v.entities.dto.SaleTicketDTO;
 import asimo.v.entities.enums.DocType;
 import asimo.v.entities.enums.SaleType;
+import asimo.v.entities.operation.SaleOperation;
 import org.springframework.format.annotation.NumberFormat;
 
 @Entity
@@ -28,9 +33,7 @@ public class Sale{
     @Column(name = "dtvenda")
     private Date saleDate;
 
-    @ManyToOne
-    @JoinColumn(name = "idusuario", referencedColumnName = "id")
-    private User user;
+    private String useridentifier;
 
     @Column(name = "formadepagamento")
     private String paymentForm;
@@ -45,8 +48,11 @@ public class Sale{
     private DocType docType;
 
     @Column(name = "nrdocumento")
-	@GeneratedValue()
     private String doc;
+
+	public SaleDTO generateSaleDTO(List<SaleTicketDTO> tickets, String eventName, Date sessionStartDate) {
+		return new SaleDTO(this.protocol,this.doc,this.price,eventName, this.userName,this.saleDate,sessionStartDate,tickets);
+	}
 
 	public Long getId() {
 		return id;
@@ -84,12 +90,20 @@ public class Sale{
 		this.saleDate = saleDate;
 	}
 
-	public User getUser() {
-		return user;
+	public String getSaleIdentifier() {
+		return saleIdentifier;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setSaleIdentifier(String saleIdentifier) {
+		this.saleIdentifier = saleIdentifier;
+	}
+
+	public String getUseridentifier() {
+		return useridentifier;
+	}
+
+	public void setUseridentifier(String useridentifier) {
+		this.useridentifier = useridentifier;
 	}
 
 	public String getPaymentForm() {
@@ -135,11 +149,11 @@ public class Sale{
 	public Sale() {
 	}
 
-	public Sale(String saleIdentifier, Long price, Date saleDate, User user, String paymentForm, SaleType saleType, String userName, DocType docType, String doc) {
-		this.saleIdentifier = saleIdentifier;
+	public Sale(Long price, Date saleDate, String useridentifier, String paymentForm, SaleType saleType, String userName, DocType docType, String doc) {
+		this.setSaleIdentifier(UUID.randomUUID().toString());
 		this.price = price;
 		this.saleDate = saleDate;
-		this.user = user;
+		this.useridentifier = useridentifier;
 		this.paymentForm = paymentForm;
 		this.saleType = saleType;
 		this.userName = userName;
@@ -147,19 +161,16 @@ public class Sale{
 		this.doc = doc;
 	}
 
-	@Override
-	public String toString() {
-		return "Sale{" +
-				"saleIdentifier='" + saleIdentifier + '\'' +
-				", protocol=" + protocol +
-				", price=" + price +
-				", saleDate=" + saleDate +
-				", user=" + user +
-				", paymentForm='" + paymentForm + '\'' +
-				", saleType=" + saleType +
-				", userName='" + userName + '\'' +
-				", docType=" + docType +
-				", doc='" + doc + '\'' +
-				'}';
+	public Sale(SaleOperation saleOperation) {
+		this.setSaleIdentifier(UUID.randomUUID().toString());
+		this.price = saleOperation.getPrice();
+		this.saleDate = saleOperation.getSaleDate();
+		this.useridentifier = saleOperation.getUserIdentifier();
+		this.paymentForm = saleOperation.getPaymentForm();
+		this.saleType = saleOperation.getSaleType();
+		this.userName = saleOperation.getUserName();
+		this.docType = saleOperation.getDocType();
+		this.doc = saleOperation.getDoc();
 	}
+
 }

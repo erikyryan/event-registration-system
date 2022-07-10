@@ -220,4 +220,6 @@ const theme = createTheme({
   ]
 });
 
+export type ITheme = typeof theme;
+
 export default theme;

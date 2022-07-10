@@ -4,22 +4,23 @@ import { AppBar, Box, Button, IconButton, Stack, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import styled from "@emotion/styled";
+import { ITheme } from "../../styles/theme";
 
 interface Props {
   onSidebarOpen: () => void;
 }
 
-const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  boxShadow: theme.shadows[20]
+const DashboardNavbarRoot = styled(AppBar)(({ theme }: { theme?: ITheme }) => ({
+  backgroundColor: theme?.palette.background.paper,
+  boxShadow: theme?.shadows[20]
 }));
 
 const DashboardNavbar = ({ onSidebarOpen, ...other }: Props) => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate("/login");
   };
 
