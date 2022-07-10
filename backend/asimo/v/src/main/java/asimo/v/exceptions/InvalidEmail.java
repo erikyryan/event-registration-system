@@ -1,4 +1,4 @@
-package asimo.v.services;
+package asimo.v.exceptions;
 
 public class InvalidEmail extends RuntimeException {
 

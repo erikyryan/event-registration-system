@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import javax.xml.bind.DatatypeConverter;
 
+import asimo.v.exceptions.InvalidEmail;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
