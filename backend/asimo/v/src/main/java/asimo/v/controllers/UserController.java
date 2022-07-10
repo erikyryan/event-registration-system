@@ -1,5 +1,8 @@
 package asimo.v.controllers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,5 +71,12 @@ public class UserController {
 		this.loginSessionService.validateToken(token);
     	UserDTO userDTO = new UserDTO(this.userService.findByToken(token));
     	return ResponseEntity.ok(userDTO);
+    }
+
+    @GetMapping(value = "/listAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<UserDTO>> listAll(@RequestHeader("token") String token){
+		this.loginSessionService.validateToken(token);
+		List<User> users = this.userService.listAll(this.loginSessionService.findUser(token));
+    	return ResponseEntity.ok(users.stream().map(u -> u.generateTransportObject(u)).collect(Collectors.toList()));
     }
 }

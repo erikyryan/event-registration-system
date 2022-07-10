@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import asimo.v.entities.dto.UserDTO;
 import asimo.v.entities.enums.UserRole;
 import asimo.v.entities.objects.UserObject;
 import asimo.v.entities.operation.UserOperation;
@@ -178,6 +179,19 @@ public class User{
 		this.role = user.getRole();
 	}
 
+	public UserDTO generateTransportObject(User user) {
+		UserDTO userDTO = new UserDTO();
+		userDTO.setBirthDate(this.birthDate);
+		userDTO.setDoc(this.doc);
+		userDTO.setEmail(this.email);
+		userDTO.setName(this.name);
+		userDTO.setRole(this.role);
+		userDTO.setSex(this.sex);
+		userDTO.setTelephone(this.telephone);
+		userDTO.setUserIdentifier(this.userIdentifier);
+		
+		return userDTO;
+	}
 	public void editUser(UserOperation editUser) {
 		this.name = Objects.equals(editUser.getName(), null) ? this.name : editUser.getName();
 		this.doc = Objects.equals(editUser.getDoc(), null) ? this.doc :editUser.getDoc();
