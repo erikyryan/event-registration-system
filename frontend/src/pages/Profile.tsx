@@ -80,12 +80,12 @@ const Profile = () => {
               />
             </Grid>
             <Grid item xs={2}>
-              <TextField
+              <MaskedInput
                 label="Telefone"
                 name="telephone"
-                fullWidth
+                mask="(99) 9 9999-9999"
                 value={data.telephone}
-                onChange={handleChange}
+                handleChange={handleChange}
               />
             </Grid>
             <Grid item xs={2}>

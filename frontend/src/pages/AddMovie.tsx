@@ -14,6 +14,8 @@ const AddMovie = () => {
     name: "",
     synopsis: "",
     duration: "",
+    eventStartDate: "",
+    eventEndDate: "",
     classification: 18,
     launchYear: "2022",
     movieType: 0
