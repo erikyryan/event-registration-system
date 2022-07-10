@@ -23,6 +23,8 @@ const SessionsList = ({ sessions }: Props) => {
         <TableBody>
           {sessions?.slice(0, 10).map((session) => {
             const date = new Date(session.sessionStartDate);
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
 
             return (
               <TableRow
@@ -36,7 +38,7 @@ const SessionsList = ({ sessions }: Props) => {
                 <TableCell>{session.numberOfSeats}</TableCell>
                 <TableCell>{date.toLocaleDateString()}</TableCell>
                 <TableCell>
-                  {date.getHours()}:{date.getMinutes()}
+                  {hours <= 9 ? "0" + hours : hours}:{minutes <= 9 ? "0" + minutes : minutes}
                 </TableCell>
               </TableRow>
             );

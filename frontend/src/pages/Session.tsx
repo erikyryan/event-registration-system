@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
 import ReservationPanel from "../components/ReservationPanel";
 import { useAuth } from "../contexts/AuthContext";
@@ -8,34 +8,57 @@ import api from "../services/api";
 import { ISession } from "../types/ISession";
 
 const Session = () => {
-  const { token } = useAuth();
+  const { token, logout } = useAuth();
   const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [seats, setSeats] = useState(null);
   const [session, setSession] = useState<ISession | null>(null);
   const sessionDate = session && new Date(session?.sessionStartDate);
 
   const fetchSeats = async () => {
     if (token && id) {
-      const res = await api.get("/ticket/seats", {
-        headers: {
-          token: token,
-          sessionidentifier: id
+      try {
+        const res = await api.get("/ticket/seats", {
+          headers: {
+            token: token,
+            sessionidentifier: id
+          }
+        });
+        setSeats(res.data);
+      } catch (error: any) {
+        const message = error.response.data.message;
+        if (message === "Sessão expirou.") {
+          await logout();
+          navigate("/login", {
+            state: {
+              from: location
+            },
+            replace: true
+          });
         }
-      });
-      setSeats(res.data);
+      }
     }
   };
 
   const fetchSession = async () => {
     if (token && id) {
-      const res = await api.get("/session/find", {
-        headers: {
-          token: token,
-          identifier: id
+      try {
+        const res = await api.get("/session/find", {
+          headers: {
+            token: token,
+            identifier: id
+          }
+        });
+        console.log(res.data);
+        setSession(res.data);
+      } catch (error: any) {
+        const message = error.response.data.message;
+        if (message === "Sessão expirou.") {
+          await logout();
+          navigate("/login");
         }
-      });
-      console.log(res.data);
-      setSession(res.data);
+      }
     }
   };
 
