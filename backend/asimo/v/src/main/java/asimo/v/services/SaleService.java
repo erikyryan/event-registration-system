@@ -74,6 +74,7 @@ public class SaleService {
         ticket.setSex(ticketOperation.getSex());
         ticket.setDoc(ticketOperation.getDoc());
         ticket.setPrice(ticketOperation.getPrice());
+        ticket.setOccupied(true);
         return ticketRepository.save(ticket);
     }
 
