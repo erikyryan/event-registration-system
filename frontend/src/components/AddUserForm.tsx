@@ -1,16 +1,11 @@
-import React from "react";
 import {
   Button,
   FormControl,
   FormControlLabel,
   FormLabel,
   Grid,
-  InputLabel,
   Radio,
   RadioGroup,
-  Select,
-  Stack,
-  Switch,
   TextField
 } from "@mui/material";
 import MaskedInput from "./MaskedInput";
@@ -49,11 +44,22 @@ const AddUserForm = ({ formData, handleChange, handleSubmit }: Props) => {
       </Grid>
       <Grid item xs={4} md={6}>
         <TextField
+          label="Data de nascimento"
+          name="birthDate"
+          type="date"
+          InputLabelProps={{ shrink: true }}
+          fullWidth
+          value={formData.birthDate}
+          onChange={handleChange}
+        />
+      </Grid>
+      <Grid item xs={4} md={6}>
+        <MaskedInput
+          mask="(99) 9 9999-9999 "
           label="Telefone"
           name="telephone"
-          fullWidth
           value={formData.telephone}
-          onChange={handleChange}
+          handleChange={handleChange}
         />
       </Grid>
       <Grid item xs={4} md={6}>
@@ -77,16 +83,28 @@ const AddUserForm = ({ formData, handleChange, handleSubmit }: Props) => {
       </Grid>
       <Grid item xs={4} md={6}>
         <FormControl>
+          <FormLabel id="gender">Sexo</FormLabel>
+          <RadioGroup
+            aria-labelledby="gender"
+            name="sex"
+            value={formData.sex}
+            onChange={handleChange}>
+            <FormControlLabel value="M" control={<Radio />} label="Masculino" />
+            <FormControlLabel value="F" control={<Radio />} label="Feminino" />
+          </RadioGroup>
+        </FormControl>
+      </Grid>
+      <Grid item xs={4} md={6}>
+        <FormControl>
           <FormLabel id="role">Função</FormLabel>
           <RadioGroup
-            row
             aria-labelledby="role"
             name="role"
             value={formData.role}
             onChange={handleChange}>
-            <FormControlLabel value="ADMIN" control={<Radio />} label="Administrador" />
-            <FormControlLabel value="VENDEDOR" control={<Radio />} label="Vendedor" />
-            <FormControlLabel value="USUÁRIO" control={<Radio />} label="Usuário" />
+            <FormControlLabel value={0} control={<Radio />} label="Usuário" />
+            <FormControlLabel value={1} control={<Radio />} label="Administrador" />
+            <FormControlLabel value={2} control={<Radio />} label="Vendedor" />
           </RadioGroup>
         </FormControl>
       </Grid>

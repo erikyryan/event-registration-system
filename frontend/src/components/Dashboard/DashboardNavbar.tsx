@@ -1,5 +1,5 @@
 import { useAuth } from "../../contexts/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AppBar, Box, Button, IconButton, Stack, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -15,7 +15,13 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 const DashboardNavbar = ({ onSidebarOpen, ...other }: Props) => {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <>
@@ -49,7 +55,11 @@ const DashboardNavbar = ({ onSidebarOpen, ...other }: Props) => {
           <Box sx={{ flexGrow: 1 }} />
 
           {currentUser ? (
-            <Button variant="contained" color="error" fullWidth endIcon={<LogoutIcon />}>
+            <Button
+              variant="contained"
+              color="error"
+              endIcon={<LogoutIcon />}
+              onClick={handleLogout}>
               Sair
             </Button>
           ) : (
