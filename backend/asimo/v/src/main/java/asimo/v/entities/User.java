@@ -53,9 +53,6 @@ public class User{
     @Column(name="tipousuario")
     private UserRole role;
 
-    @OneToMany(mappedBy = "user")
-    private List<Sale> tickets;
-
 	public User() {
 
 	}
@@ -130,14 +127,6 @@ public class User{
 
 	public void setRole(UserRole role) {
 		this.role = role;
-	}
-
-	public List<Sale> getTickets() {
-		return tickets;
-	}
-
-	public void setTickets(List<Sale> tickets) {
-		this.tickets = tickets;
 	}
 
 	public String getSalt() {
@@ -225,8 +214,7 @@ public class User{
 				", telephone='" + telephone + '\'' +
 				", password='" + password + '\'' +
 				", birthDate=" + birthDate +
-				", role=" + role +
-				", tickets=" + tickets;
+				", role=" + role;
 	}
 
 }

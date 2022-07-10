@@ -12,5 +12,4 @@ import java.util.Optional;
 public interface SaleRepository extends JpaRepository<Sale,Long> {
     Optional<Sale> findByProtocol(String protocol);
 
-    Sale findBySessionIdentifierAndSeat(String sessionIdentifier, Integer seat);
 }

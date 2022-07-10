@@ -16,8 +16,6 @@ public interface TicketRepository  extends JpaRepository<Ticket,Long> {
 
     Ticket findTicketBySessionIdentifier(String sessionIdentifier);
 
-    List<Ticket> findByProtocol(String protocol);
-
     Ticket findByTicketIdentifier(String ticketIdentifier);
 
 }
