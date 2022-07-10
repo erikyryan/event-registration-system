@@ -1,4 +1,5 @@
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { IMovie } from "../types/IMovie";
@@ -9,9 +10,16 @@ interface Props {
   handleChange: (e: any) => void;
   handleSubmit: (e: any) => void;
   setEndDate: (value: string) => void;
+  submitting: boolean;
 }
 
-const AddSessionForm = ({ formData, handleChange, handleSubmit, setEndDate }: Props) => {
+const AddSessionForm = ({
+  formData,
+  handleChange,
+  handleSubmit,
+  setEndDate,
+  submitting
+}: Props) => {
   const [movies, setMovies] = useState<IMovie[]>([]);
   const selectedMovie = movies.find((movie) => movie.eventIdentifier === formData.eventIdentifier);
   const sessionLimitMinDate =
@@ -34,7 +42,7 @@ const AddSessionForm = ({ formData, handleChange, handleSubmit, setEndDate }: Pr
   }, []);
 
   useEffect(() => {
-    setEndDate(sessionDuration);
+    if (sessionDuration) setEndDate(sessionDuration);
   }, [sessionDuration]);
 
   return (
@@ -123,9 +131,14 @@ const AddSessionForm = ({ formData, handleChange, handleSubmit, setEndDate }: Pr
         />
       </Grid>
       <Grid item xs={12}>
-        <Button variant="contained" type="submit" fullWidth size="large">
+        <LoadingButton
+          variant="contained"
+          type="submit"
+          fullWidth
+          size="large"
+          loading={submitting}>
           Adicionar
-        </Button>
+        </LoadingButton>
       </Grid>
     </Grid>
   );
