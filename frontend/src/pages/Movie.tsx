@@ -1,23 +1,34 @@
-import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
 import MovieInfo from "../components/MovieInfo";
 import SessionCard from "../components/SessionCard";
 import api from "../services/api";
+import { IMovie } from "../types/IMovie";
+import { ISession } from "../types/ISession";
 
 const Movie = () => {
   const { id } = useParams();
-  const [movie, setMovie] = useState(null);
+  const [movie, setMovie] = useState<IMovie | null>(null);
+  const [sessions, setSessions] = useState<ISession[] | null>(null);
 
   const fetchMovie = async () => {
-    const res = await api.get(`/event/public/${id}`);
-    setMovie(res.data);
+    const { data } = await api.get(`/event/public/${id}`);
+    setMovie(data);
+  };
+
+  const fetchSessions = async () => {
+    const { data } = await api.get("/session/public/available");
+    setSessions(data);
   };
 
   useEffect(() => {
     fetchMovie();
+    fetchSessions();
   }, []);
+
+  if (!movie && !sessions) return <DashboardLayout>Loading...</DashboardLayout>;
 
   return (
     <DashboardLayout>
@@ -26,11 +37,11 @@ const Movie = () => {
         Sessões disponíveis
       </Typography>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        <SessionCard day={"13 de Julho"} hour={"14:30"} />
-        <SessionCard day={"13 de Julho"} hour={"15:45"} />
-        <SessionCard day={"13 de Julho"} hour={"17:30"} />
-        <SessionCard day={"14 de Julho"} hour={"14:30"} />
-        <SessionCard day={"14 de Julho"} hour={"15:45"} />
+        {sessions
+          ?.filter((session) => session.event.eventIdentifier === movie?.eventIdentifier)
+          .map((session) => (
+            <SessionCard session={session} />
+          ))}
       </Grid>
     </DashboardLayout>
   );

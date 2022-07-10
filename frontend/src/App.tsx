@@ -24,9 +24,12 @@ function App() {
 
         <Route path="/filmes" element={<Movies />} />
         <Route path="/filmes/:id" element={<Movie />} />
-        <Route path="/session" element={<Session />} />
         {/* common user routes */}
-        <Route element={<RequireAuth allowedRoles={["USER", "VENDEDOR", "ADMIN"]} />}>
+        <Route
+          element={
+            <RequireAuth allowedRoles={["USER", "VENDEDOR", "ADMIN"]} redirectUrl="/login" />
+          }>
+          <Route path="/session/:id" element={<Session />} />
           <Route path="/perfil" element={<Profile />} />
         </Route>
 

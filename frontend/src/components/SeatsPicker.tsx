@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
+import { ITheme } from "../styles/theme";
 import Seat from "./Seat";
 
 interface Seat {
-  number: number;
-  user?: number | null | undefined;
-  selected?: boolean;
+  seat: number;
+  occupiedSeat: boolean;
 }
 
 interface SelectedSeat {
@@ -20,17 +20,17 @@ interface Props {
   seats: Seat[][];
 }
 
-const CinemaScreen = styled("div")(({ theme }) => ({
+const CinemaScreen = styled("div")(({ theme }: { theme?: ITheme }) => ({
   width: "100%",
   height: 70,
-  backgroundColor: theme.palette.primary.light,
+  backgroundColor: theme?.palette.primary.light,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: theme.palette.primary.contrastText,
+  color: theme?.palette.primary.contrastText,
   fontWeight: "bold",
   fontSize: 25,
-  boxShadow: theme.shadows[20],
+  boxShadow: theme?.shadows[20],
   borderRadius: 2
 }));
 
@@ -42,7 +42,8 @@ const SeatsPicker = ({ selectSeat, cancelSelection, selected, seats }: Props) =>
           key={index}
           sx={{
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
+            justifyContent: "center"
           }}>
           <Typography variant="h6" sx={{ mr: 3 }}>
             {alphabet[index]}
@@ -53,14 +54,14 @@ const SeatsPicker = ({ selectSeat, cancelSelection, selected, seats }: Props) =>
               justifyContent: "center",
               alignItems: "center"
             }}>
-            {row.map((seat, seatNum) => (
+            {row.map(({ seat, occupiedSeat }, seatNum) => (
               <Seat
-                key={seatNum + seat.number + index}
+                key={seatNum + seat + index}
                 row={alphabet[index]}
                 col={seatNum}
-                number={seat.number}
-                selected={selected.some((s) => s.number === seat.number)}
-                user={seat.user}
+                number={seat}
+                selected={selected.some((s) => s.number === seat)}
+                user={occupiedSeat}
                 select={selectSeat}
                 cancel={cancelSelection}
               />
