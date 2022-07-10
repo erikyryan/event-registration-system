@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from "react";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Container,
-  TextField,
-  Box,
-  Stack,
-  Button
-} from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Card, CardContent, Typography, Container, TextField, Stack, Button } from "@mui/material";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
+type LocationProps = {
+  state: {
+    from: Location;
+  };
+};
+
 const Login = () => {
+  const { login, currentUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { login, currentUser } = useAuth();
+  const location = useLocation() as LocationProps;
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     if (currentUser) navigate("/");
@@ -27,7 +26,7 @@ const Login = () => {
 
     try {
       await login(email, password);
-      navigate("/");
+      navigate(from);
     } catch (error) {
       console.log(error);
     }

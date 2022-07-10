@@ -3,7 +3,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
 
 interface Props {
-  title: string;
+  title?: string;
   backUrl: string;
   backButtonText: string;
 }
