@@ -2,6 +2,7 @@ package asimo.v.schedule;
 
 import java.util.List;
 
+import asimo.v.entities.enums.EventStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,7 @@ public class SessionOperationSchedule {
 	public void sessionFinalize() {
 		List<Session> sessions = sessionService.listToFinalize();
 		for(Session session : sessions) {
-			session.finalize();
+			session.setSessiosStatus(EventStatus.FINALIZADO);
 			this.sessionRepository.save(session);
 		}	
 	}
@@ -34,7 +35,7 @@ public class SessionOperationSchedule {
 	public void sessionInitialize() {
 		List<Session> sessions = sessionService.listToInitializer();
 		for(Session session : sessions) {
-			session.initialize();
+			session.setSessiosStatus(EventStatus.EM_ANDAMENTO);
 			this.sessionRepository.save(session);
 		}
 	}

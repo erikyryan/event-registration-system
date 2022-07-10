@@ -2,20 +2,24 @@ package asimo.v.entities.operation;
 
 import asimo.v.entities.enums.EventStatus;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class SessionOperation {
 
+    @NotNull
     private Date sessionStartDate;
 
+    @NotNull
     private Date sessionEndDate;
-    
+
+    @NotNull
     private String eventIdentifier;
 
+    @NotNull
     private Long ticketPrice;
 
-    private EventStatus sessiosStatus;
-
+    @NotNull
     private Integer numberOfSeats;
 
     public String getEventIdentifier() {
@@ -32,14 +36,6 @@ public class SessionOperation {
 
     public void setTicketPrice(Long ticketPrice) {
         this.ticketPrice = ticketPrice;
-    }
-
-    public EventStatus getSessiosStatus() {
-        return sessiosStatus;
-    }
-
-    public void setSessiosStatus(EventStatus sessiosStatus) {
-        this.sessiosStatus = sessiosStatus;
     }
 
     public Integer getNumberOfSeats() {
@@ -71,12 +67,11 @@ public class SessionOperation {
 
 
 
-    public SessionOperation(Date sessionStartDate, Date sessionEndDate, String eventIdentifier, Long ticketPrice, EventStatus sessiosStatus, Integer numberOfSeats) {
+    public SessionOperation(Date sessionStartDate, Date sessionEndDate, String eventIdentifier, Long ticketPrice,  Integer numberOfSeats) {
         this.sessionStartDate = sessionStartDate;
         this.sessionEndDate = sessionEndDate;
         this.eventIdentifier = eventIdentifier;
         this.ticketPrice = ticketPrice;
-        this.sessiosStatus = sessiosStatus;
         this.numberOfSeats = numberOfSeats;
     }
 }

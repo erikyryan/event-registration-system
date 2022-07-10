@@ -68,8 +68,8 @@ public class Session{
 		this.setSessionEndDate(sessionOperation.getSessionEndDate());
 		this.setEvent(event);
 		this.setTicketPrice(sessionOperation.getTicketPrice());
-		this.setSessiosStatus(sessionOperation.getSessiosStatus());
 		this.setNumberOfSeats(sessionOperation.getNumberOfSeats());
+		this.setSessiosStatus(EventStatus.AGENDADO);
 	}
 
 	public Session(SessionObject SessionObject) {
@@ -84,14 +84,6 @@ public class Session{
 	}
 
 	public Session() {}
-
-	public void initialize() {
-		this.setSessiosStatus(EventStatus.EM_ANDAMENTO);
-	}
-
-	public void finalize() {
-		this.setSessiosStatus(EventStatus.FINALIZADO);
-	}
 
 	public String getSessionIdentifier() {
 		return sessionIdentifier;
@@ -148,4 +140,5 @@ public class Session{
 	public void setSessionEndDate(Date sessionEndDate) {
 		this.sessionEndDate = sessionEndDate;
 	}
+
 }

@@ -40,17 +40,17 @@ public class SessionService {
     }
 
 	public List<Session> listToFinalize(){
-    	List<Session> findAll = sessionRepository.findAll();
+    	List<Session> sessions = sessionRepository.findBySessiosStatus(EventStatus.EM_ANDAMENTO);
     	
-    	return findAll.stream()
+    	return sessions.stream()
     			.filter(s -> s.getSessionEndDate().before(new Date()))
     			.collect(Collectors.toList());
     }
 
 	public List<Session> listToInitializer(){
-    	List<Session> findAll = sessionRepository.findAll();
+    	List<Session> sessions = sessionRepository.findBySessiosStatus(EventStatus.AGENDADO);
     	
-    	return findAll.stream()
+    	return sessions.stream()
     			.filter(s -> s.getSessionStartDate().before(new Date()))
     			.collect(Collectors.toList());
     }
@@ -78,7 +78,7 @@ public class SessionService {
 
 	private void validateCreationSession(SessionOperation sessionOperation) {
 		Event event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
-		if (!sessionRepository.findByEventAndSessionStartDate(event,sessionOperation.getSessionStartDate()).isPresent()) {
+		if (sessionRepository.findByEventAndSessionStartDate(event,sessionOperation.getSessionStartDate()).isPresent()) {
 			throw new InvalidEvent("Sessão Inválida");
 		}
 	}
