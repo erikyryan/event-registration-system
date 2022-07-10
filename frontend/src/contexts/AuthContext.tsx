@@ -7,7 +7,7 @@ interface Value {
   currentUser: IUser | null;
   token: string | null;
   login: (email: string, password: string) => Promise<IUser>;
-  logout: () => void;
+  logout: () => Promise<any>;
 }
 
 const AuthContext = createContext<Value>({} as Value);
@@ -39,10 +39,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setCurrentUser(null);
-    setToken(null);
+  const logout = async () => {
+    if (token) {
+      try {
+        const res = await api.post(
+          "/user/logout",
+          {},
+          {
+            headers: {
+              token: token
+            }
+          }
+        );
+        localStorage.removeItem("token");
+        setCurrentUser(null);
+        setToken(null);
+        return null;
+      } catch (error) {
+        console.log(error);
+        return error;
+      }
+    }
   };
 
   const getUser = async () => {
