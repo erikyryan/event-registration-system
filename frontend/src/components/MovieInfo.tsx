@@ -1,7 +1,7 @@
-import React from "react";
 import { Box, Typography } from "@mui/material";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import { IMovie } from "../types/IMovie";
+import HeaderBackButton from "./HeaderBackButton";
 
 interface Props {
   movie?: IMovie | null | undefined;
@@ -10,12 +10,17 @@ interface Props {
 const MovieInfo = ({ movie }: Props) => {
   return (
     <Box>
-      <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-        {movie?.name}
-      </Typography>
-      <Box sx={{ my: 3 }}>
-        <Typography sx={{ display: "flex" }}>
+      <HeaderBackButton
+        title={`${movie?.name} (${movie?.launchYear})`}
+        backUrl="/filmes"
+        backButtonText="Voltar para filmes"
+      />
+      <Box sx={{ my: 3 }} display="flex" gap={3}>
+        <Typography display="flex">
           <AccessTimeFilledIcon /> {movie?.duration}
+        </Typography>
+        <Typography>
+          <b>Classificação:</b> {movie?.classification} anos
         </Typography>
       </Box>
       <Typography variant="body1">{movie?.synopsis}</Typography>

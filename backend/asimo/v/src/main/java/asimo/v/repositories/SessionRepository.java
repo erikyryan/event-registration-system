@@ -19,4 +19,6 @@ public interface SessionRepository extends JpaRepository<Session,Long> {
     Optional<Session> findBySessionIdentifier(String sessionIdentifier);
 
     List<Session> findBySessiosStatus(EventStatus status);
+    
+    List<Session> findByEvent(Event event);
 }

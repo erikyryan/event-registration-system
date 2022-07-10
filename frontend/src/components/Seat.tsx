@@ -7,14 +7,14 @@ interface Props {
   col: number;
   number: number;
   selected?: boolean;
-  user?: number | null;
+  user?: number | null | boolean;
   select: (row: number) => void;
   cancel: (row: number) => void;
 }
 
 const Seat = ({ row, col, number, selected, user, select, cancel }: Props) => {
   const handleClick = () => {
-    if (user === null) {
+    if (!user) {
       if (selected) {
         cancel(number);
       } else {

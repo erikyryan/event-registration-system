@@ -47,11 +47,22 @@ const AddMovieForm = ({ formData, handleChange, handleSubmit }: Props) => {
       </Grid>
       <Grid item xs={4} md={6}>
         <TextField
-          label="Data do Filme"
-          name="eventDate"
+          label="Data de início"
+          name="eventStartDate"
           fullWidth
           type="date"
-          value={formData.eventDate}
+          value={formData.eventStartDate}
+          onChange={handleChange}
+          InputLabelProps={{ shrink: true }}
+        />
+      </Grid>
+      <Grid item xs={4} md={6}>
+        <TextField
+          label="Data de fim"
+          name="eventEndDate"
+          fullWidth
+          type="date"
+          value={formData.eventEndDate}
           onChange={handleChange}
           InputLabelProps={{ shrink: true }}
         />
@@ -97,7 +108,7 @@ const AddMovieForm = ({ formData, handleChange, handleSubmit }: Props) => {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={4} md={6}>
         <TextField
           label="Sinopse"
           name="synopsis"

@@ -1,8 +1,10 @@
 export interface IMovie {
   id: number;
+  eventIdentifier: string;
   name: string;
   synopsis: string;
-  eventDate: string;
+  eventStartDate: string;
+  eventEndDate: string;
   duration: string;
   classification: string;
   launchYear: number;

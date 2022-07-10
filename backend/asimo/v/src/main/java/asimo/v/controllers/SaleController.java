@@ -29,9 +29,12 @@ public class SaleController {
 
     private EventService eventService;
 
-    public SaleController(SaleService saleService, LoginSessionService loginSessionService) {
+    public SaleController(SaleService saleService, LoginSessionService loginSessionService, SessionService sessionService, UserService userService, EventService eventService) {
         this.saleService = saleService;
         this.loginSessionService = loginSessionService;
+        this.sessionService = sessionService;
+        this.userService = userService;
+        this.eventService = eventService;
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)

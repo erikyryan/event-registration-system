@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import asimo.v.entities.dto.SessionDTO;
 import asimo.v.entities.enums.EventStatus;
 import asimo.v.entities.objects.SessionObject;
 import asimo.v.entities.operation.SessionOperation;
@@ -22,7 +23,7 @@ public class Session{
 
     @Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
 	@Column(name="sessionidentifier")
 	private String sessionIdentifier;
@@ -50,7 +51,7 @@ public class Session{
 
 	}
 
-	public Session(Long id, String sessionIdentifier, Date sessionStartDate, Date sessionEndDate, Event event,
+	public Session(Integer id, String sessionIdentifier, Date sessionStartDate, Date sessionEndDate, Event event,
 			Long ticketPrice, EventStatus sessiosStatus, Integer numberOfSeats) {
 		this.id = id;
 		this.sessionIdentifier = UUID.randomUUID().toString();
@@ -72,6 +73,11 @@ public class Session{
 		this.setSessiosStatus(EventStatus.AGENDADO);
 	}
 
+	public SessionDTO generateTransporteObject(Session session){
+		SessionDTO sessionDTO = new SessionDTO();
+		
+		return sessionDTO;
+	}
 	public Session(SessionObject SessionObject) {
 	}
 
@@ -93,11 +99,11 @@ public class Session{
 		this.sessionIdentifier = sessionIdentifier;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

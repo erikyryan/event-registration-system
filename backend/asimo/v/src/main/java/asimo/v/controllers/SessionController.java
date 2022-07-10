@@ -47,4 +47,11 @@ public class SessionController {
 	public ResponseEntity<List<Session>> availableSession() {
 		return ResponseEntity.ok(sessionService.listAllAvailable());
 	}
+
+	@GetMapping(value = "/find",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Session> findByIdentifier(@RequestHeader("identifier") String identifier,
+			@RequestHeader("token") String token) {
+		this.loginSessionService.validateToken(token);
+		return ResponseEntity.ok(sessionService.findBySessionIdentifier(identifier));
+	}
 }

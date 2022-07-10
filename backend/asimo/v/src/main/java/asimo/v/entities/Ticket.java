@@ -1,14 +1,18 @@
 package asimo.v.entities;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.util.Date;
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import asimo.v.entities.dto.SaleTicketDTO;
 import asimo.v.entities.dto.TicketDTO;
 import asimo.v.entities.enums.TicketType;
-
-import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @Table(name = "ingresso")

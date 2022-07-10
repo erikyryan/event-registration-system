@@ -7,12 +7,13 @@ interface SelectedSeat {
 
 interface Props {
   selected: SelectedSeat[];
+  ticketPrice: number;
 }
 
-const FinalPrice = ({ selected }: Props) => {
+const FinalPrice = ({ selected, ticketPrice }: Props) => {
   const finalPrice = selected.reduce((prev, curr) => {
-    if (curr.type === "meia") return prev + 6;
-    else return prev + 12;
+    if (curr.type === "meia") return prev + ticketPrice / 2;
+    else return prev + ticketPrice;
   }, 0);
 
   return (
