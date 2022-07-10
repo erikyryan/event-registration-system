@@ -7,10 +7,12 @@ import useToast from "../hooks/useToast";
 import Toast from "../components/Toast";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 const AddSession = () => {
-  const { token } = useAuth();
+  const { token, logout } = useAuth();
   const { toast, open, setOpen, toastProps } = useToast();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     sessionStartDate: "",
     sessionEndDate: "",
@@ -64,8 +66,12 @@ const AddSession = () => {
         });
         console.log(res);
         toast("Sessão adicionada com sucesso!", "success");
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        const message = error.response.data.message;
+        if (message === "Sessão expirou.") {
+          await logout();
+          navigate("/login");
+        }
       }
     }
   };
