@@ -28,7 +28,7 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    @GetMapping(name="/seats",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/seats",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> listAllSeats(@RequestHeader("token") String token,
             @RequestHeader("sessionidentifier") String sessionIdentifier) {
         this.loginSessionService.validateToken(token);
