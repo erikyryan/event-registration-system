@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import asimo.v.entities.Event;
 import asimo.v.entities.Session;
+import asimo.v.entities.dto.EventDTO;
 import asimo.v.entities.dto.SessionDTO;
+import asimo.v.services.EventService;
 import asimo.v.services.LoginSessionService;
 import asimo.v.services.ReportService;
 import asimo.v.services.SessionService;
@@ -24,10 +27,14 @@ public class ReportController {
 
 	private SessionService sessionService;
 	
-	public ReportController(LoginSessionService loginSessionService, ReportService reportService, SessionService sessionService) {
+	private EventService eventService;
+	
+	public ReportController(LoginSessionService loginSessionService, ReportService reportService, SessionService sessionService,
+			EventService eventService) {
 		this.loginSessionService = loginSessionService;
 		this.sessionService = sessionService;
 		this.reportService = reportService;
+		this.eventService = eventService;
 	}
 
 	@GetMapping(value = "/session")
@@ -35,6 +42,14 @@ public class ReportController {
 			@RequestHeader("sessionIdentifier") String sessionIdentifier){
 		this.loginSessionService.validateToken(token);
 		List<Session> sessions = this.sessionService.listAllAvailable();
-		return ResponseEntity.ok(this.reportService.generateDTO(sessions));
+		return ResponseEntity.ok(this.reportService.generateSessionDTO(sessions));
+	}
+
+	@GetMapping(value = "/event")
+	public ResponseEntity<List<EventDTO>> reportEvent(@RequestHeader("token") String token,
+			@RequestHeader("eventIdentifier") String eventIdentifier){
+		this.loginSessionService.validateToken(token);
+		List<Event> events = this.eventService.listAllAvailable();
+		return ResponseEntity.ok(this.reportService.generateEventDTO(events));
 	}
 }

@@ -6,51 +6,53 @@ import asimo.v.entities.enums.MovieType;
 
 public class EventDTO {
 
-    private Long id;
+	private String eventName;
+	
+	private Date eventStartDate;
 
-    private String name;
+	private Date eventEndDate;
 
-    private Date eventDate;
-
-    private String duration;
-
-    private String classification;
-
-    private String launchYear;
-
-    private String synopsis;
+	private Integer avaliableQuantity;
 
     private MovieType movieType;
 
-    public Long getId() {
-        return id;
-    }
+	public String getEventName() {
+		return eventName;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Date getEventStartDate() {
+		return eventStartDate;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setEventStartDate(Date eventStartDate) {
+		this.eventStartDate = eventStartDate;
+	}
 
-    public Date getEventDate() {
-        return eventDate;
-    }
+	public Date getEventEndDate() {
+		return eventEndDate;
+	}
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
-    }
+	public void setEventEndDate(Date eventEndDate) {
+		this.eventEndDate = eventEndDate;
+	}
 
-    public String getSynopsis() {
-        return synopsis;
-    }
+	public Integer getAvaliableQuantity() {
+		return avaliableQuantity;
+	}
 
-    public void setSynopsis(String synopsis) {
-        this.synopsis = synopsis;
-    }
+	public void setAvaliableQuantity(Integer avaliableQuantity) {
+		this.avaliableQuantity = avaliableQuantity;
+	}
+
+	public MovieType getMovieType() {
+		return movieType;
+	}
+
+	public void setMovieType(MovieType movieType) {
+		this.movieType = movieType;
+	}
 }

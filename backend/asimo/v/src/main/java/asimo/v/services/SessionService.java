@@ -63,6 +63,19 @@ public class SessionService {
 				().filter(t -> t.getOccupied() == true && Objects.equals(t.getUseridentifier(), null))
 				.collect(Collectors.toList()).size();
 	}
+
+	public Integer availableEventSeats(List<Session> sessions) {
+		Integer totalTickets = 0;
+		
+		for(Session session: sessions) {
+			List<Ticket> tickets = ticketService.findAllTicketsBySessionIdentifier(session.getSessionIdentifier());
+			totalTickets += tickets.stream
+					().filter(t -> t.getOccupied() == true && Objects.equals(t.getUseridentifier(), null))
+					.collect(Collectors.toList()).size();
+		}
+		
+		return totalTickets;
+	}
     public Session create(SessionOperation sessionOperation, User user) {
 		if(user.isAdmin()){
 			validateCreationSession(sessionOperation);
