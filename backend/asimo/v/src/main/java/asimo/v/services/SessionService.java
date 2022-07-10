@@ -2,6 +2,7 @@ package asimo.v.services;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import asimo.v.entities.Event;
 import asimo.v.entities.Session;
+import asimo.v.entities.Ticket;
 import asimo.v.entities.User;
 import asimo.v.entities.enums.EventStatus;
 import asimo.v.entities.operation.SessionOperation;
@@ -55,6 +57,12 @@ public class SessionService {
     			.collect(Collectors.toList());
     }
 
+	public Integer availableSeats(Session session) {
+		List<Ticket> tickets = ticketService.findAllTicketsBySessionIdentifier(session.getSessionIdentifier());
+		return tickets.stream
+				().filter(t -> t.getOccupied() == true && Objects.equals(t.getUseridentifier(), null))
+				.collect(Collectors.toList()).size();
+	}
     public Session create(SessionOperation sessionOperation, User user) {
 		if(user.isAdmin()){
 			validateCreationSession(sessionOperation);
