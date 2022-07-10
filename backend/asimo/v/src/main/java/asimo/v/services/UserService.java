@@ -3,6 +3,7 @@ package asimo.v.services;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -142,6 +143,11 @@ public class UserService {
 		throw new RuntimeException("User não encontrado");
 	}
 
+	public List<User> listAll(User user){
+		user.isAdmin();
+		return this.userRepository.findAll();
+	}
+	
 	public User editUser(UserOperation userEdit, User user) {
 		user.editUser(userEdit);
 
