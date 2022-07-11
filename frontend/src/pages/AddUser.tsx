@@ -5,9 +5,11 @@ import AddUserForm from "../components/AddUserForm";
 import HeaderBackButton from "../components/HeaderBackButton";
 import api from "../services/api";
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const AddUser = () => {
-  const { token } = useAuth();
+  const { token, logout } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     doc: "",
@@ -40,8 +42,13 @@ const AddUser = () => {
           }
         );
         console.log(res);
-      } catch (error) {
+      } catch (error: any) {
         console.log(error);
+        const message = error.response.data.message;
+        if (message === "Sessão expirou.") {
+          await logout();
+          navigate("/login");
+        }
       }
     }
   };

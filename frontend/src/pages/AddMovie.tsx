@@ -8,7 +8,7 @@ import AddMovieForm from "../components/AddMovieForm";
 import HeaderBackButton from "../components/HeaderBackButton";
 
 const AddMovie = () => {
-  const { token } = useAuth();
+  const { token, logout } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -38,8 +38,13 @@ const AddMovie = () => {
           }
         });
         navigate("/filmes");
-      } catch (error) {
+      } catch (error: any) {
         console.log(error);
+        const message = error.response.data.message;
+        if (message === "Sessão expirou.") {
+          await logout();
+          navigate("/login");
+        }
       }
     }
   };
