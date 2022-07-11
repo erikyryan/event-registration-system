@@ -63,7 +63,7 @@ public class Sale{
 	}
 
 	public String generateProtocol(Integer value){
-		return String.format("%05d",value.toString());
+		return value.toString();
 	}
 
 	public String getProtocol() {
