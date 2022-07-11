@@ -11,13 +11,18 @@ import { useState } from "react";
 import Ticket from "./Ticket";
 
 interface SelectedSeat {
-  number: number;
+  ticketIdentifier: string;
+  nameUser: string;
+  sex: string;
+  doc: string;
+  price: number;
+  seat: number;
   type: string;
 }
 
 interface Props {
   selected: SelectedSeat[];
-  changeTicketType: (seatNumber: number) => void;
+  changeTicketType: (ticketIdentifier: string) => void;
 }
 
 const ReserveForm = ({ selected, changeTicketType }: Props) => {
@@ -26,9 +31,10 @@ const ReserveForm = ({ selected, changeTicketType }: Props) => {
       <Box>
         {selected.map((seat) => (
           <Ticket
-            number={seat.number}
+            ticketIdentifier={seat.ticketIdentifier}
+            seat={seat.seat}
             changeTicketType={changeTicketType}
-            key={seat.number + "reserveForm"}
+            key={seat.ticketIdentifier}
           />
         ))}
       </Box>
