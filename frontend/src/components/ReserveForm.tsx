@@ -1,27 +1,9 @@
-import {
-  Typography,
-  Box,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  Radio,
-  FormControlLabel
-} from "@mui/material";
-import { useState } from "react";
+import { Box } from "@mui/material";
+import { ISelectedSeat } from "../types/ISeat";
 import Ticket from "./Ticket";
 
-interface SelectedSeat {
-  ticketIdentifier: string;
-  nameUser: string;
-  sex: string;
-  doc: string;
-  price: number;
-  seat: number;
-  type: string;
-}
-
 interface Props {
-  selected: SelectedSeat[];
+  selected: ISelectedSeat[];
   changeTicketType: (ticketIdentifier: string) => void;
 }
 

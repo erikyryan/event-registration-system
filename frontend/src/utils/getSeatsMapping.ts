@@ -1,10 +1,6 @@
-type Seat = {
-  ticketIdentifier: string;
-  seat: number;
-  occupiedSeat: boolean;
-};
+import { ISeat } from "../types/ISeat";
 
-const getSeatsMapping = (seats: Seat[]): Seat[][] => {
+const getSeatsMapping = (seats: ISeat[]): ISeat[][] => {
   const numsPerGroup = Math.ceil(seats?.length / 3);
   const seatsMapping = new Array(3)
     .fill("")

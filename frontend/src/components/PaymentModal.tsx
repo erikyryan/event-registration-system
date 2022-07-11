@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Box, Button, Modal, Typography, IconButton } from "@mui/material";
 import FinalPrice from "./FinalPrice";
 import Close from "@mui/icons-material/Close";
+import { ISelectedSeat } from "../types/ISeat";
 
 const style = {
   position: "absolute",
@@ -16,18 +17,8 @@ const style = {
 };
 
 interface Props {
-  selected: SelectedSeat[];
+  selected: ISelectedSeat[];
   handlePayment: () => void;
-}
-
-interface SelectedSeat {
-  ticketIdentifier: string;
-  nameUser: string;
-  sex: string;
-  doc: string;
-  price: number;
-  seat: number;
-  type: string;
 }
 
 const PaymentModal = ({ selected, handlePayment }: Props) => {

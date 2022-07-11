@@ -1,13 +1,6 @@
-interface SelectedSeat {
-  ticketIdentifier: string;
-  nameUser: string;
-  sex: string;
-  doc: string;
-  price: number;
-  type: string;
-}
+import { ISelectedSeat } from "../types/ISeat";
 
-const getTotalPrice = (selected: SelectedSeat[]) => {
+const getTotalPrice = (selected?: ISelectedSeat[]) => {
   const totalPrice = selected?.reduce((prev, curr) => {
     return prev + curr.price;
   }, 0);

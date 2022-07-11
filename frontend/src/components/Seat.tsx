@@ -1,19 +1,18 @@
-import React from "react";
-import { Box, IconButton, Paper } from "@mui/material";
+import { IconButton } from "@mui/material";
 import WeekendIcon from "@mui/icons-material/Weekend";
 
 interface Props {
   ticketIdentifier: string;
   selected?: boolean;
-  user?: number | null | boolean;
+  occupied?: boolean;
   seat: number;
   select: (ticketIdentifier: string, seat: number) => void;
   cancel: (ticketIdentifier: string) => void;
 }
 
-const Seat = ({ ticketIdentifier, selected, user, select, seat, cancel }: Props) => {
+const Seat = ({ ticketIdentifier, selected, occupied, select, seat, cancel }: Props) => {
   const handleClick = () => {
-    if (!user) {
+    if (!occupied) {
       if (selected) {
         cancel(ticketIdentifier);
       } else {
@@ -22,14 +21,14 @@ const Seat = ({ ticketIdentifier, selected, user, select, seat, cancel }: Props)
     }
   };
 
-  const color = user ? "gray" : selected ? "#B27B16" : "#10B981";
+  const color = occupied ? "gray" : selected ? "#B27B16" : "#10B981";
 
   return (
     <IconButton
       onClick={handleClick}
       sx={{
         color: color,
-        cursor: user ? "default" : "pointer",
+        cursor: occupied ? "default" : "pointer",
         fontSize: "45px"
       }}>
       <WeekendIcon fontSize="inherit" />
