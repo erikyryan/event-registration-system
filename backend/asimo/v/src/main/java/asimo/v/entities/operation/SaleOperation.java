@@ -23,10 +23,6 @@ public class SaleOperation {
 
     @NotNull
     private Long price;
-
-    @NotNull
-    private Integer seat;
-
     @NotNull
     private Date saleDate;
 
@@ -43,14 +39,6 @@ public class SaleOperation {
     private DocType docType;
 
     List<TicketOperation> ticketOperationList;
-
-    public Integer getSeat() {
-        return seat;
-    }
-
-    public void setSeat(Integer seat) {
-        this.seat = seat;
-    }
 
     public String getDoc() {
         return doc;
@@ -135,11 +123,10 @@ public class SaleOperation {
     public SaleOperation() {
     }
 
-    public SaleOperation(String doc, String sex, Long price, Integer seat, Date saleDate, String paymentForm, SaleType saleType, String userName, DocType docType) {
+    public SaleOperation(String doc, String sex, Long price, Date saleDate, String paymentForm, SaleType saleType, String userName, DocType docType) {
         this.doc = doc;
         this.sex = sex;
         this.price = price;
-        this.seat = seat;
         this.saleDate = saleDate;
         this.paymentForm = paymentForm;
         this.saleType = saleType;
@@ -147,11 +134,10 @@ public class SaleOperation {
         this.docType = docType;
     }
 
-    public SaleOperation(String doc, String sex, Long price, Integer seat, Date saleDate, String paymentForm, SaleType saleType, String userName, DocType docType, List<TicketOperation> ticketOperationList) {
+    public SaleOperation(String doc, String sex, Long price, Date saleDate, String paymentForm, SaleType saleType, String userName, DocType docType, List<TicketOperation> ticketOperationList) {
         this.doc = doc;
         this.sex = sex;
         this.price = price;
-        this.seat = seat;
         this.saleDate = saleDate;
         this.paymentForm = paymentForm;
         this.saleType = saleType;
@@ -160,12 +146,11 @@ public class SaleOperation {
         this.ticketOperationList = ticketOperationList;
     }
 
-    public SaleOperation(String userIdentifier, String doc, String sex, Long price, Integer seat, Date saleDate, String paymentForm, SaleType saleType, String userName, DocType docType, List<TicketOperation> ticketOperationList) {
+    public SaleOperation(String userIdentifier, String doc, String sex, Long price, Date saleDate, String paymentForm, SaleType saleType, String userName, DocType docType, List<TicketOperation> ticketOperationList) {
         this.userIdentifier = userIdentifier;
         this.doc = doc;
         this.sex = sex;
         this.price = price;
-        this.seat = seat;
         this.saleDate = saleDate;
         this.paymentForm = paymentForm;
         this.saleType = saleType;
