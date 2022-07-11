@@ -1,17 +1,9 @@
 import { Box, Typography } from "@mui/material";
+import { ISelectedSeat } from "../types/ISeat";
 import getTotalPrice from "../utils/getTotalPrice";
 
-interface SelectedSeat {
-  ticketIdentifier: string;
-  nameUser: string;
-  sex: string;
-  doc: string;
-  price: number;
-  type: string;
-}
-
 interface Props {
-  selected?: SelectedSeat[];
+  selected?: ISelectedSeat[];
 }
 
 const FinalPrice = ({ selected }: Props) => {

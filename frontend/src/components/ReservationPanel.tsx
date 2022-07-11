@@ -9,32 +9,18 @@ import getSeatsMapping from "../utils/getSeatsMapping";
 import { useAuth } from "../contexts/AuthContext";
 import getTotalPrice from "../utils/getTotalPrice";
 import api from "../services/api";
+import { ISeat, ISelectedSeat } from "../types/ISeat";
 
 interface Props {
-  seats: {
-    ticketIdentifier: string;
-    occupiedSeat: boolean;
-    seat: number;
-  }[];
+  seats: ISeat[];
   ticketPrice: number;
   eventIdentifier: string;
   sessionIdentifier: string;
 }
 
-interface SelectedSeat {
-  ticketIdentifier: string;
-  nameUser: string;
-  sex: string;
-  doc: string;
-  price: number;
-  seat: number;
-  type: string;
-}
-
 const ReservationPanel = ({ seats, ticketPrice, eventIdentifier, sessionIdentifier }: Props) => {
   const { currentUser, token } = useAuth();
-  const [selected, setSelected] = useState<SelectedSeat[]>([]);
-  console.log(selected);
+  const [selected, setSelected] = useState<ISelectedSeat[]>([]);
   const seatsMapping = getSeatsMapping(seats);
 
   const selectSeat = (ticketIdentifier: string, seat: number): void => {
