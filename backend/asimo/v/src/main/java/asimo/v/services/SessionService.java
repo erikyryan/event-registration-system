@@ -60,7 +60,7 @@ public class SessionService {
 	public Integer availableSeats(Session session) {
 		List<Ticket> tickets = ticketService.findAllTicketsBySessionIdentifier(session.getSessionIdentifier());
 		return tickets.stream
-				().filter(t -> t.getOccupied() == true && Objects.equals(t.getUseridentifier(), null))
+				().filter(t -> Objects.equals(t.getUseridentifier(), null))
 				.collect(Collectors.toList()).size();
 	}
 
@@ -70,7 +70,7 @@ public class SessionService {
 		for(Session session: sessions) {
 			List<Ticket> tickets = ticketService.findAllTicketsBySessionIdentifier(session.getSessionIdentifier());
 			totalTickets += tickets.stream
-					().filter(t -> t.getOccupied() == true && Objects.equals(t.getUseridentifier(), null))
+					().filter(t -> Objects.equals(t.getUseridentifier(), null))
 					.collect(Collectors.toList()).size();
 		}
 		
@@ -99,8 +99,9 @@ public class SessionService {
 
 	private void validateCreationSession(SessionOperation sessionOperation) {
 		Event event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
-		if (sessionRepository.findByEventAndSessionStartDate(event,sessionOperation.getSessionStartDate()).isPresent()) {
-			throw new InvalidEvent("Sessão Inválida");
+		Optional<Session> session = sessionRepository.findByEventAndSessionStartDate(event,sessionOperation.getSessionStartDate());
+		if (session.isPresent()) {
+			throw new InvalidEvent("Sessão já existente");
 		}
 	}
 }
