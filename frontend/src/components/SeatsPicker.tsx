@@ -4,18 +4,24 @@ import { ITheme } from "../styles/theme";
 import Seat from "./Seat";
 
 interface Seat {
+  ticketIdentifier: string;
   seat: number;
   occupiedSeat: boolean;
 }
 
 interface SelectedSeat {
-  number: number;
+  ticketIdentifier: string;
+  nameUser: string;
+  sex: string;
+  doc: string;
+  price: number;
+  seat: number;
   type: string;
 }
 
 interface Props {
-  selectSeat: (number: number) => void;
-  cancelSelection: (number: number) => void;
+  selectSeat: (ticketIdentifier: string, seat: number) => void;
+  cancelSelection: (ticketIdentifier: string) => void;
   selected: SelectedSeat[];
   seats: Seat[][];
 }
@@ -54,14 +60,13 @@ const SeatsPicker = ({ selectSeat, cancelSelection, selected, seats }: Props) =>
               justifyContent: "center",
               alignItems: "center"
             }}>
-            {row.map(({ seat, occupiedSeat }, seatNum) => (
+            {row.map((seat) => (
               <Seat
-                key={seatNum + seat + index}
-                row={alphabet[index]}
-                col={seatNum}
-                number={seat}
-                selected={selected.some((s) => s.number === seat)}
-                user={occupiedSeat}
+                key={seat.ticketIdentifier}
+                ticketIdentifier={seat.ticketIdentifier}
+                selected={selected.some((s) => s.ticketIdentifier === seat.ticketIdentifier)}
+                user={seat.occupiedSeat}
+                seat={seat.seat}
                 select={selectSeat}
                 cancel={cancelSelection}
               />

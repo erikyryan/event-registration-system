@@ -3,22 +3,21 @@ import { Box, IconButton, Paper } from "@mui/material";
 import WeekendIcon from "@mui/icons-material/Weekend";
 
 interface Props {
-  row: string;
-  col: number;
-  number: number;
+  ticketIdentifier: string;
   selected?: boolean;
   user?: number | null | boolean;
-  select: (row: number) => void;
-  cancel: (row: number) => void;
+  seat: number;
+  select: (ticketIdentifier: string, seat: number) => void;
+  cancel: (ticketIdentifier: string) => void;
 }
 
-const Seat = ({ row, col, number, selected, user, select, cancel }: Props) => {
+const Seat = ({ ticketIdentifier, selected, user, select, seat, cancel }: Props) => {
   const handleClick = () => {
     if (!user) {
       if (selected) {
-        cancel(number);
+        cancel(ticketIdentifier);
       } else {
-        select(number);
+        select(ticketIdentifier, seat);
       }
     }
   };

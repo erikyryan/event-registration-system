@@ -1,23 +1,24 @@
 import { Box, Typography } from "@mui/material";
+import getTotalPrice from "../utils/getTotalPrice";
 
 interface SelectedSeat {
-  number: number;
+  ticketIdentifier: string;
+  nameUser: string;
+  sex: string;
+  doc: string;
+  price: number;
   type: string;
 }
 
 interface Props {
-  selected: SelectedSeat[];
-  ticketPrice: number;
+  selected?: SelectedSeat[];
 }
 
-const FinalPrice = ({ selected, ticketPrice }: Props) => {
-  const finalPrice = selected.reduce((prev, curr) => {
-    if (curr.type === "meia") return prev + ticketPrice / 2;
-    else return prev + ticketPrice;
-  }, 0);
+const FinalPrice = ({ selected }: Props) => {
+  const finalPrice = getTotalPrice(selected);
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+    <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
       <Typography variant="h6">Total</Typography>
       <Typography variant="h6">R${finalPrice},00</Typography>
     </Box>

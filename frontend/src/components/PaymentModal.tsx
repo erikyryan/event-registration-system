@@ -17,14 +17,20 @@ const style = {
 
 interface Props {
   selected: SelectedSeat[];
+  handlePayment: () => void;
 }
 
 interface SelectedSeat {
-  number: number;
+  ticketIdentifier: string;
+  nameUser: string;
+  sex: string;
+  doc: string;
+  price: number;
+  seat: number;
   type: string;
 }
 
-const PaymentModal = ({ selected }: Props) => {
+const PaymentModal = ({ selected, handlePayment }: Props) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -52,14 +58,14 @@ const PaymentModal = ({ selected }: Props) => {
             <Typography variant="body1">Assentos selecionados:</Typography>
             <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
               {selected.map((seat) => (
-                <Box key={seat.number}>#{seat.number}</Box>
+                <Box key={seat.seat}>#{seat.seat}</Box>
               ))}
               <Box sx={{ ml: "auto", mt: 5 }}>
                 <FinalPrice selected={selected} />
               </Box>
             </Box>
           </Box>
-          <Button variant="contained" sx={{}} size="small">
+          <Button variant="contained" size="small" onClick={handlePayment}>
             Confirmar Pagamento
           </Button>
         </Box>

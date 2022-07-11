@@ -6,46 +6,105 @@ import ReserveForm from "./ReserveForm";
 import SeatsCaption from "./SeatsCaption";
 import SeatsPicker from "./SeatsPicker";
 import getSeatsMapping from "../utils/getSeatsMapping";
+import { useAuth } from "../contexts/AuthContext";
+import getTotalPrice from "../utils/getTotalPrice";
+import api from "../services/api";
 
 interface Props {
   seats: {
+    ticketIdentifier: string;
     occupiedSeat: boolean;
     seat: number;
   }[];
   ticketPrice: number;
+  eventIdentifier: string;
+  sessionIdentifier: string;
 }
 
 interface SelectedSeat {
-  number: number;
+  ticketIdentifier: string;
+  nameUser: string;
+  sex: string;
+  doc: string;
+  price: number;
+  seat: number;
   type: string;
 }
 
-const ReservationPanel = ({ seats, ticketPrice }: Props) => {
+const ReservationPanel = ({ seats, ticketPrice, eventIdentifier, sessionIdentifier }: Props) => {
+  const { currentUser, token } = useAuth();
   const [selected, setSelected] = useState<SelectedSeat[]>([]);
+  console.log(selected);
   const seatsMapping = getSeatsMapping(seats);
 
-  const selectSeat = (seatNumber: number): void => {
+  const selectSeat = (ticketIdentifier: string, seat: number): void => {
     const newSelected = {
-      number: seatNumber,
+      ticketIdentifier,
+      nameUser: currentUser?.name,
+      sex: currentUser?.sex,
+      doc: currentUser?.doc,
+      price: 12,
+      seat: seat,
       type: "inteira"
     };
     setSelected((prev) => [...prev, newSelected]);
   };
 
-  const changeTicketType = (seatNumber: number): void => {
+  const changeTicketType = (ticketIdentifier: string): void => {
     const newArr = selected.map((seat) => {
-      if (seat.number === seatNumber) {
-        if (seat.type === "inteira") seat.type = "meia";
-        else seat.type = "inteira";
+      if (seat.ticketIdentifier === ticketIdentifier) {
+        if (seat.type === "inteira") {
+          seat.type = "meia";
+          seat.price = ticketPrice / 2;
+        } else {
+          seat.type = "inteira";
+          seat.price = ticketPrice;
+        }
       }
       return seat;
     });
     setSelected(newArr);
   };
 
-  const cancelSelection = (seatNumber: number): void => {
-    const newSelected = selected.filter((seat) => seat.number !== seatNumber);
+  const cancelSelection = (ticketIdentifier: string): void => {
+    const newSelected = selected.filter((seat) => seat.ticketIdentifier !== ticketIdentifier);
     setSelected(newSelected);
+  };
+
+  const handlePayment = async () => {
+    const data = {
+      userIdentifier: currentUser?.userIdentifier,
+      doc: currentUser?.doc,
+      sex: currentUser?.sex,
+      seat: 1,
+      price: getTotalPrice(selected),
+      paymentForm: "Cartão",
+      saleType: currentUser?.role === "VENDEDOR" ? 0 : 1,
+      userName: currentUser?.name,
+      docType: 1,
+      ticketOperationList: selected.map((ticket) => ({
+        ticketIdentifier: ticket.ticketIdentifier,
+        nameUser: ticket?.nameUser,
+        sex: ticket?.sex,
+        doc: ticket?.doc,
+        price: ticket.price
+      }))
+    };
+    console.log(data);
+    if (token && eventIdentifier && sessionIdentifier) {
+      try {
+        const res = await api.post("/sale", data, {
+          headers: {
+            token,
+            eventidentifier: eventIdentifier,
+            sessionidentifier: sessionIdentifier
+          }
+        });
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -62,8 +121,8 @@ const ReservationPanel = ({ seats, ticketPrice }: Props) => {
             my: 3
           }}
         />
-        <FinalPrice selected={selected} ticketPrice={ticketPrice} />
-        <PaymentModal selected={selected} />
+        <FinalPrice selected={selected} />
+        <PaymentModal selected={selected} handlePayment={handlePayment} />
       </Stack>
       <Box sx={{ flexGrow: 1 }}>
         <SeatsCaption />

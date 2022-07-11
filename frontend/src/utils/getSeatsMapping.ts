@@ -1,9 +1,10 @@
 type Seat = {
+  ticketIdentifier: string;
   seat: number;
   occupiedSeat: boolean;
 };
 
-const getSeatsMapping = (seats: Seat[]) => {
+const getSeatsMapping = (seats: Seat[]): Seat[][] => {
   const numsPerGroup = Math.ceil(seats?.length / 3);
   const seatsMapping = new Array(3)
     .fill("")
