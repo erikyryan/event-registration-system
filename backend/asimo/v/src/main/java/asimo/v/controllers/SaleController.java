@@ -38,7 +38,7 @@ public class SaleController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SaleDTO> create(@RequestHeader("token") String token,@RequestHeader String eventidentifier ,@RequestHeader String sessionidentifier, @RequestHeader SaleOperation saleOperation){
+    public ResponseEntity<SaleDTO> create(@RequestHeader("token") String token,@RequestHeader String eventidentifier ,@RequestHeader String sessionidentifier, @RequestBody SaleOperation saleOperation){
         this.loginSessionService.validateToken(token);
         this.userService.findByToken(token);
         Session session = this.sessionService.findBySessionIdentifier(sessionidentifier);
