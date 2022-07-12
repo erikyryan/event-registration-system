@@ -20,10 +20,6 @@ public class TicketService {
         return ticketRepository.findAllBySessionIdentifier(sessionIdentifier);
     }
 
-    public Ticket findTicketBySession(String sessionIdentifier){
-        return ticketRepository.findTicketBySessionIdentifier(sessionIdentifier);
-    }
-
     public void createTicket(Integer seat, String eventIdentifier, String sessionIdentifier){
         Ticket ticket = new Ticket(seat,eventIdentifier,sessionIdentifier);
         ticketRepository.save(ticket);
@@ -33,5 +29,16 @@ public class TicketService {
         for(int seat = 1; seat <= numberOfSeats; seat++){
             this.createTicket(seat,eventIdentifier,sessionIdentifier);
         }
+    }
+
+    public void seatOcuppeid(String ticketIdentifier) {
+        Ticket ticket = ticketRepository.findByTicketIdentifier(ticketIdentifier);
+
+        if(ticket.getOccupied() == false) {
+            ticket.setOccupied(true);
+        }else{
+            ticket.setOccupied(false);
+        }
+        ticketRepository.save(ticket);
     }
 }

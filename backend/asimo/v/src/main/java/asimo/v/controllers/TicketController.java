@@ -5,10 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import asimo.v.entities.Ticket;
 import asimo.v.entities.dto.TicketDTO;
@@ -40,4 +37,10 @@ public class TicketController {
         return ResponseEntity.ok(tickets);
     }
 
+    @PostMapping(value="/seat/ocuppeid")
+    public ResponseEntity<?> seatOcuppeid(@RequestHeader("token") String token, @RequestHeader("ticketidentifier") String ticketIdentifier){
+        this.loginSessionService.validateToken(token);
+        this.ticketService.seatOcuppeid(ticketIdentifier);
+        return ResponseEntity.ok(true);
+    }
 }
