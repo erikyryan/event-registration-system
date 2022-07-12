@@ -62,7 +62,7 @@ const ReservationPanel = ({ seats, ticketPrice, eventIdentifier, sessionIdentifi
       userIdentifier: currentUser?.userIdentifier,
       doc: currentUser?.doc,
       sex: currentUser?.sex,
-      price: getTotalPrice(selected),
+      price: getTotalPrice(selected, currentUser?.role),
       paymentForm: "Cartão",
       saleType: currentUser?.role === "VENDEDOR" || currentUser?.role === "ADMIN" ? 0 : 1,
       userName: currentUser?.name,

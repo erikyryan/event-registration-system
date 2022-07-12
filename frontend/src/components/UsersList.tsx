@@ -1,20 +1,9 @@
-import {
-  Box,
-  Typography,
-  Button,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody
-} from "@mui/material";
+import { Box, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 import { IUser } from "../types/IUser";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import UserRow from "./UserRow";
 
 interface Props {
-  users?: IUser[];
+  users?: IUser[] | null | undefined;
 }
 
 const UsersList = ({ users }: Props) => {

@@ -1,6 +1,6 @@
 import api from "../services/api";
 
-const toggleSeatOcupation = async (ticketIdentifier: string, token: string) => {
+const toggleSeatOccupation = async (ticketIdentifier: string, token: string) => {
   const res = await api.post(
     "/ticket/seat/ocuppeid",
     {},
@@ -11,8 +11,7 @@ const toggleSeatOcupation = async (ticketIdentifier: string, token: string) => {
       }
     }
   );
-  console.log(res.data);
   return res.data;
 };
 
-export default toggleSeatOcupation;
+export default toggleSeatOccupation;

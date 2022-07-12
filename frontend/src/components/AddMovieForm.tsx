@@ -40,7 +40,9 @@ const AddMovieForm = ({ formData, handleChange, handleSubmit }: Props) => {
             value={formData.movieType}
             onChange={handleChange}>
             {movieTypes.map((movieType, index) => (
-              <MenuItem value={index}>{movieType}</MenuItem>
+              <MenuItem value={index} key={movieType}>
+                {movieType}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -87,7 +89,9 @@ const AddMovieForm = ({ formData, handleChange, handleSubmit }: Props) => {
             value={formData.classification}
             onChange={handleChange}>
             {classifications.map((classification) => (
-              <MenuItem value={classification}>{classification}</MenuItem>
+              <MenuItem value={classification} key={classification}>
+                {classification}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -103,7 +107,9 @@ const AddMovieForm = ({ formData, handleChange, handleSubmit }: Props) => {
             value={formData.launchYear}
             onChange={handleChange}>
             {years.map((year) => (
-              <MenuItem value={year}>{year}</MenuItem>
+              <MenuItem value={year} key={year}>
+                {year}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

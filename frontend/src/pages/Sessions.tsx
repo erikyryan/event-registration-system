@@ -10,7 +10,6 @@ const Sessions = () => {
 
   const fetchSessions = async () => {
     const { data } = await api.get("/session/public/available");
-    console.log(new Date(data[7].sessionStartDate), new Date(data[7].sessionEndDate));
     setSessions(data);
   };
 

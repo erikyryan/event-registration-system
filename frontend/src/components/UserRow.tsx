@@ -14,7 +14,9 @@ const UserRow = ({ user }: Props) => {
       <TableCell>{user.email}</TableCell>
       <TableCell>{user.doc}</TableCell>
       <TableCell>{user.telephone}</TableCell>
-      <TableCell>{user.birthDate}</TableCell>
+      <TableCell>
+        {new Date(user.birthDate).toISOString().split("T")[0].split("-").reverse().join("/")}
+      </TableCell>
       <TableCell>{user.role}</TableCell>
       <TableCell>
         <DropdownMenu />
