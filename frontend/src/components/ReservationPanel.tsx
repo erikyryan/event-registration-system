@@ -21,6 +21,7 @@ interface Props {
 const ReservationPanel = ({ seats, ticketPrice, eventIdentifier, sessionIdentifier }: Props) => {
   const { currentUser, token } = useAuth();
   const [selected, setSelected] = useState<ISelectedSeat[]>([]);
+  const [paymentData, setPaymentData] = useState<any>(null);
   const seatsMapping = getSeatsMapping(seats);
 
   const selectSeat = (ticketIdentifier: string, seat: number): void => {
@@ -29,11 +30,12 @@ const ReservationPanel = ({ seats, ticketPrice, eventIdentifier, sessionIdentifi
       nameUser: currentUser?.name,
       sex: currentUser?.sex,
       doc: currentUser?.doc,
-      price: 12,
+      price: ticketPrice,
       seat: seat,
       type: "inteira"
     };
     setSelected((prev) => [...prev, newSelected]);
+    setPaymentData(null);
   };
 
   const changeTicketType = (ticketIdentifier: string): void => {
@@ -64,7 +66,7 @@ const ReservationPanel = ({ seats, ticketPrice, eventIdentifier, sessionIdentifi
       sex: currentUser?.sex,
       price: getTotalPrice(selected, currentUser?.role),
       paymentForm: "Cartão",
-      saleType: currentUser?.role === "VENDEDOR" || currentUser?.role === "ADMIN" ? 0 : 1,
+      saleType: currentUser?.role !== "USER" ? 0 : 1,
       userName: currentUser?.name,
       docType: 1,
       ticketOperationList: selected.map((ticket) => ({
@@ -76,6 +78,7 @@ const ReservationPanel = ({ seats, ticketPrice, eventIdentifier, sessionIdentifi
       }))
     };
     if (!token) return;
+    console.log(data);
     try {
       const res = await api.post("/sale", data, {
         headers: {
@@ -84,6 +87,7 @@ const ReservationPanel = ({ seats, ticketPrice, eventIdentifier, sessionIdentifi
           sessionidentifier: sessionIdentifier
         }
       });
+      setPaymentData(res.data);
       setSelected([]);
     } catch (error) {
       console.log(error);
@@ -105,7 +109,7 @@ const ReservationPanel = ({ seats, ticketPrice, eventIdentifier, sessionIdentifi
           }}
         />
         <FinalPrice selected={selected} />
-        <PaymentModal selected={selected} handlePayment={handlePayment} />
+        <PaymentModal selected={selected} handlePayment={handlePayment} paymentData={paymentData} />
       </Stack>
       <Box sx={{ flexGrow: 1 }}>
         <SeatsCaption />
