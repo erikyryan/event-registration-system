@@ -46,8 +46,7 @@ public class ReportController {
 	}
 
 	@GetMapping(value = "/event")
-	public ResponseEntity<List<EventDTO>> reportEvent(@RequestHeader("token") String token,
-			@RequestHeader("eventIdentifier") String eventIdentifier){
+	public ResponseEntity<List<EventDTO>> reportEvent(@RequestHeader("token") String token){
 		this.loginSessionService.validateToken(token);
 		List<Event> events = this.eventService.listAllAvailable();
 		return ResponseEntity.ok(this.reportService.generateEventDTO(events));

@@ -17,6 +17,8 @@ import asimo.v.services.SaleService;
 import asimo.v.services.SessionService;
 import asimo.v.services.UserService;
 
+import javax.persistence.Entity;
+
 @RestController
 @RequestMapping("/sale")
 public class SaleController {
@@ -40,14 +42,19 @@ public class SaleController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+<<<<<<< HEAD
     public ResponseEntity<SaleDTO> create(@RequestHeader("token") String token, @RequestHeader String eventidentifier,
     		@RequestHeader String sessionidentifier, @RequestHeader SaleOperation saleOperation){
+=======
+    public ResponseEntity<SaleDTO> create(@RequestHeader String token,@RequestHeader String eventidentifier ,@RequestHeader String sessionidentifier, @RequestBody SaleOperation saleOperation){
+>>>>>>> 44f8dadda313ce3d38609eb0d1a5a512ce62ffd0
         this.loginSessionService.validateToken(token);
         this.userService.findByToken(token);
         Session session = this.sessionService.findBySessionIdentifier(sessionidentifier);
         Event event = this.eventService.findByEventIdentifier(eventidentifier);
 
         return ResponseEntity.ok(this.saleService.makeTheSales(event,session,saleOperation,saleOperation.getTicketOperationList()));
+//        return ResponseEntity.ok(this.saleService.makeTheSales(event,session,saleOperation,saleOperation.getTicketOperationList()));
     }
 
 

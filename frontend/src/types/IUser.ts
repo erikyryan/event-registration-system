@@ -2,7 +2,7 @@ export interface IUser {
   userIdentifier?: string;
   name: string;
   email: string;
-  login: string;
+  sex: string;
   doc: string;
   birthDate: number;
   telephone: string;

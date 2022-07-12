@@ -43,14 +43,6 @@ public class SaleOperation {
 
     List<TicketOperation> ticketOperationList;
 
-    public Integer getSeat() {
-        return seat;
-    }
-
-    public void setSeat(Integer seat) {
-        this.seat = seat;
-    }
-
     public String getDoc() {
         return doc;
     }
@@ -138,7 +130,6 @@ public class SaleOperation {
         this.doc = doc;
         this.sex = sex;
         this.price = price;
-        this.seat = seat;
         this.saleDate = saleDate;
         this.paymentForm = paymentForm;
         this.saleType = saleType;
@@ -150,7 +141,6 @@ public class SaleOperation {
         this.doc = doc;
         this.sex = sex;
         this.price = price;
-        this.seat = seat;
         this.saleDate = saleDate;
         this.paymentForm = paymentForm;
         this.saleType = saleType;
@@ -164,7 +154,6 @@ public class SaleOperation {
         this.doc = doc;
         this.sex = sex;
         this.price = price;
-        this.seat = seat;
         this.saleDate = saleDate;
         this.paymentForm = paymentForm;
         this.saleType = saleType;

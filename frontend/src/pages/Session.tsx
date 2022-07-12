@@ -1,47 +1,70 @@
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
 import ReservationPanel from "../components/ReservationPanel";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../services/api";
+import { ISeat } from "../types/ISeat";
 import { ISession } from "../types/ISession";
 
 const Session = () => {
-  const { token } = useAuth();
+  const { token, logout } = useAuth();
   const { id } = useParams();
+  const navigate = useNavigate();
   const [seats, setSeats] = useState(null);
   const [session, setSession] = useState<ISession | null>(null);
   const sessionDate = session && new Date(session?.sessionStartDate);
 
   const fetchSeats = async () => {
     if (token && id) {
-      const res = await api.get("/ticket/seats", {
-        headers: {
-          token: token,
-          sessionidentifier: id
+      try {
+        const { data } = await api.get("/ticket/seats", {
+          headers: {
+            token: token,
+            sessionidentifier: id
+          }
+        });
+        const sortedSeats = data.sort((a: ISeat, b: ISeat) => a.seat - b.seat);
+        setSeats(sortedSeats);
+      } catch (error: any) {
+        const message = error.response.data.message;
+        if (message === "Sessão expirou.") {
+          await logout();
+          navigate("/login");
         }
-      });
-      setSeats(res.data);
+      }
     }
   };
 
   const fetchSession = async () => {
     if (token && id) {
-      const res = await api.get("/session/find", {
-        headers: {
-          token: token,
-          identifier: id
+      try {
+        const { data } = await api.get("/session/find", {
+          headers: {
+            token: token,
+            identifier: id
+          }
+        });
+        setSession(data);
+      } catch (error: any) {
+        const message = error.response.data.message;
+        if (message === "Sessão expirou.") {
+          await logout();
+          navigate("/login");
         }
-      });
-      console.log(res.data);
-      setSession(res.data);
+      }
     }
   };
 
   useEffect(() => {
     fetchSession();
     fetchSeats();
+    // fetch seats every 5 seconds
+    const interval = setInterval(() => {
+      fetchSeats();
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   if (!session && !seats) return <DashboardLayout>Loading...</DashboardLayout>;
@@ -55,7 +78,14 @@ const Session = () => {
         Sessão dia {sessionDate?.getDate()} de {sessionDate && months[sessionDate?.getMonth() - 1]}{" "}
         às {sessionDate?.getHours()}:{sessionDate?.getMinutes()}
       </Typography>
-      {session && seats && <ReservationPanel seats={seats} ticketPrice={session.ticketPrice} />}
+      {session && seats && (
+        <ReservationPanel
+          seats={seats}
+          ticketPrice={session.ticketPrice}
+          eventIdentifier={session.event.eventIdentifier}
+          sessionIdentifier={session.sessionIdentifier}
+        />
+      )}
     </DashboardLayout>
   );
 };

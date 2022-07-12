@@ -1,23 +1,10 @@
-import {
-  Typography,
-  Box,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  Radio,
-  FormControlLabel
-} from "@mui/material";
-import { useState } from "react";
+import { Box } from "@mui/material";
+import { ISelectedSeat } from "../types/ISeat";
 import Ticket from "./Ticket";
 
-interface SelectedSeat {
-  number: number;
-  type: string;
-}
-
 interface Props {
-  selected: SelectedSeat[];
-  changeTicketType: (seatNumber: number) => void;
+  selected: ISelectedSeat[];
+  changeTicketType: (ticketIdentifier: string) => void;
 }
 
 const ReserveForm = ({ selected, changeTicketType }: Props) => {
@@ -26,9 +13,10 @@ const ReserveForm = ({ selected, changeTicketType }: Props) => {
       <Box>
         {selected.map((seat) => (
           <Ticket
-            number={seat.number}
+            ticketIdentifier={seat.ticketIdentifier}
+            seat={seat.seat}
             changeTicketType={changeTicketType}
-            key={seat.number + "reserveForm"}
+            key={seat.ticketIdentifier}
           />
         ))}
       </Box>

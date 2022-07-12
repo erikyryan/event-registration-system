@@ -1,23 +1,14 @@
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
 import { ITheme } from "../styles/theme";
+import { ISeat, ISelectedSeat } from "../types/ISeat";
 import Seat from "./Seat";
 
-interface Seat {
-  seat: number;
-  occupiedSeat: boolean;
-}
-
-interface SelectedSeat {
-  number: number;
-  type: string;
-}
-
 interface Props {
-  selectSeat: (number: number) => void;
-  cancelSelection: (number: number) => void;
-  selected: SelectedSeat[];
-  seats: Seat[][];
+  selectSeat: (ticketIdentifier: string, seat: number) => void;
+  cancelSelection: (ticketIdentifier: string) => void;
+  selected: ISelectedSeat[];
+  seats: ISeat[][];
 }
 
 const CinemaScreen = styled("div")(({ theme }: { theme?: ITheme }) => ({
@@ -54,14 +45,13 @@ const SeatsPicker = ({ selectSeat, cancelSelection, selected, seats }: Props) =>
               justifyContent: "center",
               alignItems: "center"
             }}>
-            {row.map(({ seat, occupiedSeat }, seatNum) => (
+            {row.map((seat) => (
               <Seat
-                key={seatNum + seat + index}
-                row={alphabet[index]}
-                col={seatNum}
-                number={seat}
-                selected={selected.some((s) => s.number === seat)}
-                user={occupiedSeat}
+                key={seat.ticketIdentifier}
+                ticketIdentifier={seat.ticketIdentifier}
+                selected={selected.some((s) => s.ticketIdentifier === seat.ticketIdentifier)}
+                occupied={seat.occupiedSeat}
+                seat={seat.seat}
                 select={selectSeat}
                 cancel={cancelSelection}
               />
