@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import asimo.v.entities.Sale;
 
+import javax.persistence.Entity;
+
 @RestController
 @RequestMapping("/sale")
 public class SaleController {
@@ -45,6 +47,7 @@ public class SaleController {
         Event event = this.eventService.findByEventIdentifier(eventidentifier);
 
         return ResponseEntity.ok(this.saleService.makeTheSales(event,session,saleOperation,saleOperation.getTicketOperationList()));
+//        return ResponseEntity.ok(this.saleService.makeTheSales(event,session,saleOperation,saleOperation.getTicketOperationList()));
     }
 
 

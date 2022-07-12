@@ -47,6 +47,7 @@ public class SaleService {
 
             Configuration config = configuration.get();
             sale.setProtocol(sale.generateProtocol(config.getValue()));
+            sale.setSaleDate(new Date());
             config.setValue(config.getValue() + 1);
             configurationRepository.save(config);
             return saleRepository.save(sale);
@@ -60,8 +61,8 @@ public class SaleService {
 
         Sale sale = createProtocol(new Sale(saleOperation));
 
-        List<SaleTicketDTO> tickets = ticketOperations.stream().map(ticketOperation -> saleTicket(ticketOperation,sale))
-                .map( Ticket :: generateSaleTicketDTO).collect(Collectors.toList());
+        List<SaleTicketDTO> tickets = ticketOperations.stream().map(t -> saleTicket(t,sale))
+                .map( t -> t.generateSaleTicketDTO()).collect(Collectors.toList());
 
         return sale.generateSaleDTO(tickets,event.getName(),session.getSessionStartDate());
 
