@@ -97,9 +97,6 @@ public class UserService {
 		if (userRepository.findByEmail(userParams.getEmail()).isPresent()) {
 			throw new InvalidEmail("Email Inválido");
 		}
-		if(userParams.getRole() != UserRole.ADMIN) {
-			throw new RuntimeException("voce não pode fazer isso.");
-		}
 	}
 
 	public static String generateSalt() {

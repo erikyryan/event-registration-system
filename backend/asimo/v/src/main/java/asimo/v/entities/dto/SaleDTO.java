@@ -5,12 +5,17 @@ import java.util.List;
 
 public class SaleDTO {
     private String protocol;
+    
     private String doc;
-    private Long price;
+    
+    private Float price;
+    
     private String eventName;
-
+    
     private String userName;
+    
     private Date saleDate;
+    
     private Date sessionDate;
 
     List<SaleTicketDTO> saleTicketDTOList;
@@ -31,11 +36,11 @@ public class SaleDTO {
         this.doc = doc;
     }
 
-    public Long getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -84,7 +89,7 @@ public class SaleDTO {
     }
 
 
-    public SaleDTO(String protocol, String doc, Long price, String eventName, String userName, Date saleDate, Date sessionDate, List<SaleTicketDTO> saleTicketDTOList) {
+    public SaleDTO(String protocol, String doc, Float price, String eventName, String userName, Date saleDate, Date sessionDate, List<SaleTicketDTO> saleTicketDTOList) {
         this.protocol = protocol;
         this.doc = doc;
         this.price = price;

@@ -28,7 +28,7 @@ public class Sale{
     private String protocol;
 
     @Column(name="nrvalorvenda")
-    private Long price;
+    private Float price;
 
     @Column(name = "dtvenda")
     private Date saleDate;
@@ -74,11 +74,11 @@ public class Sale{
 		this.protocol = protocol;
 	}
 
-	public Long getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(Long price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}
 
@@ -149,7 +149,7 @@ public class Sale{
 	public Sale() {
 	}
 
-	public Sale(Long price, Date saleDate, String useridentifier, String paymentForm, SaleType saleType, String userName, DocType docType, String doc) {
+	public Sale(Float price, Date saleDate, String useridentifier, String paymentForm, SaleType saleType, String userName, DocType docType, String doc) {
 		this.setSaleIdentifier(UUID.randomUUID().toString());
 		this.price = price;
 		this.saleDate = saleDate;

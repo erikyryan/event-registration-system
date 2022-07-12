@@ -1,14 +1,13 @@
 package asimo.v.entities.operation;
 
-import asimo.v.entities.Ticket;
-import asimo.v.entities.User;
-import asimo.v.entities.enums.DocType;
-import asimo.v.entities.enums.SaleType;
+import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.Date;
-import java.util.List;
+
+import asimo.v.entities.enums.DocType;
+import asimo.v.entities.enums.SaleType;
 
 public class SaleOperation {
 
@@ -22,7 +21,7 @@ public class SaleOperation {
     private String sex;
 
     @NotNull
-    private Long price;
+    private Float price;
 
     @NotNull
     private Integer seat;
@@ -68,11 +67,11 @@ public class SaleOperation {
         this.sex = sex;
     }
 
-    public Long getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -135,7 +134,7 @@ public class SaleOperation {
     public SaleOperation() {
     }
 
-    public SaleOperation(String doc, String sex, Long price, Integer seat, Date saleDate, String paymentForm, SaleType saleType, String userName, DocType docType) {
+    public SaleOperation(String doc, String sex, Float price, Integer seat, Date saleDate, String paymentForm, SaleType saleType, String userName, DocType docType) {
         this.doc = doc;
         this.sex = sex;
         this.price = price;
@@ -147,7 +146,7 @@ public class SaleOperation {
         this.docType = docType;
     }
 
-    public SaleOperation(String doc, String sex, Long price, Integer seat, Date saleDate, String paymentForm, SaleType saleType, String userName, DocType docType, List<TicketOperation> ticketOperationList) {
+    public SaleOperation(String doc, String sex, Float price, Integer seat, Date saleDate, String paymentForm, SaleType saleType, String userName, DocType docType, List<TicketOperation> ticketOperationList) {
         this.doc = doc;
         this.sex = sex;
         this.price = price;
@@ -160,7 +159,7 @@ public class SaleOperation {
         this.ticketOperationList = ticketOperationList;
     }
 
-    public SaleOperation(String userIdentifier, String doc, String sex, Long price, Integer seat, Date saleDate, String paymentForm, SaleType saleType, String userName, DocType docType, List<TicketOperation> ticketOperationList) {
+    public SaleOperation(String userIdentifier, String doc, String sex, Float price, Integer seat, Date saleDate, String paymentForm, SaleType saleType, String userName, DocType docType, List<TicketOperation> ticketOperationList) {
         this.userIdentifier = userIdentifier;
         this.doc = doc;
         this.sex = sex;

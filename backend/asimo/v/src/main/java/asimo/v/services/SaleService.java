@@ -1,23 +1,23 @@
 package asimo.v.services;
 
-import asimo.v.entities.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import asimo.v.entities.Configuration;
+import asimo.v.entities.Event;
+import asimo.v.entities.Sale;
+import asimo.v.entities.Session;
+import asimo.v.entities.Ticket;
 import asimo.v.entities.dto.SaleDTO;
 import asimo.v.entities.dto.SaleTicketDTO;
-import asimo.v.entities.dto.TicketDTO;
 import asimo.v.entities.operation.SaleOperation;
-import asimo.v.entities.operation.SessionOperation;
 import asimo.v.entities.operation.TicketOperation;
 import asimo.v.repositories.ConfigurationRepository;
 import asimo.v.repositories.SaleRepository;
 import asimo.v.repositories.TicketRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class SaleService {
@@ -56,7 +56,7 @@ public class SaleService {
 
     }
 
-    public SaleDTO makeTheSales( Event event, Session session,SaleOperation saleOperation, List<TicketOperation> ticketOperations){
+    public SaleDTO makeTheSales(Event event, Session session, SaleOperation saleOperation, List<TicketOperation> ticketOperations){
 
         Sale sale = createProtocol(new Sale(saleOperation));
 
