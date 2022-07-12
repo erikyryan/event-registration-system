@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
 import ReservationPanel from "../components/ReservationPanel";
 import { useAuth } from "../contexts/AuthContext";
@@ -12,7 +12,6 @@ const Session = () => {
   const { token, logout } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
   const [seats, setSeats] = useState(null);
   const [session, setSession] = useState<ISession | null>(null);
   const sessionDate = session && new Date(session?.sessionStartDate);
@@ -41,14 +40,13 @@ const Session = () => {
   const fetchSession = async () => {
     if (token && id) {
       try {
-        const res = await api.get("/session/find", {
+        const { data } = await api.get("/session/find", {
           headers: {
             token: token,
             identifier: id
           }
         });
-        console.log(res.data);
-        setSession(res.data);
+        setSession(data);
       } catch (error: any) {
         const message = error.response.data.message;
         if (message === "Sessão expirou.") {
