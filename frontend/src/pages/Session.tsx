@@ -5,6 +5,7 @@ import DashboardLayout from "../components/Dashboard/DashboardLayout";
 import ReservationPanel from "../components/ReservationPanel";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../services/api";
+import { ISeat } from "../types/ISeat";
 import { ISession } from "../types/ISession";
 
 const Session = () => {
@@ -19,23 +20,19 @@ const Session = () => {
   const fetchSeats = async () => {
     if (token && id) {
       try {
-        const res = await api.get("/ticket/seats", {
+        const { data } = await api.get("/ticket/seats", {
           headers: {
             token: token,
             sessionidentifier: id
           }
         });
-        setSeats(res.data);
+        const sortedSeats = data.sort((a: ISeat, b: ISeat) => a.seat - b.seat);
+        setSeats(sortedSeats);
       } catch (error: any) {
         const message = error.response.data.message;
         if (message === "Sessão expirou.") {
           await logout();
-          navigate("/login", {
-            state: {
-              from: location
-            },
-            replace: true
-          });
+          navigate("/login");
         }
       }
     }
@@ -65,6 +62,11 @@ const Session = () => {
   useEffect(() => {
     fetchSession();
     fetchSeats();
+    // fetch seats every 5 seconds
+    const interval = setInterval(() => {
+      fetchSeats();
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   if (!session && !seats) return <DashboardLayout>Loading...</DashboardLayout>;
@@ -78,7 +80,14 @@ const Session = () => {
         Sessão dia {sessionDate?.getDate()} de {sessionDate && months[sessionDate?.getMonth() - 1]}{" "}
         às {sessionDate?.getHours()}:{sessionDate?.getMinutes()}
       </Typography>
-      {session && seats && <ReservationPanel seats={seats} ticketPrice={session.ticketPrice} />}
+      {session && seats && (
+        <ReservationPanel
+          seats={seats}
+          ticketPrice={session.ticketPrice}
+          eventIdentifier={session.event.eventIdentifier}
+          sessionIdentifier={session.sessionIdentifier}
+        />
+      )}
     </DashboardLayout>
   );
 };

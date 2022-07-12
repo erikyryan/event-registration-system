@@ -62,10 +62,9 @@ const ReservationPanel = ({ seats, ticketPrice, eventIdentifier, sessionIdentifi
       userIdentifier: currentUser?.userIdentifier,
       doc: currentUser?.doc,
       sex: currentUser?.sex,
-      seat: 1,
       price: getTotalPrice(selected),
       paymentForm: "Cartão",
-      saleType: currentUser?.role === "VENDEDOR" ? 0 : 1,
+      saleType: currentUser?.role === "VENDEDOR" || currentUser?.role === "ADMIN" ? 0 : 1,
       userName: currentUser?.name,
       docType: 1,
       ticketOperationList: selected.map((ticket) => ({
@@ -76,20 +75,18 @@ const ReservationPanel = ({ seats, ticketPrice, eventIdentifier, sessionIdentifi
         price: ticket.price
       }))
     };
-    console.log(data);
-    if (token && eventIdentifier && sessionIdentifier) {
-      try {
-        const res = await api.post("/sale", data, {
-          headers: {
-            token,
-            eventidentifier: eventIdentifier,
-            sessionidentifier: sessionIdentifier
-          }
-        });
-        console.log(res);
-      } catch (error) {
-        console.log(error);
-      }
+    if (!token) return;
+    try {
+      const res = await api.post("/sale", data, {
+        headers: {
+          token,
+          eventidentifier: eventIdentifier,
+          sessionidentifier: sessionIdentifier
+        }
+      });
+      setSelected([]);
+    } catch (error) {
+      console.log(error);
     }
   };
 
