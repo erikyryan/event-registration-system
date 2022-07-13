@@ -6,6 +6,13 @@ interface Props {
 }
 
 const PaymentConfirmation = ({ paymentData }: Props) => {
+  console.log(paymentData);
+  const sessionDate = paymentData && new Date(paymentData?.sessionDate);
+  // get time formated based in ISO date
+  const isoDate = sessionDate?.toISOString();
+  const time = isoDate?.substring(isoDate.indexOf("T") + 1, isoDate.indexOf("Z"));
+  const formattedTime = time?.substring(0, 5);
+
   return (
     <Box
       sx={{
@@ -53,8 +60,7 @@ const PaymentConfirmation = ({ paymentData }: Props) => {
               HORÁRIO
             </Typography>
             <Typography variant="h6" component="h3" align="right">
-              {new Date(paymentData.sessionDate).getHours()}:
-              {new Date(paymentData.sessionDate).getMinutes()}
+              {formattedTime}
             </Typography>
           </Box>
         </Box>

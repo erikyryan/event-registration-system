@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
 import MaskedInput from "../components/MaskedInput";
@@ -18,7 +18,8 @@ const Profile = () => {
     name: currentUser?.name || "",
     doc: currentUser?.doc || "",
     telephone: currentUser?.telephone || "",
-    birthDate: new Date(currentUser?.birthDate).toISOString().split("T")[0] || ""
+    birthDate:
+      (currentUser?.birthDate && new Date(currentUser?.birthDate).toISOString().split("T")[0]) || ""
   });
 
   const handleChange = (e: any) => {
