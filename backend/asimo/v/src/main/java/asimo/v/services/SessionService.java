@@ -129,7 +129,7 @@ public class SessionService {
 
 	public List<Session> findByDate(Date date) {
 		return this.sessionRepository.findAll().stream()
-				.filter(s -> s.getSessionEndDate().before(date))
+				.filter(s -> !s.getSessionEndDate().after(date))
 				.collect(Collectors.toList());
 	}
 }

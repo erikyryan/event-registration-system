@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import asimo.v.entities.Event;
@@ -24,7 +25,7 @@ public class EventService {
 
     private SessionService sessionService;
     
-    public EventService(EventRepository eventRepository, SessionService sessionService) {
+    public EventService(EventRepository eventRepository, @Lazy SessionService sessionService) {
         this.eventRepository = eventRepository;
         this.sessionService = sessionService;
     }

@@ -3,11 +3,10 @@ package asimo.v.controllers;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.*;
 
 import asimo.v.entities.Event;
 import asimo.v.entities.Session;
@@ -56,7 +55,7 @@ public class ReportController {
 
 	@GetMapping(value = "/billing")
 	public ResponseEntity<List<EventBillingDTO>> reportEventBilling(@RequestHeader("token") String token,
-			@RequestHeader("date") Date date, @RequestHeader("sessionIdentifier") String sessionId){
+																	@RequestParam(name = "date", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, @RequestParam(name ="sessionIdentifier", required=false) String sessionId){
 		this.loginSessionService.validateToken(token);
 		List<EventBillingDTO> billing = this.eventService.billingGenerate(date, sessionId);
 		return ResponseEntity.ok(billing);
