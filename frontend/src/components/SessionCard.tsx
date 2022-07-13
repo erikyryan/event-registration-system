@@ -17,8 +17,10 @@ interface Props {
 
 const SessionCard = ({ session }: Props) => {
   const date = new Date(session.sessionStartDate);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
+  const isoDate = date.toISOString();
+  // get time from isoDate and format it
+  const time = isoDate.substring(isoDate.indexOf("T") + 1, isoDate.indexOf("Z"));
+  const formattedTime = time.substring(0, 5);
 
   return (
     <Grid item xs={2} sm={4} md={4}>
@@ -31,9 +33,7 @@ const SessionCard = ({ session }: Props) => {
               <Typography variant="h5" sx={{ fontWeight: "bold" }}>
                 {date?.getDate()} de {months[date?.getMonth()]}
               </Typography>
-              <Typography variant="body1">
-                às {hours <= 9 ? "0" + hours : hours}:{minutes <= 9 ? "0" + minutes : minutes}
-              </Typography>
+              <Typography variant="body1">às {formattedTime}</Typography>
             </Box>
             <IconButton size="large" sx={{ color: "white" }}>
               <ArrowForwardIosIcon />

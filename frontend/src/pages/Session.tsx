@@ -15,6 +15,10 @@ const Session = () => {
   const [seats, setSeats] = useState(null);
   const [session, setSession] = useState<ISession | null>(null);
   const sessionDate = session && new Date(session?.sessionStartDate);
+  // get time formated based in ISO date
+  const isoDate = sessionDate?.toISOString();
+  const time = isoDate?.substring(isoDate.indexOf("T") + 1, isoDate.indexOf("Z"));
+  const formattedTime = time?.substring(0, 5);
 
   const fetchSeats = async () => {
     if (token && id) {
@@ -76,7 +80,7 @@ const Session = () => {
       </Typography>
       <Typography variant="h5" sx={{ mb: 5 }}>
         Sessão dia {sessionDate?.getDate()} de {sessionDate && months[sessionDate?.getMonth() - 1]}{" "}
-        às {sessionDate?.getHours()}:{sessionDate?.getMinutes()}
+        às {formattedTime}
       </Typography>
       {session && seats && (
         <ReservationPanel
