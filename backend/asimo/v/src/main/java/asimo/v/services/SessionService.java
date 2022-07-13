@@ -97,11 +97,39 @@ public class SessionService {
 		throw new RuntimeException("Sessão não encontrada");
 	}
 
+	public Session findByIdentifierAndDate(Date date, String sessionId) {
+		Session findBySessionIdentifier = this.findBySessionIdentifier(sessionId);
+		if(findBySessionIdentifier.getSessionEndDate().after(date)) {
+			return null;
+		}
+		return findBySessionIdentifier;
+	}
+
 	private void validateCreationSession(SessionOperation sessionOperation) {
 		Event event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
 		Optional<Session> session = sessionRepository.findByEventAndSessionStartDate(event,sessionOperation.getSessionStartDate());
 		if (session.isPresent()) {
 			throw new InvalidEvent("Sessão já existente");
 		}
+	}
+
+	public Integer soldAmount(Session session) {
+		List<Ticket> tickets = this.ticketService.findAllTicketsBySessionIdentifier(session.getSessionIdentifier());
+		
+		return tickets.stream().filter(t -> t.getOccupied() == true && !Objects.equals(t.getUseridentifier(), null))
+				.collect(Collectors.toList()).size();
+	}
+
+	public Long soldValue(Session session) {
+		List<Ticket> tickets = this.ticketService.findAllTicketsBySessionIdentifier(session.getSessionIdentifier());
+		
+		return tickets.stream().filter(t -> t.getOccupied() == true && !Objects.equals(t.getUseridentifier(), null))
+				.mapToLong(t -> t.getPrice()).sum();
+	}
+
+	public List<Session> findByDate(Date date) {
+		return this.sessionRepository.findAll().stream()
+				.filter(s -> s.getSessionEndDate().before(date))
+				.collect(Collectors.toList());
 	}
 }

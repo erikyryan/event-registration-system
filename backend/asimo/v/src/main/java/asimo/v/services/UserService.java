@@ -9,15 +9,14 @@ import java.util.Optional;
 
 import javax.xml.bind.DatatypeConverter;
 
-import asimo.v.exceptions.InvalidEmail;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import asimo.v.entities.LoginSession;
 import asimo.v.entities.User;
-import asimo.v.entities.enums.UserRole;
 import asimo.v.entities.objects.UserObject;
 import asimo.v.entities.operation.UserOperation;
+import asimo.v.exceptions.InvalidEmail;
 import asimo.v.exceptions.InvalidPasswordException;
 import asimo.v.exceptions.UserNotFound;
 import asimo.v.repositories.UserRepository;

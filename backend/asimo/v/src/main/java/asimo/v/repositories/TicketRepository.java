@@ -1,13 +1,11 @@
 package asimo.v.repositories;
 
-import asimo.v.entities.Sale;
-import asimo.v.entities.Ticket;
-import asimo.v.entities.operation.SaleOperation;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
+import asimo.v.entities.Ticket;
 
 @Repository
 public interface TicketRepository  extends JpaRepository<Ticket,Long> {

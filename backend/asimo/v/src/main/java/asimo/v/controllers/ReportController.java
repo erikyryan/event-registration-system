@@ -1,5 +1,6 @@
 package asimo.v.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import asimo.v.entities.Event;
 import asimo.v.entities.Session;
+import asimo.v.entities.dto.EventBillingDTO;
 import asimo.v.entities.dto.EventDTO;
 import asimo.v.entities.dto.SessionDTO;
 import asimo.v.services.EventService;
@@ -50,5 +52,13 @@ public class ReportController {
 		this.loginSessionService.validateToken(token);
 		List<Event> events = this.eventService.listAllAvailable();
 		return ResponseEntity.ok(this.reportService.generateEventDTO(events));
+	}
+
+	@GetMapping(value = "/billing")
+	public ResponseEntity<List<EventBillingDTO>> reportEventBilling(@RequestHeader("token") String token,
+			@RequestHeader("date") Date date, @RequestHeader("sessionIdentifier") String sessionId){
+		this.loginSessionService.validateToken(token);
+		List<EventBillingDTO> billing = this.eventService.billingGenerate(date, sessionId);
+		return ResponseEntity.ok(billing);
 	}
 }
