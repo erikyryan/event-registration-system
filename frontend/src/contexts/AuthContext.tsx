@@ -5,6 +5,7 @@ import getUserByToken from "../utils/getUserByToken";
 
 interface Value {
   currentUser: IUser | null;
+  setCurrentUser: (user: IUser) => void;
   token: string | null;
   login: (email: string, password: string) => Promise<IUser>;
   logout: () => Promise<any>;
@@ -81,6 +82,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const value = {
     currentUser,
+    setCurrentUser,
     token,
     login,
     logout
