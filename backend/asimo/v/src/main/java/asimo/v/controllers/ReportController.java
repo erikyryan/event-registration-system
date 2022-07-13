@@ -38,6 +38,7 @@ public class ReportController {
 		this.eventService = eventService;
 	}
 
+    @CrossOrigin(origins = "*")
 	@GetMapping(value = "/session")
 	public ResponseEntity<List<SessionDTO>> reportSession(@RequestHeader("token") String token,
 			@RequestHeader("sessionIdentifier") String sessionIdentifier){
@@ -46,6 +47,7 @@ public class ReportController {
 		return ResponseEntity.ok(this.reportService.generateSessionDTO(sessions));
 	}
 
+    @CrossOrigin(origins = "*")
 	@GetMapping(value = "/event")
 	public ResponseEntity<List<EventDTO>> reportEvent(@RequestHeader("token") String token){
 		this.loginSessionService.validateToken(token);
@@ -53,9 +55,10 @@ public class ReportController {
 		return ResponseEntity.ok(this.reportService.generateEventDTO(events));
 	}
 
+    @CrossOrigin(origins = "*")
 	@GetMapping(value = "/billing")
 	public ResponseEntity<List<EventBillingDTO>> reportEventBilling(@RequestHeader("token") String token,
-																	@RequestParam(name = "date", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, @RequestParam(name ="sessionIdentifier", required=false) String sessionId){
+																		@RequestParam(name = "date", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, @RequestParam(name ="sessionIdentifier", required=false) String sessionId){
 		this.loginSessionService.validateToken(token);
 		List<EventBillingDTO> billing = this.eventService.billingGenerate(date, sessionId);
 		return ResponseEntity.ok(billing);

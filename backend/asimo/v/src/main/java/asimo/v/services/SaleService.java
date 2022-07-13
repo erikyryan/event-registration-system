@@ -73,7 +73,9 @@ public class SaleService {
         Ticket ticket = ticketRepository.findByTicketIdentifier(ticketOperation.getTicketIdentifier());
         ticket.setProtocol(sale.getProtocol());
         ticket.setNameUser(ticketOperation.getNameUser());
+        ticket.setUseridentifier(sale.getUseridentifier());
         ticket.setSex(ticketOperation.getSex());
+        ticket.setTicketType(ticketOperation.getType());
         ticket.setDoc(ticketOperation.getDoc());
         ticket.setPrice(ticketOperation.getPrice());
         ticket.setOccupied(true);

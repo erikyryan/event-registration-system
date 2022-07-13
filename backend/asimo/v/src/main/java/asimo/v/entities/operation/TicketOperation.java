@@ -1,5 +1,7 @@
 package asimo.v.entities.operation;
 
+import asimo.v.entities.enums.TicketType;
+
 import javax.validation.constraints.NotNull;
 
 public class TicketOperation {
@@ -18,6 +20,17 @@ public class TicketOperation {
 
     @NotNull
     private Long price;
+
+    @NotNull
+    private TicketType type;
+
+    public TicketType getType() {
+        return type;
+    }
+
+    public void setType(TicketType type) {
+        this.type = type;
+    }
 
     public String getTicketIdentifier() {
         return ticketIdentifier;
@@ -68,5 +81,14 @@ public class TicketOperation {
         this.sex = sex;
         this.doc = doc;
         this.price = price;
+    }
+
+    public TicketOperation(String ticketIdentifier, String nameUser, String sex, String doc, Long price, TicketType type) {
+        this.ticketIdentifier = ticketIdentifier;
+        this.nameUser = nameUser;
+        this.sex = sex;
+        this.doc = doc;
+        this.price = price;
+        this.type = type;
     }
 }
