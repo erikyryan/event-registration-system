@@ -6,14 +6,14 @@ import useToast from "../hooks/useToast";
 import Toast from "./Toast";
 
 const EditEmailForm = ({ initialEmailValue }: { initialEmailValue?: string }) => {
-  const { currentUser, token } = useAuth();
+  const { currentUser, setCurrentUser, token } = useAuth();
   const { toast, open, setOpen, toastProps } = useToast();
   const [email, setEmail] = useState(initialEmailValue);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if (token && currentUser?.userIdentifier) {
+    if (token && currentUser?.userIdentifier && email) {
       try {
         const res = await api.post(
           "/user/edit",
@@ -25,6 +25,7 @@ const EditEmailForm = ({ initialEmailValue }: { initialEmailValue?: string }) =>
             }
           }
         );
+        setCurrentUser({ ...currentUser, email });
         toast("Email atualizado com sucesso!", "success");
       } catch (error) {
         toast("Este email já está em uso!", "error");

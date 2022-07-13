@@ -8,9 +8,10 @@ import EditPasswordForm from "../components/EditPasswordForm";
 import EditEmailForm from "../components/EditEmailForm";
 import useToast from "../hooks/useToast";
 import Toast from "../components/Toast";
+import getUserByToken from "../utils/getUserByToken";
 
 const Profile = () => {
-  const { currentUser, token } = useAuth();
+  const { currentUser, setCurrentUser, token } = useAuth();
   const { toast, open, setOpen, toastProps } = useToast();
 
   const [data, setData] = useState({
@@ -38,6 +39,8 @@ const Profile = () => {
           }
         });
         toast("Perfil atualizado com sucesso!", "success");
+        const newUser = await getUserByToken(token);
+        setCurrentUser(newUser);
         console.log(res);
       } catch (error) {
         toast("Erro ao atualizar perfil, tente novamente mais tarde!", "error");

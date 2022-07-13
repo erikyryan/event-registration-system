@@ -23,8 +23,10 @@ const SessionsList = ({ sessions }: Props) => {
         <TableBody>
           {sessions?.slice(0, 10).map((session) => {
             const date = new Date(session.sessionStartDate);
-            const hours = date.getHours();
-            const minutes = date.getMinutes();
+            const isoDate = date.toISOString();
+            // get time from isoDate and format it
+            const time = isoDate.substring(isoDate.indexOf("T") + 1, isoDate.indexOf("Z"));
+            const formattedTime = time.substring(0, 5);
 
             return (
               <TableRow
@@ -37,9 +39,7 @@ const SessionsList = ({ sessions }: Props) => {
                 <TableCell>{session.sessiosStatus}</TableCell>
                 <TableCell>{session.numberOfSeats}</TableCell>
                 <TableCell>{date.toLocaleDateString()}</TableCell>
-                <TableCell>
-                  {hours <= 9 ? "0" + hours : hours}:{minutes <= 9 ? "0" + minutes : minutes}
-                </TableCell>
+                <TableCell>{formattedTime}</TableCell>
               </TableRow>
             );
           })}
