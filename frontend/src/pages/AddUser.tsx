@@ -55,6 +55,7 @@ const AddUser = () => {
           role: 2,
           sex: "M"
         });
+        console.log(res);
       } catch (error: any) {
         console.log(error);
         const message = error.response.data.message;
