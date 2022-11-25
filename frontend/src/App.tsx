@@ -22,8 +22,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
 
-        <Route path="/filmes" element={<Movies />} />
-        <Route path="/filmes/:id" element={<Movie />} />
+        <Route path="/event" element={<Movies />} />
+        <Route path="/event/:id" element={<Movie />} />
         {/* common user routes */}
         <Route
           element={
@@ -38,7 +38,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />
           <Route path="/users/adicionar" element={<AddUser />} />
-          <Route path="/filmes/adicionar" element={<AddMovie />} />
+          <Route path="/event/adicionar" element={<AddMovie />} />
           <Route path="/sessions" element={<Sessions />} />
           <Route path="/sessions/adicionar" element={<AddSession />} />
         </Route>

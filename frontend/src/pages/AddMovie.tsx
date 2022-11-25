@@ -37,7 +37,7 @@ const AddMovie = () => {
             token: token
           }
         });
-        navigate("/filmes");
+        navigate("/event");
       } catch (error: any) {
         console.log(error);
         const message = error.response.data.message;
@@ -52,9 +52,9 @@ const AddMovie = () => {
   return (
     <DashboardLayout>
       <HeaderBackButton
-        title="Adicionar Filme"
-        backUrl="/filmes"
-        backButtonText="Voltar para filmes"
+        title="Adicionar Evento"
+        backUrl="/event"
+        backButtonText="Voltar para Eventos"
       />
       <Box>
         <AddMovieForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />

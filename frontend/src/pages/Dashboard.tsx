@@ -129,7 +129,7 @@ const Dashboard = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Filme</TableCell>
+              <TableCell>Evento</TableCell>
               <TableCell>Valor</TableCell>
               <TableCell>Faturamento</TableCell>
               <TableCell>N° de assentos</TableCell>

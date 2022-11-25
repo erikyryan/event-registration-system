@@ -12,8 +12,8 @@ const MovieInfo = ({ movie }: Props) => {
     <Box>
       <HeaderBackButton
         title={`${movie?.name} (${movie?.launchYear})`}
-        backUrl="/filmes"
-        backButtonText="Voltar para filmes"
+        backUrl="/event"
+        backButtonText="Voltar para eventos"
       />
       <Box sx={{ my: 3 }} display="flex" gap={3}>
         <Typography display="flex">

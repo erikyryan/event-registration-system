@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const RequireAuth = ({
   allowedRoles,
-  redirectUrl = "/filmes"
+  redirectUrl = "/event"
 }: {
   allowedRoles?: string[];
   redirectUrl?: string;

@@ -12,7 +12,7 @@ const SessionsList = ({ sessions }: Props) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Filme</TableCell>
+            <TableCell>Evento</TableCell>
             <TableCell>Ingresso</TableCell>
             <TableCell>Status</TableCell>
             <TableCell>N° Assentos</TableCell>

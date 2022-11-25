@@ -31,7 +31,7 @@ const MovieCard = ({ movie }: Props) => {
           size="small"
           component={Link}
           endIcon={<ArrowForwardIcon />}
-          to={`/filmes/${movie.eventIdentifier}`}
+          to={`/event/${movie.eventIdentifier}`}
           variant="outlined"
           color="primary"
           sx={{ mt: 2 }}>

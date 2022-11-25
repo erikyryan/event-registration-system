@@ -30,9 +30,9 @@ const items = [
     allowedRoles: ["ADMIN"]
   },
   {
-    href: "/filmes",
+    href: "/event",
     icon: <LocalActivityIcon />,
-    title: "Filmes",
+    title: "Eventos",
     allowedRoles: ["ADMIN", "USER", "VENDEDOR", "PUBLIC"]
   },
   {
