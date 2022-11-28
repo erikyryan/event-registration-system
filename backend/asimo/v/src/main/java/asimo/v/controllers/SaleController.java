@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import asimo.v.entities.Event;
+import asimo.v.entities.FilmLegendado;
 import asimo.v.entities.Session;
 import asimo.v.entities.dto.SaleDTO;
 import asimo.v.entities.operation.SaleOperation;
@@ -48,7 +48,7 @@ public class SaleController {
         this.loginSessionService.validateToken(token);
         this.userService.findByToken(token);
         Session session = this.sessionService.findBySessionIdentifier(sessionidentifier);
-        Event event = this.eventService.findByEventIdentifier(eventidentifier);
+        FilmLegendado event = this.eventService.findByEventIdentifier(eventidentifier);
 
         return ResponseEntity.ok(this.saleService.makeTheSales(event,session,saleOperation,saleOperation.getTicketOperationList()));
     }

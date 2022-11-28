@@ -29,7 +29,7 @@ public class EventBillingDTO {
 	}
 
 	public EventBillingDTO(Session session, Integer amountSold, Long soldAmount) {
-		this.eventName = session.getEvent().getName();
+//		this.eventName = session.getEvent().getName();
 		this.amountValue = (float) soldAmount;
 		this.sessionStartDate = session.getSessionStartDate();
 		this.totalSeats = session.getNumberOfSeats();

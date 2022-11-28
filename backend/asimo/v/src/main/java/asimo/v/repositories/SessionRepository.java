@@ -1,6 +1,6 @@
 package asimo.v.repositories;
 
-import asimo.v.entities.Event;
+import asimo.v.entities.FilmLegendado;
 import asimo.v.entities.enums.EventStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,11 +14,11 @@ import java.util.Optional;
 @Repository
 public interface SessionRepository extends JpaRepository<Session,Long> {
 
-    Optional<Session> findByEventAndSessionStartDate(Event event, Date sessionStartDate);
+    Optional<Session> findByEventAndSessionStartDate(FilmLegendado event, Date sessionStartDate);
 
     Optional<Session> findBySessionIdentifier(String sessionIdentifier);
 
     List<Session> findBySessiosStatus(EventStatus status);
     
-    List<Session> findByEvent(Event event);
+    List<Session> findByEvent(FilmLegendado event);
 }

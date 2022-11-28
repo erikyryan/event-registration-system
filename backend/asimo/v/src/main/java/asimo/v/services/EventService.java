@@ -2,6 +2,7 @@ package asimo.v.services;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -9,40 +10,74 @@ import java.util.stream.Collectors;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import asimo.v.entities.Event;
+import asimo.v.entities.FilmLegendado;
 import asimo.v.entities.Session;
 import asimo.v.entities.User;
 import asimo.v.entities.dto.EventBillingDTO;
 import asimo.v.entities.enums.EventStatus;
+import asimo.v.entities.enums.EventType;
+import asimo.v.entities.enums.MovieType;
+import asimo.v.entities.enums.TheaterType;
 import asimo.v.entities.objects.EventObject;
 import asimo.v.exceptions.InvalidEvent;
-import asimo.v.repositories.EventRepository;
+import asimo.v.factories.enums.EventsEnum;
+import asimo.v.repositories.FilmRepository;
 
 @Service
 public class EventService {
 
-    private EventRepository eventRepository;
+    private FilmRepository eventRepository;
 
     private SessionService sessionService;
     
-    public EventService(EventRepository eventRepository, @Lazy SessionService sessionService) {
+    public EventService(FilmRepository eventRepository, @Lazy SessionService sessionService) {
         this.eventRepository = eventRepository;
         this.sessionService = sessionService;
     }
 
-    public Event findByEventIdentifier(String eventIdentifier){
-        Optional<Event> event = this.eventRepository.findByEventIdentifier(eventIdentifier);
+    public FilmLegendado findByEventIdentifier(String eventIdentifier){
+        Optional<FilmLegendado> event = this.eventRepository.findByFilmIdentifier(eventIdentifier);
         if (event.isPresent() && event.get().getEventStatus() != EventStatus.FINALIZADO) {
             return event.get();
         }
         throw new RuntimeException("Evento não encontrado");
     }
 
-    public Event create(final EventObject eventObject, final User user){
+    public EventsEnum getEventType(Object eventObject, String eventKey) {
+		try {
+			LinkedHashMap<String, String> map = (LinkedHashMap<String, String>) eventObject;
+			EventsEnum eventType = EventsEnum.valueOf(map.get(eventKey));
+			return eventType;
+		} catch (Exception e) {
+			throw new RuntimeException("Tipo de evento invalido");
+		}
+    }
+  
+    public MovieType getFilmType(Object eventObject, String eventKey) {
+		try {
+			LinkedHashMap<String, String> map = (LinkedHashMap<String, String>) eventObject;
+			MovieType eventType = MovieType.valueOf(map.get(eventKey));
+			return eventType;
+		} catch (Exception e) {
+			throw new RuntimeException("Tipo de evento invalido");
+		}
+    }
+
+    public TheaterType getTheaterType(Object eventObject, String eventKey) {
+		try {
+			LinkedHashMap<String, String> map = (LinkedHashMap<String, String>) eventObject;
+			TheaterType eventType = TheaterType.valueOf(map.get(eventKey));
+			return eventType;
+		} catch (Exception e) {
+			throw new RuntimeException("Tipo de evento invalido");
+		}
+    }
+    
+    public FilmLegendado create(final EventObject eventObject, final User user){
 
         if(user.isAdmin()){
             validateCreationEvent(eventObject);
-            Event event =  new Event(eventObject);
+            FilmLegendado event =  new FilmLegendado(eventObject);
             eventRepository.save(event);
             return event;
         }
@@ -51,11 +86,11 @@ public class EventService {
     }
 
     private void validateCreationEvent(EventObject eventObject) {
-        if (eventRepository.findByNameAndEventStartDateAndLaunchYear(eventObject.getName(),eventObject.getEventStartDate(),eventObject.getLaunchYear()).isPresent()) {
+        if (eventRepository.findByNameAndFilmStartDateAndLaunchYear(eventObject.getName(),eventObject.getEventStartDate(),eventObject.getLaunchYear()).isPresent()) {
             throw new InvalidEvent("Evento Inválido");
         }
 
-        if (eventRepository.findByNameAndEventStartDate(eventObject.getName(),eventObject.getEventStartDate()).isPresent()) {
+        if (eventRepository.findByNameAndFilmStartDate(eventObject.getName(),eventObject.getEventStartDate()).isPresent()) {
             throw new InvalidEvent("Evento Inválido");
         }
     }
@@ -107,26 +142,27 @@ public class EventService {
 		}
 	}
 
-    public List<Event> listAllAvailable(){
-        List<Event> events = eventRepository.findAll();
+	
+    public List<FilmLegendado> listAllAvailable(){
+        List<FilmLegendado> events = eventRepository.findAll();
         return events.stream()
         		.filter(e -> e.getEventStatus() != EventStatus.FINALIZADO)
         		.collect(Collectors.toList());
     }
 
-    public List<Event> listBySessionAndDate(String sessionId, Date date){
+    public List<FilmLegendado> listBySessionAndDate(String sessionId, Date date){
     	
     	return null;
     }
-	public List<Event> listToFinalize() {
-        List<Event> events = eventRepository.findByEventStatus(EventStatus.EM_ANDAMENTO);
+	public List<FilmLegendado> listToFinalize() {
+        List<FilmLegendado> events = eventRepository.findByEventStatus(EventStatus.EM_ANDAMENTO);
         return events.stream().
                 filter(e -> e.getEventEndDate().before(new Date()))
                 .collect(Collectors.toList());
 	}
 
-	public List<Event> listToInitializer() {
-        List<Event> events = eventRepository.findByEventStatus(EventStatus.AGENDADO);
+	public List<FilmLegendado> listToInitializer() {
+        List<FilmLegendado> events = eventRepository.findByEventStatus(EventStatus.AGENDADO);
         return events.stream()
     			.filter(e -> e.getEventStartDate().before(new Date()))
     			.collect(Collectors.toList());

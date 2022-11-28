@@ -4,13 +4,14 @@ import { useAuth } from "../contexts/AuthContext";
 import api from "../services/api";
 import { Box } from "@mui/material";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
-import AddMovieForm from "../components/AddMovieForm";
+import AddEventForm from "../components/AddEventoForm";
 import HeaderBackButton from "../components/HeaderBackButton";
 
-const AddMovie = () => {
+const AddEvent = () => {
   const { token, logout } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    eventType: 0,
     name: "",
     synopsis: "",
     duration: "",
@@ -18,7 +19,10 @@ const AddMovie = () => {
     eventEndDate: "",
     classification: 18,
     launchYear: "2022",
-    movieType: 0
+    movieType: 0,
+    actors: "",
+    period: 0,
+    structure: 0
   });
 
   const handleChange = (e: any) => {
@@ -57,10 +61,10 @@ const AddMovie = () => {
         backButtonText="Voltar para Eventos"
       />
       <Box>
-        <AddMovieForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+        <AddEventForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
       </Box>
     </DashboardLayout>
   );
 };
 
-export default AddMovie;
+export default AddEvent;

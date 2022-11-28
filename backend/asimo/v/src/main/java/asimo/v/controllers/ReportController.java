@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
-import asimo.v.entities.Event;
+import asimo.v.entities.FilmLegendado;
 import asimo.v.entities.Session;
 import asimo.v.entities.dto.EventBillingDTO;
 import asimo.v.entities.dto.EventDTO;
@@ -51,14 +51,14 @@ public class ReportController {
 	@GetMapping(value = "/event")
 	public ResponseEntity<List<EventDTO>> reportEvent(@RequestHeader("token") String token){
 		this.loginSessionService.validateToken(token);
-		List<Event> events = this.eventService.listAllAvailable();
+		List<FilmLegendado> events = this.eventService.listAllAvailable();
 		return ResponseEntity.ok(this.reportService.generateEventDTO(events));
 	}
 
     @CrossOrigin(origins = "*")
 	@GetMapping(value = "/billing")
 	public ResponseEntity<List<EventBillingDTO>> reportEventBilling(@RequestHeader("token") String token,
-																		@RequestParam(name = "date", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, @RequestParam(name ="sessionIdentifier", required=false) String sessionId){
+			@RequestParam(name = "date", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, @RequestParam(name ="sessionIdentifier", required=false) String sessionId){
 		this.loginSessionService.validateToken(token);
 		List<EventBillingDTO> billing = this.eventService.billingGenerate(date, sessionId);
 		return ResponseEntity.ok(billing);

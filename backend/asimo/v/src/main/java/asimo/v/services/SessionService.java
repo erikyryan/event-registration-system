@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import asimo.v.entities.Event;
+import asimo.v.entities.FilmLegendado;
 import asimo.v.entities.Session;
 import asimo.v.entities.Ticket;
 import asimo.v.entities.User;
@@ -79,7 +79,7 @@ public class SessionService {
     public Session create(SessionOperation sessionOperation, User user) {
 		if(user.isAdmin()){
 			validateCreationSession(sessionOperation);
-			Event event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
+			FilmLegendado event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
 
 			Session session = new Session(sessionOperation ,event);
 			sessionRepository.save(session);
@@ -106,7 +106,7 @@ public class SessionService {
 	}
 
 	private void validateCreationSession(SessionOperation sessionOperation) {
-		Event event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
+		FilmLegendado event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
 		Optional<Session> session = sessionRepository.findByEventAndSessionStartDate(event,sessionOperation.getSessionStartDate());
 		if (session.isPresent()) {
 			throw new InvalidEvent("Sessão já existente");

@@ -1,10 +1,10 @@
 package asimo.v.entities.objects;
 
-import asimo.v.entities.enums.EventStatus;
-import asimo.v.entities.enums.MovieType;
+import java.util.Date;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+
+import asimo.v.entities.enums.MovieType;
 
 public class EventObject {
 

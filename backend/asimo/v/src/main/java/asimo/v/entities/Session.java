@@ -3,6 +3,7 @@ package asimo.v.entities;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 
 import asimo.v.entities.dto.SessionDTO;
 import asimo.v.entities.enums.EventStatus;
+import asimo.v.entities.generics.Event;
 import asimo.v.entities.objects.SessionObject;
 import asimo.v.entities.operation.SessionOperation;
 
@@ -34,8 +36,8 @@ public class Session{
 	@Column
     private Date sessionEndDate;
 	
-    @OneToOne
-    @JoinColumn(name="idevent", referencedColumnName = "id")
+    @OneToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name="idevent", referencedColumnName = "eventidentifier")
     private Event event;
 
     @Column(name = "value")

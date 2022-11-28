@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import asimo.v.entities.Event;
+import asimo.v.entities.FilmLegendado;
 import asimo.v.entities.Session;
 import asimo.v.entities.dto.EventDTO;
 import asimo.v.entities.dto.SessionDTO;
@@ -28,7 +28,7 @@ public class ReportService {
 		
 		for(Session session: sessions) {
 			SessionDTO sDTO = new SessionDTO();
-			sDTO.setEventName(session.getEvent().getName());
+//			sDTO.setEventName(session.getEvent().getName());
 			sDTO.setAvaliableQuantity(this.sessionService.availableSeats(session));
 			sDTO.setSessionId(session.getId().toString());
 			sDTO.setSessionStartDate(session.getSessionStartDate());
@@ -38,10 +38,10 @@ public class ReportService {
 		return sessionsDTO;
 	}
 
-	public List<EventDTO> generateEventDTO(List<Event> events) {
+	public List<EventDTO> generateEventDTO(List<FilmLegendado> events) {
 		List<EventDTO> eventDTO = new ArrayList<>();
 		
-		for(Event event: events) {
+		for(FilmLegendado event: events) {
 			EventDTO eDTO = new EventDTO();
 			eDTO.setEventName(event.getName());
 			eDTO.setAvaliableQuantity(this.sessionService.availableEventSeats(sessionRepository.findByEvent(event)));

@@ -1,11 +1,6 @@
-package asimo.v.entities;
-
-import asimo.v.entities.enums.EventStatus;
-import asimo.v.entities.enums.MovieType;
-import asimo.v.entities.objects.EventObject;
+package asimo.v.entities.eventObjects;
 
 import java.util.Date;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,28 +8,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import asimo.v.entities.enums.MovieType;
+import asimo.v.entities.generics.Event;
+import asimo.v.factories.enums.EventsEnum;
+import asimo.v.factories.interfaces.Video;
+
 @Entity
-@Table(name = "evento")
-public class Event{
+@Table(name = "filme")
+public class Film extends Event implements Video {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-	@Column(name="eventidentifier")
-	private String eventIdentifier;
-
-	@NotNull
-    private String name;
+    @Column
+    private Date filmStartDate;
 
     @Column
-    private Date eventStartDate;
-
-    @Column
-    private Date eventEndDate;
+    private Date filmEndDate;
     
 	private String duration;
 
@@ -49,16 +42,6 @@ public class Event{
 	@Column(name = "type")
 	private MovieType movieType;
 
-	private EventStatus eventStatus;
-
-	public EventStatus getEventStatus() {
-		return eventStatus;
-	}
-
-	public void setEventStatus(EventStatus eventStatus) {
-		this.eventStatus = eventStatus;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -66,15 +49,6 @@ public class Event{
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 
 	public String getSynopsis() {
 		return synopsis;
@@ -112,6 +86,23 @@ public class Event{
 		return movieType;
 	}
 
+
+	public Date getFilmStartDate() {
+		return filmStartDate;
+	}
+
+	public void setFilmStartDate(Date filmStartDate) {
+		this.filmStartDate = filmStartDate;
+	}
+
+	public Date getFilmEndDate() {
+		return filmEndDate;
+	}
+
+	public void setFilmEndDate(Date filmEndDate) {
+		this.filmEndDate = filmEndDate;
+	}
+
 	public void setMovieType(MovieType movieType) {
 		this.movieType = movieType;
 	}
@@ -125,56 +116,35 @@ public class Event{
 	}
 
 	public Date getEventStartDate() {
-		return eventStartDate;
+		return filmStartDate;
 	}
 
 	public void setEventStartDate(Date eventStartDate) {
-		this.eventStartDate = eventStartDate;
+		this.filmStartDate = eventStartDate;
 	}
 
 	public Date getEventEndDate() {
-		return eventEndDate;
+		return filmEndDate;
 	}
 
 	public void setEventEndDate(Date eventEndDate) {
-		this.eventEndDate = eventEndDate;
+		this.filmEndDate = eventEndDate;
 	}
 
-	public Event(Long id, String eventIdentifier, @NotNull String name, Date eventStartDate, Date eventEndDate,
-			String duration, Integer classification, Integer launchYear, @Size(max = 2000) String synopsis,
-			MovieType movieType) {
-		super();
-		this.id = id;
-		this.eventIdentifier = UUID.randomUUID().toString();
-		this.name = name;
-		this.eventStartDate = eventStartDate;
-		this.eventEndDate = eventEndDate;
-		this.duration = duration;
-		this.classification = classification;
-		this.launchYear = launchYear;
-		this.synopsis = synopsis;
+	public Film(MovieType movieType) {
 		this.movieType = movieType;
 	}
-
-	public Event(EventObject eventObject) {
-		this.name = eventObject.getName();
-		this.setEventIdentifier(UUID.randomUUID().toString());
-		this.eventStartDate = eventObject.getEventStartDate();
-		this.eventEndDate = eventObject.getEventEndDate();
-		this.synopsis = eventObject.getSynopsis();
-		this.duration = eventObject.getDuration();
-		this.classification = eventObject.getClassification();
-		this.launchYear = eventObject.getLaunchYear();
-		this.movieType = eventObject.getMovieType();
-		this.eventStatus = EventStatus.AGENDADO;
+	@Override
+	public EventsEnum getEventType() {
+		return EventsEnum.FILME;
 	}
-
-	public Event() {}
+	public Film() {
+	}
 
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", eventIdentifier=" + eventIdentifier + ", name=" + name + ", eventStartDate="
-				+ eventStartDate + ", eventEndDate=" + eventEndDate + ", duration=" + duration + ", classification="
+				+ filmStartDate + ", eventEndDate=" + filmEndDate + ", duration=" + duration + ", classification="
 				+ classification + ", launchYear=" + launchYear + ", synopsis=" + synopsis + ", movieType=" + movieType
 				+ ", eventStatus=" + eventStatus + "]";
 	}

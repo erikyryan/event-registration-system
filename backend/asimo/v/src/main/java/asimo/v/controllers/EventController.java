@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import asimo.v.entities.Event;
-import asimo.v.entities.objects.EventObject;
+import asimo.v.entities.FilmLegendado;
+import asimo.v.facade.EventFacade;
 import asimo.v.services.EventService;
 import asimo.v.services.LoginSessionService;
 
@@ -24,14 +24,17 @@ public class EventController {
     private EventService eventService;
 
     private LoginSessionService loginSessionService;
+    
+    private EventFacade eventFacade;
 
-    public EventController(EventService eventService, LoginSessionService loginSessionService) {
-        this.eventService = eventService;
+    public EventController(EventService eventService, LoginSessionService loginSessionService, EventFacade eventFacade) {
+        this.eventFacade =  eventFacade;
+    	this.eventService = eventService;
         this.loginSessionService = loginSessionService;
     }
 
 	@GetMapping(value = "/available",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Event>> availableSession(@RequestHeader("token") String token) {
+    public ResponseEntity<List<EFilmLegendado>> availableSession(@RequestHeader("token") String token) {
 		return ResponseEntity.ok(eventService.listAllAvailable());
     }
 
@@ -42,10 +45,14 @@ public class EventController {
     }
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> create(@RequestHeader("token") final String token,@RequestBody final EventObject eventObject){
+    public ResponseEntity<?> create(@RequestHeader("token") final String token,@RequestBody final Object eventObject){
         this.loginSessionService.validateToken(token);
-        Event event = this.eventService.create(eventObject, loginSessionService.findUser(token));
-        return ResponseEntity.ok(event.toString());
+        try {
+        	this.eventFacade.create(eventObject, loginSessionService.findUser(token));
+        	return ResponseEntity.ok("Criado");
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
     }
 
     @GetMapping(value = "/public/{identifier}",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,7 +61,7 @@ public class EventController {
     }
 
     @GetMapping(value = "/public/available",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Event>> availableSession() {
+    public ResponseEntity<List<FilmLegendado>> availableSession() {
         return ResponseEntity.ok(eventService.listAllAvailable());
     }
 }

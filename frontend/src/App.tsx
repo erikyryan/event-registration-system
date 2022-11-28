@@ -7,7 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import Movies from "./pages/Movies";
 import Sessions from "./pages/Sessions";
-import AddMovie from "./pages/AddMovie";
+import AddEvent from "./pages/AddEvent";
 import Movie from "./pages/Movie";
 import Session from "./pages/Session";
 import Profile from "./pages/Profile";
@@ -38,7 +38,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />
           <Route path="/users/adicionar" element={<AddUser />} />
-          <Route path="/event/adicionar" element={<AddMovie />} />
+          <Route path="/event/adicionar" element={<AddEvent />} />
           <Route path="/sessions" element={<Sessions />} />
           <Route path="/sessions/adicionar" element={<AddSession />} />
         </Route>

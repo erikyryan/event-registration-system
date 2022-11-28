@@ -1,9 +1,9 @@
 package asimo.v.entities.objects;
 
-import asimo.v.entities.Event;
-import asimo.v.entities.enums.EventStatus;
-
 import java.util.Date;
+
+import asimo.v.entities.enums.EventStatus;
+import asimo.v.entities.generics.Event;
 
 public class SessionObject {
 

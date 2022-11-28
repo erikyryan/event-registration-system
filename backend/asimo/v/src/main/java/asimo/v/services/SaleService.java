@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import asimo.v.entities.Configuration;
-import asimo.v.entities.Event;
+import asimo.v.entities.FilmLegendado;
 import asimo.v.entities.Sale;
 import asimo.v.entities.Session;
 import asimo.v.entities.Ticket;
@@ -58,7 +58,7 @@ public class SaleService {
 
     }
 
-    public SaleDTO makeTheSales(Event event, Session session, SaleOperation saleOperation, List<TicketOperation> ticketOperations){
+    public SaleDTO makeTheSales(FilmLegendado event, Session session, SaleOperation saleOperation, List<TicketOperation> ticketOperations){
 
         Sale sale = createProtocol(new Sale(saleOperation));
 
