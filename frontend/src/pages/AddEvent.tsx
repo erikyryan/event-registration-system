@@ -11,7 +11,7 @@ const AddEvent = () => {
   const { token, logout } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    eventType: 0,
+    eventType: "FILME",
     name: "",
     synopsis: "",
     type: "",

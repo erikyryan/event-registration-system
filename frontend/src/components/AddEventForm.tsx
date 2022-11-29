@@ -61,14 +61,14 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
             value={formData.eventType}
             onChange={handleChange}>
             {eventTypes.map((eventType, index) => (
-              <MenuItem value={index} key={eventType}>
+              <MenuItem value={eventType} key={eventType}>
                 {eventType}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
       </Grid>
-      {[0, 1, 2, 4, 5].includes(formData.eventType) && (
+      {["FILME", "CURTA", "TEATRO", "WORKSHOP", "CURSO"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <TextField
             label="Título"
@@ -79,7 +79,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           />
         </Grid>
       )}
-      {[0, 1].includes(formData.eventType) && (
+      {["FILME", "CURTA"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <FormControl fullWidth>
             <InputLabel id="movieType">Tipo de exibição</InputLabel>
@@ -99,7 +99,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           </FormControl>
         </Grid>
       )}
-      {[2].includes(formData.eventType) && (
+      {["TEATRO"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <TextField
             label="Atores"
@@ -110,7 +110,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           />
         </Grid>
       )}
-      {[3].includes(formData.eventType) && (
+      {["COMEDIA"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <TextField
             label="Comediante"
@@ -121,7 +121,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           />
         </Grid>
       )}
-      {[3].includes(formData.eventType) && (
+      {["COMEDIA"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <TextField
             label="Nome do Evento"
@@ -132,7 +132,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           />
         </Grid>
       )}
-      {[0, 1, 2, 4, 5].includes(formData.eventType) && (
+      {["FILME", "CURTA", "TEATRO", "WORKSHOP", "CURSO"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <TextField
             label="Data de início"
@@ -145,7 +145,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           />
         </Grid>
       )}
-      {[0, 1, 2, 4, 5].includes(formData.eventType) && (
+      {["FILME", "CURTA", "TEATRO", "WORKSHOP", "CURSO"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <TextField
             label="Data de fim"
@@ -158,7 +158,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           />
         </Grid>
       )}
-      {[3].includes(formData.eventType) && (
+      {["COMEDIA"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <TextField
             label="Data"
@@ -171,7 +171,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           />
         </Grid>
       )}
-      {[0, 3, 4, 5].includes(formData.eventType) && (
+      {["FILME", "COMEDIA", "WORKSHOP", "CURSO"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <MaskedInput
             mask="09h 99min"
@@ -182,7 +182,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           />
         </Grid>
       )}
-      {[1].includes(formData.eventType) && (
+      {["CURTA"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <MaskedInput
             mask="99min"
@@ -193,7 +193,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           />
         </Grid>
       )}
-      {[0, 1, 2, 3].includes(formData.eventType) && (
+      {["FILME", "CURTA", "TEATRO", "COMEDIA"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <FormControl fullWidth>
             <InputLabel id="classification">Classificação</InputLabel>
@@ -213,7 +213,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           </FormControl>
         </Grid>
       )}
-      {[0, 1].includes(formData.eventType) && (
+      {["FILME", "CURTA"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <FormControl fullWidth>
             <InputLabel id="launchYear">Ano de Lançamento</InputLabel>
@@ -233,7 +233,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           </FormControl>
         </Grid>
       )}
-      {[0, 1].includes(formData.eventType) && (
+      {["FILME", "CURTA"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <TextField
             label="Sinopse"
@@ -246,7 +246,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           />
         </Grid>
       )}
-      {[2].includes(formData.eventType) && (
+      {["TEATRO"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <FormControl fullWidth>
             <InputLabel id="period">Período</InputLabel>
@@ -266,7 +266,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           </FormControl>
         </Grid>
       )}
-      {[2].includes(formData.eventType) && (
+      {["TEATRO"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <FormControl fullWidth>
             <InputLabel id="structure">Estrutura</InputLabel>
@@ -286,7 +286,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           </FormControl>
         </Grid>
       )}
-      {[4, 5].includes(formData.eventType) && (
+      {["WORKSHOP", "CURSO"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <FormControl fullWidth>
             <InputLabel id="type">Formato</InputLabel>
@@ -306,7 +306,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           </FormControl>
         </Grid>
       )}
-      {[4, 5].includes(formData.eventType) &&
+      {["WORKSHOP", "CURSO"].includes(formData.eventType) &&
         <Grid item xs={4} md={6}>
         <TextField
           label="Professores"
@@ -317,7 +317,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
         />
       </Grid>
       }
-      {[5].includes(formData.eventType) && (
+      {["CURSO"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <TextField
             label="Equipamentos"
@@ -328,7 +328,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
           />
         </Grid>
       )}
-      {[5].includes(formData.eventType) && (
+      {["CURSO"].includes(formData.eventType) && (
         <Grid item xs={4} md={6}>
           <TextField
             label="Conteúdos"
