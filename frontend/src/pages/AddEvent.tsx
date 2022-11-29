@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import api from "../services/api";
 import { Box } from "@mui/material";
 import DashboardLayout from "../components/Dashboard/DashboardLayout";
-import AddEventForm from "../components/AddEventoForm";
+import AddEventForm from "../components/AddEventForm";
 import HeaderBackButton from "../components/HeaderBackButton";
 
 const AddEvent = () => {
@@ -14,7 +14,7 @@ const AddEvent = () => {
     eventType: 0,
     name: "",
     synopsis: "",
-    duration: "",
+    type: "",
     eventStartDate: "",
     eventEndDate: "",
     classification: 18,
@@ -22,7 +22,13 @@ const AddEvent = () => {
     movieType: 0,
     actors: "",
     period: 0,
-    structure: 0
+    structure: 0,
+    comedian: "",
+    eventName: "",
+    date: "",
+    equipments: "",
+    teachers: "",
+    subject: "",
   });
 
   const handleChange = (e: any) => {
