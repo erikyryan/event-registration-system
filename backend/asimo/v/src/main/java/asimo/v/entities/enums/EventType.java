@@ -3,8 +3,7 @@ package asimo.v.entities.enums;
 public enum EventType {
 	VIDEO,
 	PRESENTATION,
-	EDUCATE,
-	SPORT;
+	EDUCATE;
 	
 	private EventType() {
 	}

@@ -1,12 +1,18 @@
 package asimo.v.factories;
 
+import org.springframework.stereotype.Component;
+
 import asimo.v.entities.enums.EventType;
+import asimo.v.entities.generics.Event;
 import asimo.v.factories.interfaces.BaseFactory;
 
+@Component
 public class FactoryProvider {
 	
-
-	public BaseFactory getFactory(EventType type) {
+	public FactoryProvider() {
+	}
+	
+	public BaseFactory<Event> getFactory(EventType type) {
 		switch (type) {
 		case EDUCATE:{
 			return new EducateFactory();
@@ -17,14 +23,8 @@ public class FactoryProvider {
 		case PRESENTATION:{
 			return new PresentationFactory();
 		}
-		case SPORT:{
-//			return new TheaterFactory();
-		}
 		default:
 			throw new RuntimeException("Tipo de Evento Invalido");	
 		}
-	}
-	
-	public FactoryProvider() {
 	}
 }

@@ -1,20 +1,13 @@
 package asimo.v.services;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import asimo.v.entities.Configuration;
-import asimo.v.entities.FilmLegendado;
 import asimo.v.entities.Sale;
-import asimo.v.entities.Session;
 import asimo.v.entities.Ticket;
-import asimo.v.entities.dto.SaleDTO;
-import asimo.v.entities.dto.SaleTicketDTO;
-import asimo.v.entities.operation.SaleOperation;
 import asimo.v.entities.operation.TicketOperation;
 import asimo.v.repositories.ConfigurationRepository;
 import asimo.v.repositories.SaleRepository;
@@ -58,16 +51,16 @@ public class SaleService {
 
     }
 
-    public SaleDTO makeTheSales(FilmLegendado event, Session session, SaleOperation saleOperation, List<TicketOperation> ticketOperations){
-
-        Sale sale = createProtocol(new Sale(saleOperation));
-
-        List<SaleTicketDTO> tickets = ticketOperations.stream().map(t -> saleTicket(t,sale))
-                .map( t -> t.generateSaleTicketDTO()).collect(Collectors.toList());
-
-        return sale.generateSaleDTO(tickets,event.getName(),session.getSessionStartDate());
-
-    }
+//    public SaleDTO makeTheSales(FilmLegendado event, Session session, SaleOperation saleOperation, List<TicketOperation> ticketOperations){
+//
+//        Sale sale = createProtocol(new Sale(saleOperation));
+//
+//        List<SaleTicketDTO> tickets = ticketOperations.stream().map(t -> saleTicket(t,sale))
+//                .map( t -> t.generateSaleTicketDTO()).collect(Collectors.toList());
+//
+//        return sale.generateSaleDTO(tickets,event.getName(),session.getSessionStartDate());
+//
+//    }
 
     public Ticket saleTicket(TicketOperation ticketOperation, Sale sale){
         Ticket ticket = ticketRepository.findByTicketIdentifier(ticketOperation.getTicketIdentifier());

@@ -8,13 +8,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import asimo.v.entities.FilmLegendado;
 import asimo.v.entities.Session;
 import asimo.v.entities.Ticket;
-import asimo.v.entities.User;
 import asimo.v.entities.enums.EventStatus;
-import asimo.v.entities.operation.SessionOperation;
-import asimo.v.exceptions.InvalidEvent;
 import asimo.v.repositories.SessionRepository;
 
 @Service
@@ -24,13 +20,12 @@ public class SessionService {
     
 	private TicketService ticketService;
 
-	private EventService eventService;
+//	private EventService eventService;
 
 
-	public SessionService(SessionRepository sessionRepository, TicketService ticketService, EventService eventService) {
+	public SessionService(SessionRepository sessionRepository, TicketService ticketService) {
 		this.sessionRepository = sessionRepository;
 		this.ticketService = ticketService;
-		this.eventService = eventService;
 	}
 
 	public List<Session> listAllAvailable(){
@@ -76,18 +71,18 @@ public class SessionService {
 		
 		return totalTickets;
 	}
-    public Session create(SessionOperation sessionOperation, User user) {
-		if(user.isAdmin()){
-			validateCreationSession(sessionOperation);
-			FilmLegendado event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
-
-			Session session = new Session(sessionOperation ,event);
-			sessionRepository.save(session);
-			ticketService.generateSessionTicket(session.getNumberOfSeats(),event.getEventIdentifier(), session.getSessionIdentifier());
-			return session;
-		}
-		throw new RuntimeException("Você não pode criar.");
-    }
+//    public Session create(SessionOperation sessionOperation, User user) {
+//		if(user.isAdmin()){
+//			validateCreationSession(sessionOperation);
+//			FilmLegendado event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
+//
+//			Session session = new Session(sessionOperation ,event);
+//			sessionRepository.save(session);
+//			ticketService.generateSessionTicket(session.getNumberOfSeats(),event.getEventIdentifier(), session.getSessionIdentifier());
+//			return session;
+//		}
+//		throw new RuntimeException("Você não pode criar.");
+//    }
 
 	public Session findBySessionIdentifier(String sessionIdentifier){
 		Optional<Session> session = this.sessionRepository.findBySessionIdentifier(sessionIdentifier);
@@ -105,13 +100,13 @@ public class SessionService {
 		return findBySessionIdentifier;
 	}
 
-	private void validateCreationSession(SessionOperation sessionOperation) {
-		FilmLegendado event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
-		Optional<Session> session = sessionRepository.findByEventAndSessionStartDate(event,sessionOperation.getSessionStartDate());
-		if (session.isPresent()) {
-			throw new InvalidEvent("Sessão já existente");
-		}
-	}
+//	private void validateCreationSession(SessionOperation sessionOperation) {
+//		FilmLegendado event = eventService.findByEventIdentifier(sessionOperation.getEventIdentifier());
+//		Optional<Session> session = sessionRepository.findByEventAndSessionStartDate(event,sessionOperation.getSessionStartDate());
+//		if (session.isPresent()) {
+//			throw new InvalidEvent("Sessão já existente");
+//		}
+//	}
 
 	public Integer soldAmount(Session session) {
 		List<Ticket> tickets = this.ticketService.findAllTicketsBySessionIdentifier(session.getSessionIdentifier());

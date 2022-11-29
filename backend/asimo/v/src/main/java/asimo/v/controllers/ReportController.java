@@ -3,15 +3,18 @@ package asimo.v.controllers;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import asimo.v.entities.FilmLegendado;
 import asimo.v.entities.Session;
 import asimo.v.entities.dto.EventBillingDTO;
-import asimo.v.entities.dto.EventDTO;
 import asimo.v.entities.dto.SessionDTO;
 import asimo.v.services.EventService;
 import asimo.v.services.LoginSessionService;
@@ -24,14 +27,17 @@ public class ReportController {
 
 	private LoginSessionService loginSessionService;
 
+	@Lazy
 	private ReportService reportService;
 
+	@Lazy
 	private SessionService sessionService;
 	
+	@Lazy
 	private EventService eventService;
 	
-	public ReportController(LoginSessionService loginSessionService, ReportService reportService, SessionService sessionService,
-			EventService eventService) {
+	public ReportController(LoginSessionService loginSessionService, @Lazy ReportService reportService, @Lazy SessionService sessionService,
+			@Lazy EventService eventService) {
 		this.loginSessionService = loginSessionService;
 		this.sessionService = sessionService;
 		this.reportService = reportService;
@@ -47,13 +53,13 @@ public class ReportController {
 		return ResponseEntity.ok(this.reportService.generateSessionDTO(sessions));
 	}
 
-    @CrossOrigin(origins = "*")
-	@GetMapping(value = "/event")
-	public ResponseEntity<List<EventDTO>> reportEvent(@RequestHeader("token") String token){
-		this.loginSessionService.validateToken(token);
-		List<FilmLegendado> events = this.eventService.listAllAvailable();
-		return ResponseEntity.ok(this.reportService.generateEventDTO(events));
-	}
+//    @CrossOrigin(origins = "*")
+//	@GetMapping(value = "/event")
+//	public ResponseEntity<List<EventDTO>> reportEvent(@RequestHeader("token") String token){
+//		this.loginSessionService.validateToken(token);
+//		List<FilmLegendado> events = this.eventService.listAllAvailable();
+//		return ResponseEntity.ok(this.reportService.generateEventDTO(events));
+//	}
 
     @CrossOrigin(origins = "*")
 	@GetMapping(value = "/billing")

@@ -21,10 +21,6 @@ import asimo.v.factories.interfaces.Presentation;
 @Table(name = "teatro")
 public class Theater extends Event implements Presentation{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
 	@Column
 	private Date theaterStartDate;
 
@@ -40,14 +36,6 @@ public class Theater extends Event implements Presentation{
 	private EventPeriod period;
 	
 	private TheaterType structure;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -116,7 +104,6 @@ public class Theater extends Event implements Presentation{
 	public Theater(Long id, String theaterIdentifier, @NotNull String name, Date theaterStartDate, Date theaterEndDate,
 			Integer classification, @Size(max = 2000) String actors, EventPeriod period, TheaterType structure,
 			EventStatus eventStatus) {
-		this.id = id;
 		this.eventIdentifier = theaterIdentifier;
 		this.name = name;
 		this.theaterStartDate = theaterStartDate;

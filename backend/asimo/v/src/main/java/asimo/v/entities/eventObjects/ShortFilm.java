@@ -4,9 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,10 +17,6 @@ import asimo.v.factories.interfaces.Video;
 @Entity
 @Table(name = "curtaMetragem")
 public class ShortFilm extends Event implements Video {
-	
-	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
 
 	@Column(name="curtaMetragemIdentifier")
 	private String shortFilmIdentifier;
@@ -51,14 +44,6 @@ public class ShortFilm extends Event implements Video {
 	private MovieType movieType;
 
 	private EventStatus eventStatus;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getShortFilmIdentifier() {
 		return shortFilmIdentifier;

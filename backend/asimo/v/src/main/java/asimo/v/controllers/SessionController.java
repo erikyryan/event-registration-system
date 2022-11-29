@@ -29,13 +29,13 @@ public class SessionController {
 		this.loginSessionService = loginSessionService;
 	}
 
-	@PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> create(@RequestHeader("token") final String token,
-									@RequestBody SessionOperation sessionOperation){
-		this.loginSessionService.validateToken(token);
-		Session session = this.sessionService.create(sessionOperation, loginSessionService.findUser(token));
-		return ResponseEntity.ok(session);
-	}
+//	@PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<?> create(@RequestHeader("token") final String token,
+//									@RequestBody SessionOperation sessionOperation){
+//		this.loginSessionService.validateToken(token);
+//		Session session = this.sessionService.create(sessionOperation, loginSessionService.findUser(token));
+//		return ResponseEntity.ok(session);
+//	}
 
 	@GetMapping(value = "/available",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Session>> availableSession(@RequestHeader("token") String token) {

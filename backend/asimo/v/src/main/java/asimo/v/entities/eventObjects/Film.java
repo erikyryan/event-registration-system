@@ -4,12 +4,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import asimo.v.entities.enums.EventStatus;
 import asimo.v.entities.enums.MovieType;
 import asimo.v.entities.generics.Event;
 import asimo.v.factories.enums.EventsEnum;
@@ -18,10 +16,6 @@ import asimo.v.factories.interfaces.Video;
 @Entity
 @Table(name = "filme")
 public class Film extends Event implements Video {
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
 
     @Column
     private Date filmStartDate;
@@ -41,14 +35,6 @@ public class Film extends Event implements Video {
 
 	@Column(name = "type")
 	private MovieType movieType;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getSynopsis() {
 		return synopsis;
@@ -141,9 +127,21 @@ public class Film extends Event implements Video {
 	public Film() {
 	}
 
+	public Film(String eventIdentifier, EventStatus eventStatus, EventsEnum eventType, Date filmStartDate,
+			Date filmEndDate, String duration, Integer classification, Integer launchYear,
+			@Size(max = 2000) String synopsis, MovieType movieType) {
+		super(eventIdentifier, eventStatus, eventType);
+		this.filmEndDate = filmEndDate;
+		this.duration = duration;
+		this.classification = classification;
+		this.launchYear = launchYear;
+		this.synopsis = synopsis;
+		this.movieType = movieType;
+	}
+
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", eventIdentifier=" + eventIdentifier + ", name=" + name + ", eventStartDate="
+		return "Event eventIdentifier=" + eventIdentifier + ", name=" + name + ", eventStartDate="
 				+ filmStartDate + ", eventEndDate=" + filmEndDate + ", duration=" + duration + ", classification="
 				+ classification + ", launchYear=" + launchYear + ", synopsis=" + synopsis + ", movieType=" + movieType
 				+ ", eventStatus=" + eventStatus + "]";

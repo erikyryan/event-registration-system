@@ -1,10 +1,7 @@
 package asimo.v.factories;
 
-import asimo.v.entities.enums.TheaterType;
 import asimo.v.entities.eventObjects.Comedy;
-import asimo.v.entities.eventObjects.Course;
 import asimo.v.entities.eventObjects.Theater;
-import asimo.v.entities.eventObjects.Workshop;
 import asimo.v.entities.generics.Event;
 import asimo.v.factories.enums.EventsEnum;
 import asimo.v.factories.interfaces.BaseFactory;

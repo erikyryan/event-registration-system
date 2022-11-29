@@ -1,12 +1,7 @@
 package asimo.v.schedule;
 
-import java.util.List;
-
-import asimo.v.entities.enums.EventStatus;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import asimo.v.entities.FilmLegendado;
 import asimo.v.repositories.FilmRepository;
 import asimo.v.services.EventService;
 
@@ -22,21 +17,21 @@ public class EventOperationSchedule {
 		this.eventRepository = eventRepository;
 	}
 
-	@Scheduled(fixedDelay = 6000)
-	public void eventFinalize() {
-		List<FilmLegendado> events = eventService.listToFinalize();
-		for(FilmLegendado event : events) {
-			event.setEventStatus(EventStatus.FINALIZADO);
-			this.eventRepository.save(event);
-		}	
-	}
+//	@Scheduled(fixedDelay = 6000)
+//	public void eventFinalize() {
+//		List<FilmLegendado> events = eventService.listToFinalize();
+//		for(FilmLegendado event : events) {
+//			event.setEventStatus(EventStatus.FINALIZADO);
+//			this.eventRepository.save(event);
+//		}	
+//	}
 	
-	@Scheduled(fixedDelay = 6000)
-	public void eventInitialize() {
-		List<FilmLegendado> events = eventService.listToInitializer();
-		for(FilmLegendado event : events) {
-			event.setEventStatus(EventStatus.EM_ANDAMENTO);
-			this.eventRepository.save(event);
-		}
-	}
+//	@Scheduled(fixedDelay = 6000)
+//	public void eventInitialize() {
+//		List<FilmLegendado> events = eventService.listToInitializer();
+//		for(FilmLegendado event : events) {
+//			event.setEventStatus(EventStatus.EM_ANDAMENTO);
+//			this.eventRepository.save(event);
+//		}
+//	}
 }

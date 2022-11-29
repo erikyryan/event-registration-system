@@ -11,18 +11,18 @@ const AddEvent = () => {
   const { token, logout } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    eventType: "FILME",
+    eventType: "",
     name: "",
     synopsis: "",
     type: "",
     eventStartDate: "",
     eventEndDate: "",
-    classification: 18,
-    launchYear: "2022",
-    movieType: "DUBLADO",
+    classification: "",
+    launchYear: "",
+    movieType: "",
     actors: "",
-    period: "MANHÃ",
-    structure: "COBERTO",
+    period: "",
+    structure: "",
     comedian: "",
     eventName: "",
     date: "",
@@ -57,7 +57,7 @@ const AddEvent = () => {
     e.preventDefault();
     if (token) {
       try {
-        const res = await api.post("/event/create", { formDataPrepared }, {
+        const res = await api.post("/event/create",  formDataPrepared , {
           headers: {
             token: token
           }

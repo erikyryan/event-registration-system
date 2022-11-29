@@ -5,9 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import asimo.v.entities.FilmLegendado;
 import asimo.v.entities.Session;
-import asimo.v.entities.dto.EventDTO;
 import asimo.v.entities.dto.SessionDTO;
 import asimo.v.repositories.SessionRepository;
 
@@ -38,19 +36,19 @@ public class ReportService {
 		return sessionsDTO;
 	}
 
-	public List<EventDTO> generateEventDTO(List<FilmLegendado> events) {
-		List<EventDTO> eventDTO = new ArrayList<>();
-		
-		for(FilmLegendado event: events) {
-			EventDTO eDTO = new EventDTO();
-			eDTO.setEventName(event.getName());
-			eDTO.setAvaliableQuantity(this.sessionService.availableEventSeats(sessionRepository.findByEvent(event)));
-			eDTO.setMovieType(event.getMovieType());
-			eDTO.setEventStartDate(event.getEventStartDate());
-			eDTO.setEventEndDate(event.getEventEndDate());
-
-			eventDTO.add(eDTO);
-		}
-		return eventDTO;
-	}
+//	public List<EventDTO> generateEventDTO(List<FilmLegendado> events) {
+//		List<EventDTO> eventDTO = new ArrayList<>();
+//		
+//		for(Event event: events) {
+//			EventDTO eDTO = new EventDTO();
+//			eDTO.setEventName(event.getName());
+//			eDTO.setAvaliableQuantity(this.sessionService.availableEventSeats(sessionRepository.findByEvent(event)));
+//			eDTO.setMovieType(event.getMovieType());
+//			eDTO.setEventStartDate(event.getEventStartDate());
+//			eDTO.setEventEndDate(event.getEventEndDate());
+//
+//			eventDTO.add(eDTO);
+//		}
+//		return eventDTO;
+//	}
 }

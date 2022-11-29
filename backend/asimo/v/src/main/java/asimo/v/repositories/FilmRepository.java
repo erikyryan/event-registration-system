@@ -17,7 +17,7 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
 
     Optional<Film> findByNameAndFilmStartDate(String name, Date filmDate);
 
-    Optional<Film> findByFilmIdentifier(String identifier);
+    Optional<Film> findByEventIdentifier(String identifier);
 
     List<Film> findByEventStatus(EventStatus eventStatus);
 }
