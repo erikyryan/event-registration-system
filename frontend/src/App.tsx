@@ -24,6 +24,7 @@ function App() {
 
         <Route path="/event" element={<Movies />} />
         <Route path="/event/:id" element={<Movie />} />
+        <Route path="/event/adicionar" element={<AddEvent />} />
         {/* common user routes */}
         <Route
           element={

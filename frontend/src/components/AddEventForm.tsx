@@ -91,7 +91,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
               value={formData.movieType}
               onChange={handleChange}>
               {movieTypes.map((movieType, index) => (
-                <MenuItem value={index} key={movieType}>
+                <MenuItem value={movieType} key={movieType}>
                   {movieType}
                 </MenuItem>
               ))}
@@ -258,7 +258,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
               value={formData.period}
               onChange={handleChange}>
               {periods.map((period, index) => (
-                <MenuItem value={index} key={period}>
+                <MenuItem value={period} key={period}>
                   {period}
                 </MenuItem>
               ))}
@@ -278,7 +278,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
               value={formData.structure}
               onChange={handleChange}>
               {structures.map((structure, index) => (
-                <MenuItem value={index} key={structure}>
+                <MenuItem value={structure} key={structure}>
                   {structure}
                 </MenuItem>
               ))}
@@ -298,7 +298,7 @@ const AddEventForm = ({ formData, handleChange, handleSubmit }: Props) => {
               value={formData.type}
               onChange={handleChange}>
               {types.map((type, index) => (
-                <MenuItem value={index} key={type}>
+                <MenuItem value={type} key={type}>
                   {type}
                 </MenuItem>
               ))}
