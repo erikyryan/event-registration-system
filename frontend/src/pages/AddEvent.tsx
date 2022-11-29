@@ -38,11 +38,26 @@ const AddEvent = () => {
     }));
   };
 
+  const prepareFormData = () => {
+    const arrayFormData = Object.entries(formData);
+    const trinFormData: Array<any> = arrayFormData.filter((data) => data[1]);
+    const output = trinFormData.filter(([k, v]) => {
+      return true;
+    })
+    .reduce((accum, [k, v]) => {
+      accum[k] = v;
+      return accum;
+    }, {});
+    return output;
+  };
+
   const handleSubmit = async (e: any) => {
+    const formDataPrepared = prepareFormData();
+
     e.preventDefault();
     if (token) {
       try {
-        const res = await api.post("/event/create", formData, {
+        const res = await api.post("/event/create", { formDataPrepared }, {
           headers: {
             token: token
           }
