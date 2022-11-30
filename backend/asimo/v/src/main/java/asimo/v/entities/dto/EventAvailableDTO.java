@@ -22,8 +22,8 @@ public class EventAvailableDTO {
 	private String eventIdentifier;
 
 	public EventAvailableDTO(Comedy c) {
-		this.name = c.getName();
-		this.launchYear = c.getData().toString();
+		this.name = c.getEventName();
+		this.launchYear = c.getDate().toString();
 		this.duration = c.getDuration();
 		this.classification = c.getClassification().toString();
 		this.synopsis = "";
@@ -59,7 +59,7 @@ public class EventAvailableDTO {
 
 	public EventAvailableDTO(Theater c) {
 		this.name = c.getName();
-		this.launchYear = c.getTheaterStartDate().toString();
+		this.launchYear = c.getEventStartDate().toString();
 		this.duration = "";
 		this.classification = c.getClassification().toString();
 		this.synopsis = c.getActors();

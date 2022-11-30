@@ -127,10 +127,11 @@ public class Film extends Event implements Video {
 	public Film() {
 	}
 
-	public Film(String eventIdentifier, EventStatus eventStatus, EventsEnum eventType, Date filmStartDate,
-			Date filmEndDate, String duration, Integer classification, Integer launchYear,
+	public Film(Integer eventId, String eventIdentifier, EventStatus eventStatus, EventsEnum eventType, String name,
+			Date filmStartDate, Date filmEndDate, String duration, Integer classification, Integer launchYear,
 			@Size(max = 2000) String synopsis, MovieType movieType) {
-		super(eventIdentifier, eventStatus, eventType);
+		super(eventId, eventIdentifier, eventStatus, eventType, name);
+		this.filmStartDate = filmStartDate;
 		this.filmEndDate = filmEndDate;
 		this.duration = duration;
 		this.classification = classification;

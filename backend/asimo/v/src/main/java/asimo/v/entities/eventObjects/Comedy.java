@@ -3,12 +3,9 @@ package asimo.v.entities.eventObjects;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
+import asimo.v.entities.enums.EventStatus;
 import asimo.v.entities.generics.Event;
 import asimo.v.factories.enums.EventsEnum;
 import asimo.v.factories.interfaces.Presentation;
@@ -19,37 +16,45 @@ public class Comedy extends Event implements Presentation {
 	
 	private String comedian;
 	
-	@NotNull
-	private String name;
+	private String eventName;
 	
-	private Date data;
+	private Date date;
 	
 	private String duration;
 	
 	private Integer classification;
 	
+	@Override
+	public String getName() {
+		return super.getName();
+	}
+	@Override
+	
+	public void setName(String name) {
+		super.setName(name);
+	}
 	public String getComedian() {
 		return comedian;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public void setComedian(String comedian) {
 		this.comedian = comedian;
 	}
 
-	public String getName() {
-		return name;
+	public String getEventName() {
+		return eventName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
 	}
 
 	public String getDuration() {
@@ -68,14 +73,16 @@ public class Comedy extends Event implements Presentation {
 		this.classification = classification;
 	}
 
-	public Comedy(Long id, String comedian, @NotNull String name, Date data, String duration, Integer classification) {
+	
+	public Comedy(Integer eventId, String eventIdentifier, EventStatus eventStatus, EventsEnum eventType, String name,
+			String comedian, String eventName, Date date, String duration, Integer classification) {
+		super(eventId, eventIdentifier, eventStatus, eventType, name);
 		this.comedian = comedian;
-		this.name = name;
-		this.data = data;
+		this.eventName = eventName;
+		this.date = date;
 		this.duration = duration;
 		this.classification = classification;
 	}
-
 	public Comedy() {
 	}
 	

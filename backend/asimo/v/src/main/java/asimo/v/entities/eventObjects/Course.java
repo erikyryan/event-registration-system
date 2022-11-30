@@ -1,14 +1,8 @@
 package asimo.v.entities.eventObjects;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import asimo.v.entities.enums.EventStatus;
 import asimo.v.entities.generics.Event;
@@ -18,44 +12,32 @@ import asimo.v.factories.interfaces.Educate;
 @Entity
 public class Course extends Event implements Educate {
 
-	private String name;
+	private Date eventStartDate;
 
-	private Date startDate;
-
-	private Date endDate;
+	private Date eventEndDate;
 
 	private String duration;
 
 	private String type;
 
-	@ElementCollection
-	@CollectionTable(name = "teacher")
-	private List<String> teachers;
+	private String teachers;
 
 	private String equipments;
 
-	public String getName() {
-		return name;
+	public Date getEventStartDate() {
+		return eventStartDate;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setEventStartDate(Date eventStartDate) {
+		this.eventStartDate = eventStartDate;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public Date getEventEndDate() {
+		return eventEndDate;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setEventEndDate(Date eventEndDate) {
+		this.eventEndDate = eventEndDate;
 	}
 
 	public String getDuration() {
@@ -74,11 +56,11 @@ public class Course extends Event implements Educate {
 		this.type = type;
 	}
 
-	public List<String> getTeachers() {
+	public String getTeachers() {
 		return teachers;
 	}
 
-	public void setTeachers(List<String> teachers) {
+	public void setTeachers(String teachers) {
 		this.teachers = teachers;
 	}
 
@@ -90,20 +72,15 @@ public class Course extends Event implements Educate {
 		this.equipments = equipments;
 	}
 
-	public Course(String eventIdentifier, EventStatus eventStatus, EventsEnum eventType, Long id, String name,
-			Date startDate, Date endDate, String duration, String type, List<String> teachers, String equipments) {
-		super(eventIdentifier, eventStatus, eventType);
-		this.name = name;
-		this.startDate = startDate;
-		this.endDate = endDate;
+	public Course(Integer eventId, String eventIdentifier, EventStatus eventStatus, EventsEnum eventType, String name,
+			Date eventStartDate, Date eventEndDate, String duration, String type, String teachers, String equipments) {
+		super(eventId, eventIdentifier, eventStatus, eventType, name);
+		this.eventStartDate = eventStartDate;
+		this.eventEndDate = eventEndDate;
 		this.duration = duration;
 		this.type = type;
 		this.teachers = teachers;
 		this.equipments = equipments;
-	}
-
-	public Course(String eventIdentifier, EventStatus eventStatus, EventsEnum eventType) {
-		super(eventIdentifier, eventStatus, eventType);
 	}
 
 	public Course() {

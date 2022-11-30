@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import asimo.v.entities.enums.EventStatus;
@@ -21,14 +20,11 @@ public class ShortFilm extends Event implements Video {
 	@Column(name="curtaMetragemIdentifier")
 	private String shortFilmIdentifier;
 
-	@NotNull
-    private String name;
+    @Column
+    private Date eventStartDate;
 
     @Column
-    private Date shortFilmStartDate;
-
-    @Column
-    private Date shortFilmEndDate;
+    private Date eventEndDate;
     
 	private String duration;
 
@@ -42,8 +38,6 @@ public class ShortFilm extends Event implements Video {
 
 	@Column(name = "type")
 	private MovieType movieType;
-
-	private EventStatus eventStatus;
 
 	public String getShortFilmIdentifier() {
 		return shortFilmIdentifier;
@@ -59,22 +53,6 @@ public class ShortFilm extends Event implements Video {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Date getShortFilmStartDate() {
-		return shortFilmStartDate;
-	}
-
-	public void setShortFilmStartDate(Date shortFilmStartDate) {
-		this.shortFilmStartDate = shortFilmStartDate;
-	}
-
-	public Date getShortFilmEndDate() {
-		return shortFilmEndDate;
-	}
-
-	public void setShortFilmEndDate(Date shortFilmEndDate) {
-		this.shortFilmEndDate = shortFilmEndDate;
 	}
 
 	public String getDuration() {
@@ -117,17 +95,25 @@ public class ShortFilm extends Event implements Video {
 		this.movieType = movieType;
 	}
 
-	public EventStatus getEventStatus() {
-		return eventStatus;
-	}
-
-	public void setEventStatus(EventStatus eventStatus) {
-		this.eventStatus = eventStatus;
-	}
-
 	@Override
 	public EventsEnum getEventType() {
 		return EventsEnum.CURTA;
 	}
-	
+
+	public ShortFilm() {
+	}
+
+	public ShortFilm(Integer eventId, String eventIdentifier, EventStatus eventStatus, EventsEnum eventType,
+			String name, String shortFilmIdentifier, Date eventStartDate, Date eventEndDate, String duration,
+			Integer classification, Integer launchYear, @Size(max = 2000) String synopsis, MovieType movieType) {
+		super(eventId, eventIdentifier, eventStatus, eventType, name);
+		this.shortFilmIdentifier = shortFilmIdentifier;
+		this.eventStartDate = eventStartDate;
+		this.eventEndDate = eventEndDate;
+		this.duration = duration;
+		this.classification = classification;
+		this.launchYear = launchYear;
+		this.synopsis = synopsis;
+		this.movieType = movieType;
+	}
 }

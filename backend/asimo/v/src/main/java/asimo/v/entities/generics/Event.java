@@ -2,15 +2,17 @@ package asimo.v.entities.generics;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.validation.constraints.NotNull;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import org.hibernate.annotations.ColumnDefault;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import asimo.v.entities.enums.EventStatus;
 import asimo.v.factories.enums.EventsEnum;
@@ -21,17 +23,19 @@ public class Event {
 	
     @Id
     @Column(name = "eventId")
-    @GeneratedValue(strategy=GenerationType.TABLE)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer eventId; 
 	
+    @JsonIgnoreProperties
 	@Column(name="eventidentifier")
 	public String eventIdentifier;
-
-	public EventStatus eventStatus;
+	
+	@JsonIgnoreProperties
+	@Enumerated(EnumType.STRING)
+	public EventStatus eventStatus = EventStatus.AGENDADO;
 	
 	public EventsEnum eventType;
 	
-	@NotNull
     public String name;
 
 	public String getName() {
@@ -59,7 +63,7 @@ public class Event {
 	}
 
 	public EventsEnum getEventType() {
-		return eventType;
+		return EventsEnum.TEATRO;
 	}
 
 	public Integer getEventId() {
@@ -70,11 +74,13 @@ public class Event {
 		this.eventId = id;
 	}
 
-	public Event(String eventIdentifier, EventStatus eventStatus, EventsEnum eventType) {
+
+	public Event(Integer eventId, String eventIdentifier, EventStatus eventStatus, EventsEnum eventType, String name) {
+		this.eventId = eventId;
 		this.eventIdentifier = eventIdentifier;
 		this.eventStatus = eventStatus;
 		this.eventType = eventType;
-		this.name = "x";
+		this.name = name;
 	}
 
 	public Event() {

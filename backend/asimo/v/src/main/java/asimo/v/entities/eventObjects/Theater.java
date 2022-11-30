@@ -4,17 +4,14 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import asimo.v.entities.enums.EventPeriod;
 import asimo.v.entities.enums.EventStatus;
 import asimo.v.entities.enums.TheaterType;
 import asimo.v.entities.generics.Event;
+import asimo.v.factories.enums.EventsEnum;
 import asimo.v.factories.interfaces.Presentation;
 
 @Entity
@@ -22,10 +19,10 @@ import asimo.v.factories.interfaces.Presentation;
 public class Theater extends Event implements Presentation{
 
 	@Column
-	private Date theaterStartDate;
+	private Date eventStartDate;
 
 	@Column
-	private Date theaterEndDate;
+	private Date eventEndDate;
 
 	private Integer classification;
 
@@ -45,20 +42,20 @@ public class Theater extends Event implements Presentation{
 		this.name = name;
 	}
 
-	public Date getTheaterStartDate() {
-		return theaterStartDate;
+	public Date getEventStartDate() {
+		return eventStartDate;
 	}
 
-	public void setTheaterStartDate(Date theaterStartDate) {
-		this.theaterStartDate = theaterStartDate;
+	public void setEventStartDate(Date eventStartDate) {
+		this.eventStartDate = eventStartDate;
 	}
 
-	public Date getTheaterEndDate() {
-		return theaterEndDate;
+	public Date getEventEndDate() {
+		return eventEndDate;
 	}
 
-	public void setTheaterEndDate(Date theaterEndDate) {
-		this.theaterEndDate = theaterEndDate;
+	public void setEventEndDate(Date eventEndDate) {
+		this.eventEndDate = eventEndDate;
 	}
 
 	public Integer getClassification() {
@@ -101,18 +98,16 @@ public class Theater extends Event implements Presentation{
 		this.eventStatus = eventStatus;
 	}
 
-	public Theater(Long id, String theaterIdentifier, @NotNull String name, Date theaterStartDate, Date theaterEndDate,
-			Integer classification, @Size(max = 2000) String actors, EventPeriod period, TheaterType structure,
-			EventStatus eventStatus) {
-		this.eventIdentifier = theaterIdentifier;
-		this.name = name;
-		this.theaterStartDate = theaterStartDate;
-		this.theaterEndDate = theaterEndDate;
+	public Theater(Integer eventId, String eventIdentifier, EventStatus eventStatus, EventsEnum eventType, String name,
+			Date eventStartDate, Date eventEndDate, Integer classification, @Size(max = 2000) String actors,
+			EventPeriod period, TheaterType structure) {
+		super(eventId, eventIdentifier, eventStatus, eventType, name);
+		this.eventStartDate = eventStartDate;
+		this.eventEndDate = eventEndDate;
 		this.classification = classification;
 		this.actors = actors;
 		this.period = period;
 		this.structure = structure;
-		this.eventStatus = eventStatus;
 	}
 
 	public Theater() {
